@@ -64,13 +64,10 @@ class Posts extends Table {
     }
     deletePost(post_id: number) {
         const query = `DELETE FROM posts\
-        WHERE id = ${post_id}`
+        WHERE id = ${post_id};`;
         this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
         return;
     }
-
-
-
 }
 
 class Comments extends Table {
@@ -81,10 +78,43 @@ class Comments extends Table {
             body VARCHAR(1000),\
             time_stamp DATE NOT NULL DEFAULT NOW(),\
             post_id INTEGER REFERENCES posts(id),\
-            parent INTEGER;'
+            parent INTEGER;';
         this.makeQuery(startQuery);
         return;
     }
+    //move error handling to server
+    createComment(user_id: number, body: string, post_id: number) {
+        const query = `INSERT INTO comments (user_id, body, post_id)\
+        VALUES (${user_id}, ${body}, ${post_id});`;
+        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+    }
+    editComment(id: number, body: string) {
+        const query = `UPDATE comments\
+        SET body = ${body}\
+        WHERE id = ${id};`;
+        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err))
+    }
+    deleteComment(id: number) {
+         const query = `DELETE FROM posts\
+         WHERE id = ${id};`;
+         this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+         return;
+    }
+    getCommmentsByPostId(post_id: number) {
+        const query = `SELECT *\
+        FROM comments\
+        WHERE post_id = ${post_id};`;
+        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+        return;
+    }
+    getAllCommentsByUser(user_id: number) {
+        const query = `SELECT *\
+        FROM comments\
+        WHERE user_id = ${user_id};`;
+        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+        return;
+    }
+
 }
 
 class Users extends Table {
