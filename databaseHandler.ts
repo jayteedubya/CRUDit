@@ -167,4 +167,9 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
+    deleteUser(user_id: number) {
+        const query = `DELETE FROM users\
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
+    }
 }
