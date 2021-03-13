@@ -24,14 +24,14 @@ class Posts extends Table {
             time_stamp DATE NOT NULL DEFAULT NOW()\
             body VARCHAR(5000)\
             user_id INTEGER REFERENCES users(id);'
-        this.makeQuery(startQuery);
+        this.makeQuery(startQuery).then(result => console.log(result)).catch(err => console.warn(err));
         return;
     }
     getAllOrderedByDate() {
         const query = 'SELECT *\
         FROM posts\
         ORDER BY time_stamp DESC;'
-        return this.makeQuery(query);
+        return this.makeQuery(query)
     }
     getAllOrderedByRank() {
         const query = 'SELECT *\
@@ -45,9 +45,30 @@ class Posts extends Table {
         WHERE topic = ${topic};`
         return this.makeQuery(query);
     }
-    createPost(title: string, topic: string, body: string, user_id: number) {
-        
+    getPostById(post_id: number) {
+        const query = `SELECT *\
+        FROM posts\
+        WHERE id = ${post_id};`;
+        return this.makeQuery(query);
     }
+    createPost(title: string, topic: string, body: string, user_id: number) {
+        const query = `INSERT INTO posts (title, topic, body, user_id)\
+        VALUES (${title}, ${topic}, ${body}, ${user_id});`;
+        return this.makeQuery(query);
+    }
+    editPost(body: string, post_id: number) {
+        const query = `UPDATE posts\
+        SET body = ${body}\
+        WHERE id = ${post_id};`;
+        return this.makeQuery(query);
+    }
+    deletePost(post_id: number) {
+        const query = `DELETE FROM posts\
+        WHERE id = ${post_id}`
+        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+        return;
+    }
+
 
 
 }
