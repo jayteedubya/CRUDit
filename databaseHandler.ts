@@ -16,16 +16,15 @@ class Table {
 class Posts extends Table {
     initialize() {
         const startQuery = 'CREATE TABLE posts (\
-            id SERIAL PRIMARY KEY,\
-            title VARCHAR(100) NOT NULL,\
-            topic VARCHAR(30),\
-            comments INTEGER[],\
-            upvotes INTEGER DEFAULT 0,\
-            time_stamp DATE NOT NULL DEFAULT NOW()\
-            body VARCHAR(5000)\
-            user_id INTEGER REFERENCES users(id);'
-        this.makeQuery(startQuery).then(result => console.log(result)).catch(err => console.warn(err));
-        return;
+        id SERIAL PRIMARY KEY,\
+        title VARCHAR(100) NOT NULL,\
+        topic VARCHAR(30),\
+        comments INTEGER[],\
+        upvotes INTEGER DEFAULT 0,\
+        time_stamp DATE NOT NULL DEFAULT NOW()\
+        body VARCHAR(5000)\
+        user_id INTEGER REFERENCES users(id);'
+        return this.makeQuery(startQuery)
     }
     getAllOrderedByDate() {
         const query = 'SELECT *\
@@ -65,72 +64,65 @@ class Posts extends Table {
     deletePost(post_id: number) {
         const query = `DELETE FROM posts\
         WHERE id = ${post_id};`;
-        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
-        return;
+        return this.makeQuery(query);
     }
 }
 
 class Comments extends Table {
     initialize() {
         const startQuery = 'CREATE TABLE comments (\
-            id SERIAL PRIMARY KEY,\
-            user_id INTEGER REFERENCES users(id),\
-            body VARCHAR(1000),\
-            time_stamp DATE NOT NULL DEFAULT NOW(),\
-            post_id INTEGER REFERENCES posts(id),\
-            parent INTEGER;';
-        this.makeQuery(startQuery);
-        return;
+        id SERIAL PRIMARY KEY,\
+        user_id INTEGER REFERENCES users(id),\
+        body VARCHAR(1000),\
+        time_stamp DATE NOT NULL DEFAULT NOW(),\
+        post_id INTEGER REFERENCES posts(id),\
+        parent INTEGER;';
+        return this.makeQuery(startQuery);
     }
-    //move error handling to server
     createComment(user_id: number, body: string, post_id: number) {
         const query = `INSERT INTO comments (user_id, body, post_id)\
         VALUES (${user_id}, ${body}, ${post_id});`;
-        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
+        return this.makeQuery(query);
     }
     editComment(id: number, body: string) {
         const query = `UPDATE comments\
         SET body = ${body}\
         WHERE id = ${id};`;
-        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err))
+        return this.makeQuery(query);
     }
     deleteComment(id: number) {
-         const query = `DELETE FROM posts\
-         WHERE id = ${id};`;
-         this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
-         return;
+        const query = `DELETE FROM posts\
+        WHERE id = ${id};`;
+        return this.makeQuery(query);
     }
     getCommmentsByPostId(post_id: number) {
         const query = `SELECT *\
         FROM comments\
         WHERE post_id = ${post_id};`;
-        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
-        return;
+        return this.makeQuery(query);
     }
     getAllCommentsByUser(user_id: number) {
         const query = `SELECT *\
         FROM comments\
         WHERE user_id = ${user_id};`;
-        this.makeQuery(query).then(result => console.log(result)).catch(err => console.warn(err));
-        return;
+        return this.makeQuery(query);
     }
-
 }
 
 class Users extends Table {
     initialize() {
         const startQuery = 'CREATE TABLE users(\
-            id SERIAL PRIMARY KEY,\
-            user_name VARCHAR(40) NOT NULL,\
-            email VARCHAR(120)\
-            upvoted INTEGER[]\
-            downvoted INTEGER[]\
-            password TEXT;';
-        this.makeQuery(startQuery).then(result => console.log(result)).catch(err => console.warn(err));
+        id SERIAL PRIMARY KEY,\
+        user_name VARCHAR(40) NOT NULL,\
+        email VARCHAR(120)\
+        upvoted INTEGER[]\
+        downvoted INTEGER[]\
+        password TEXT;';
+        this.makeQuery(startQuery)
     }
     getUserPublicInfo(user_id: number) {
         const query = `SELECT user_name, upvoted, downvoted\
-        FROM users
+        FROM users\
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
@@ -142,13 +134,36 @@ class Users extends Table {
     }
     getPasswordByUserId(user_id: number) {
         const query = `SELECT password\
-        FROM users
+        FROM users\
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
     getUserFullInfo(user_id: number) {
-        const query = `SELECT *
-        FROM users
+        const query = `SELECT *\
+        FROM users\
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
+    }
+    createUser(user_name: string, email: string, password: string) {
+        const query = `INSERT INTO users (user_name, email, password)\
+        VALUES (${user_name}, ${email}, ${password});`;
+        return this.makeQuery(query);
+    }
+    changePassword(user_id: number, newPassword: string) {
+        const query = `UPDATE users\
+        SET password = ${newPassword}\
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
+    }
+    updateEmail(user_id: number, newEmail: string) {
+        const query = `UPDATE users\
+        SET email = ${newEmail}\
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query)
+    }
+    changeUserName(user_id: number, newUserName: string) {
+        const query = `UPDATE users\
+        SET user_name = ${newUserName}\
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
