@@ -125,6 +125,13 @@ class Users extends Table {
             email VARCHAR(120)\
             upvoted INTEGER[]\
             downvoted INTEGER[]\
-            password TEXT;'
+            password TEXT;';
+        this.makeQuery(startQuery).then(result => console.log(result)).catch(err => console.warn(err));
+    }
+    getUserPublicInfo(user_id: number) {
+        const query = `SELECT user_name, upvoted, downvoted\
+        FROM users
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
     }
 }
