@@ -134,4 +134,22 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
+    getUserIdFromUserName(user_name: string) {
+        const query = `SELECT id\
+        FROM users\
+        WHERE user_name = ${user_name};`;
+        return this.makeQuery(query);
+    }
+    getPasswordByUserId(user_id: number) {
+        const query = `SELECT password\
+        FROM users
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
+    }
+    getUserFullInfo(user_id: number) {
+        const query = `SELECT *
+        FROM users
+        WHERE id = ${user_id};`;
+        return this.makeQuery(query);
+    }
 }
