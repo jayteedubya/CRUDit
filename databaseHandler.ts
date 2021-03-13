@@ -22,10 +22,33 @@ class Posts extends Table {
             comments INTEGER[],\
             upvotes INTEGER DEFAULT 0,\
             time_stamp DATE NOT NULL DEFAULT NOW()\
-            body VARCHAR(5000);'
+            body VARCHAR(5000)\
+            user_id INTEGER REFERENCES users(id);'
         this.makeQuery(startQuery);
         return;
     }
+    getAllOrderedByDate() {
+        const query = 'SELECT *\
+        FROM posts\
+        ORDER BY time_stamp DESC;'
+        return this.makeQuery(query);
+    }
+    getAllOrderedByRank() {
+        const query = 'SELECT *\
+        FROM posts\
+        ORDER BY upvotes DESC;'
+        return this.makeQuery(query);
+    }
+    getAllByTopic(topic: string) {
+        const query = `SELECT *\
+        FROM posts\
+        WHERE topic = ${topic};`
+        return this.makeQuery(query);
+    }
+    createPost(title: string, topic: string, body: string, user_id: number) {
+        
+    }
+
 
 }
 
