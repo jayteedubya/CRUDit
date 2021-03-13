@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "passport": "^0.4.1",
+    "pg": "^8.5.1"
+  },
+  "name": "crudit",
+  "version": "1.0.0",
+  "description": "A simplified reddit clone",
+  "main": "server.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Jacob Williams",
+  "license": "Unlicense"
+}
