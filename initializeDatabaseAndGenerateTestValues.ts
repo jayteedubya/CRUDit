@@ -19,9 +19,8 @@ const errHandler = err => console.warn(err);
 const resultHandler = res => console.log(res);
 
 const createRandomUsers = () => {
-    for (let i: number; i < 10; i++) {
-        const result = users.createUser(getRandomString(), getRandomString(), getRandomString());
-        result.then(resultHandler).catch(errHandler);
+    for (let i: number = 0; i < 10; i++) {
+        users.createUser(getRandomString(), getRandomString(), getRandomString());
     }
     return;
 }

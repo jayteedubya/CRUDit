@@ -66,9 +66,8 @@ var getRandomString = function () {
 var errHandler = function (err) { return console.warn(err); };
 var resultHandler = function (res) { return console.log(res); };
 var createRandomUsers = function () {
-    for (var i = void 0; i < 10; i++) {
-        var result = users.createUser(getRandomString(), getRandomString(), getRandomString());
-        result.then(resultHandler)["catch"](errHandler);
+    for (var i = 0; i < 10; i++) {
+        users.createUser(getRandomString(), getRandomString(), getRandomString());
     }
     return;
 };

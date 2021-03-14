@@ -48,7 +48,7 @@ class Posts extends Table {
     getAllByTopic(topic: string) {
         const query = `SELECT *\
         FROM posts\
-        WHERE topic = ${topic};`
+        WHERE topic = '${topic}';`
         return this.makeQuery(query);
     }
     getPostById(post_id: number) {
@@ -59,12 +59,12 @@ class Posts extends Table {
     }
     createPost(title: string, topic: string, body: string, user_id: number) {
         const query = `INSERT INTO posts (title, topic, body, user_id)\
-        VALUES (${title}, ${topic}, ${body}, ${user_id});`;
+        VALUES ('${title}', '${topic}', '${body}', ${user_id});`;
         return this.makeQuery(query);
     }
     editPost(body: string, post_id: number) {
         const query = `UPDATE posts\
-        SET body = ${body}\
+        SET body = '${body}'\
         WHERE id = ${post_id};`;
         return this.makeQuery(query);
     }
@@ -88,12 +88,12 @@ class Comments extends Table {
     }
     createComment(user_id: number, body: string, post_id: number) {
         const query = `INSERT INTO comments (user_id, body, post_id)\
-        VALUES (${user_id}, ${body}, ${post_id});`;
+        VALUES (${user_id}, '${body}', ${post_id});`;
         return this.makeQuery(query);
     }
     editComment(id: number, body: string) {
         const query = `UPDATE comments\
-        SET body = ${body}\
+        SET body = '${body}'\
         WHERE id = ${id};`;
         return this.makeQuery(query);
     }
@@ -136,7 +136,7 @@ class Users extends Table {
     getUserIdFromUserName(user_name: string) {
         const query = `SELECT id\
         FROM users\
-        WHERE user_name = ${user_name};`;
+        WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
     getPasswordByUserId(user_id: number) {
@@ -153,24 +153,24 @@ class Users extends Table {
     }
     createUser(user_name: string, email: string, password: string) {
         const query = `INSERT INTO users (user_name, email, password)\
-        VALUES (${user_name}, ${email}, ${password});`;
+        VALUES ('${user_name}', '${email}', '${password}');`;
         return this.makeQuery(query);
     }
     changePassword(user_id: number, newPassword: string) {
         const query = `UPDATE users\
-        SET password = ${newPassword}\
+        SET password = '${newPassword}'\
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
     updateEmail(user_id: number, newEmail: string) {
         const query = `UPDATE users\
-        SET email = ${newEmail}\
+        SET email = '${newEmail}'\
         WHERE id = ${user_id};`;
         return this.makeQuery(query)
     }
     changeUserName(user_id: number, newUserName: string) {
         const query = `UPDATE users\
-        SET user_name = ${newUserName}\
+        SET user_name = '${newUserName}'\
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }

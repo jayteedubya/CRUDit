@@ -207,19 +207,19 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password) {
-        var query = "INSERT INTO users (user_name, email, password)        VALUES (" + user_name + ", " + email + ", " + password + ");";
+        var query = "INSERT INTO users (user_name, email, password)        VALUES ('" + user_name + "', '" + email + "', '" + password + "');";
         return this.makeQuery(query);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {
-        var query = "UPDATE users        SET password = " + newPassword + "        WHERE id = " + user_id + ";";
+        var query = "UPDATE users        SET password = '" + newPassword + "'        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
     Users.prototype.updateEmail = function (user_id, newEmail) {
-        var query = "UPDATE users        SET email = " + newEmail + "        WHERE id = " + user_id + ";";
+        var query = "UPDATE users        SET email = '" + newEmail + "'        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
     Users.prototype.changeUserName = function (user_id, newUserName) {
-        var query = "UPDATE users        SET user_name = " + newUserName + "        WHERE id = " + user_id + ";";
+        var query = "UPDATE users        SET user_name = '" + newUserName + "'        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
     Users.prototype.deleteUser = function (user_id) {
