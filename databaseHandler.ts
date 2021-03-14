@@ -21,7 +21,7 @@ class Table {
 }
 
 class Posts extends Table {
-    initialize() {
+    async initialize() {
         const startQuery = 'CREATE TABLE posts (\
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
@@ -31,7 +31,7 @@ class Posts extends Table {
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
         user_id INTEGER REFERENCES users(id));'
-        return this.makeQuery(startQuery);
+        return await this.makeQuery(startQuery);
     }
     getAllOrderedByDate() {
         const query = 'SELECT *\
@@ -76,15 +76,15 @@ class Posts extends Table {
 }
 
 class Comments extends Table {
-    initialize() {
+    async initialize() {
         const startQuery = 'CREATE TABLE comments (\
         id SERIAL PRIMARY KEY,\
         user_id INTEGER REFERENCES users(id),\
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
-        parent INTEGER);';
-        return this.makeQuery(startQuery);
+        children INTEGER[]);';
+        return await this.makeQuery(startQuery);
     }
     createComment(user_id: number, body: string, post_id: number) {
         const query = `INSERT INTO comments (user_id, body, post_id)\
@@ -102,22 +102,22 @@ class Comments extends Table {
         WHERE id = ${id};`;
         return this.makeQuery(query);
     }
-    getCommmentsByPostId(post_id: number) {
+    getCommentsByPostId(post_id: number) {
         const query = `SELECT *\
         FROM comments\
         WHERE post_id = ${post_id};`;
         return this.makeQuery(query);
     }
-    getAllCommentsByUser(user_id: number) {
-        const query = `SELECT *\
-        FROM comments\
-        WHERE user_id = ${user_id};`;
+    addChildComment(parent_id: number, child_id: number) {
+        const query = `UPDATE comments\
+        SET children = array_append(children, ${child_id})\
+        WHERE id = ${parent_id};`;
         return this.makeQuery(query);
     }
 }
 
 class Users extends Table {
-    initialize() {
+    async initialize() {
         const startQuery = 'CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) NOT NULL,\
@@ -125,7 +125,7 @@ class Users extends Table {
         upvoted INTEGER[],\
         downvoted INTEGER[],\
         password TEXT);';
-        this.makeQuery(startQuery)
+        return await this.makeQuery(startQuery);
     }
     getUserPublicInfo(user_id: number) {
         const query = `SELECT user_name, upvoted, downvoted\
@@ -185,6 +185,14 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
+    getAllCommentsByUser(user_id: number) {
+        const query = `SELECT *\
+        FROM comments\
+        WHERE user_id = ${user_id};`;
+        return this.makeQuery(query);
+    }
 }
 
-export default {Posts, Users, Comments, Table};
+export const posts = new Posts();
+export const users = new Users();
+export const comments = new Comments();
