@@ -51,24 +51,33 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var pg_1 = require("pg");
+var pg = require("pg");
 var Table = /** @class */ (function () {
     function Table() {
     }
     Table.prototype.getNewClient = function () {
-        return new pg_1["default"].Client();
+        return new pg.Client();
     };
     Table.prototype.makeQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var client, queryResult;
+            var client, queryResult, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         client = this.getNewClient();
                         client.connect();
-                        return [4 /*yield*/, client.query("{query}")];
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, client.query("" + query)];
+                    case 2:
                         queryResult = _a.sent();
+                        return [3 /*break*/, 4];
+                    case 3:
+                        err_1 = _a.sent();
+                        console.warn(err_1);
+                        return [3 /*break*/, 4];
+                    case 4:
                         client.end();
                         return [2 /*return*/, queryResult];
                 }
@@ -218,3 +227,4 @@ var Users = /** @class */ (function (_super) {
     };
     return Users;
 }(Table));
+exports["default"] = { Posts: Posts, Users: Users, Comments: Comments };

@@ -14,5 +14,8 @@
     "test": "mocha"
   },
   "author": "Jacob Williams",
-  "license": "Unlicense"
+  "license": "Unlicense",
+  "devDependencies": {
+    "@types/pg": "^7.14.11"
+  }
 }

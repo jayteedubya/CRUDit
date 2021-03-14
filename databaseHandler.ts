@@ -1,4 +1,4 @@
-import pg from 'pg';
+import * as pg from 'pg';
 
 class Table {
     getNewClient() {
@@ -7,7 +7,13 @@ class Table {
     async makeQuery(query: string) {
         const client = this.getNewClient();
         client.connect();
-        const queryResult = await client.query(`{query}`);
+        let queryResult;
+        try {
+            queryResult = await client.query(`${query}`);
+        }
+        catch(err) {
+            console.warn(err);
+        }
         client.end();
         return queryResult;
     }
@@ -24,7 +30,7 @@ class Posts extends Table {
         time_stamp DATE NOT NULL DEFAULT NOW()\
         body VARCHAR(5000)\
         user_id INTEGER REFERENCES users(id);'
-        return this.makeQuery(startQuery)
+        return this.makeQuery(startQuery);
     }
     getAllOrderedByDate() {
         const query = 'SELECT *\
@@ -173,3 +179,5 @@ class Users extends Table {
         return this.makeQuery(query);
     }
 }
+
+export default {Posts, Users, Comments};
