@@ -13,6 +13,7 @@ class Table {
         }
         catch(err) {
             console.warn(err);
+            console.log('QUERY: ' + query);
         }
         client.end();
         return queryResult;
@@ -27,9 +28,9 @@ class Posts extends Table {
         topic VARCHAR(30),\
         comments INTEGER[],\
         upvotes INTEGER DEFAULT 0,\
-        time_stamp DATE NOT NULL DEFAULT NOW()\
-        body VARCHAR(5000)\
-        user_id INTEGER REFERENCES users(id);'
+        time_stamp DATE NOT NULL DEFAULT NOW(),\
+        body VARCHAR(5000),\
+        user_id INTEGER REFERENCES users(id));'
         return this.makeQuery(startQuery);
     }
     getAllOrderedByDate() {
@@ -82,7 +83,7 @@ class Comments extends Table {
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
-        parent INTEGER;';
+        parent INTEGER);';
         return this.makeQuery(startQuery);
     }
     createComment(user_id: number, body: string, post_id: number) {
@@ -120,10 +121,10 @@ class Users extends Table {
         const startQuery = 'CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) NOT NULL,\
-        email VARCHAR(120)\
-        upvoted INTEGER[]\
-        downvoted INTEGER[]\
-        password TEXT;';
+        email VARCHAR(120),\
+        upvoted INTEGER[],\
+        downvoted INTEGER[],\
+        password TEXT);';
         this.makeQuery(startQuery)
     }
     getUserPublicInfo(user_id: number) {
@@ -180,4 +181,4 @@ class Users extends Table {
     }
 }
 
-export default {Posts, Users, Comments};
+export default {Posts, Users, Comments, Table};

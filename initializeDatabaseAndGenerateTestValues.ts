@@ -4,10 +4,12 @@ import db from './databaseHandler';
 const posts = new db.Posts();
 const comments = new db.Comments();
 const users = new db.Users();
-//initialize tables
-posts.initialize();
-comments.initialize();
-users.initialize();
+
+const initiate = async () => { 
+    await users.initialize();
+    await posts.initialize();
+    await comments.initialize();   //make sure the tables are initialized in this order, as the table reference each other.
+}
 //create test values
 const getRandomString = () => {
     const result = Math.random().toString(36).substring(2,16);
@@ -23,5 +25,5 @@ const createRandomUsers = () => {
     }
     return;
 }
-//createRandomUsers();
 
+createRandomUsers();

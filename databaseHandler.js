@@ -76,6 +76,7 @@ var Table = /** @class */ (function () {
                     case 3:
                         err_1 = _a.sent();
                         console.warn(err_1);
+                        console.log('QUERY: ' + query);
                         return [3 /*break*/, 4];
                     case 4:
                         client.end();
@@ -98,9 +99,9 @@ var Posts = /** @class */ (function (_super) {
         topic VARCHAR(30),\
         comments INTEGER[],\
         upvotes INTEGER DEFAULT 0,\
-        time_stamp DATE NOT NULL DEFAULT NOW()\
-        body VARCHAR(5000)\
-        user_id INTEGER REFERENCES users(id);';
+        time_stamp DATE NOT NULL DEFAULT NOW(),\
+        body VARCHAR(5000),\
+        user_id INTEGER REFERENCES users(id));';
         return this.makeQuery(startQuery);
     };
     Posts.prototype.getAllOrderedByDate = function () {
@@ -149,7 +150,7 @@ var Comments = /** @class */ (function (_super) {
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
-        parent INTEGER;';
+        parent INTEGER);';
         return this.makeQuery(startQuery);
     };
     Comments.prototype.createComment = function (user_id, body, post_id) {
@@ -183,10 +184,10 @@ var Users = /** @class */ (function (_super) {
         var startQuery = 'CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) NOT NULL,\
-        email VARCHAR(120)\
-        upvoted INTEGER[]\
-        downvoted INTEGER[]\
-        password TEXT;';
+        email VARCHAR(120),\
+        upvoted INTEGER[],\
+        downvoted INTEGER[],\
+        password TEXT);';
         this.makeQuery(startQuery);
     };
     Users.prototype.getUserPublicInfo = function (user_id) {
@@ -227,4 +228,4 @@ var Users = /** @class */ (function (_super) {
     };
     return Users;
 }(Table));
-exports["default"] = { Posts: Posts, Users: Users, Comments: Comments };
+exports["default"] = { Posts: Posts, Users: Users, Comments: Comments, Table: Table };
