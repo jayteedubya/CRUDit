@@ -179,16 +179,16 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
-    getAllPostsByUser(user_id: number) {
-        const query = `SELECT *\
-        FROM posts\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query);
-    }
     getAllCommentsByUser(user_id: number) {
         const query = `SELECT *\
         FROM comments\
         WHERE user_id = ${user_id};`;
+        return this.makeQuery(query);
+    }
+    getAllPostsByUser(user_id: number) {
+        const query = `SELECT *\
+        FROM posts\
+        WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
 }

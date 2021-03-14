@@ -188,10 +188,6 @@ var Comments = /** @class */ (function (_super) {
         var query = "SELECT *        FROM comments        WHERE post_id = " + post_id + ";";
         return this.makeQuery(query);
     };
-    Comments.prototype.getAllCommentsByUser = function (user_id) {
-        var query = "SELECT *        FROM comments        WHERE user_id = " + user_id + ";";
-        return this.makeQuery(query);
-    };
     Comments.prototype.addChildComment = function (parent_id, child_id) {
         var query = "UPDATE comments        SET children = array_append(children, " + child_id + ")        WHERE id = " + parent_id + ";";
         return this.makeQuery(query);
@@ -256,6 +252,10 @@ var Users = /** @class */ (function (_super) {
     };
     Users.prototype.deleteUser = function (user_id) {
         var query = "DELETE FROM users        WHERE id = " + user_id + ";";
+        return this.makeQuery(query);
+    };
+    Users.prototype.getAllCommentsByUser = function (user_id) {
+        var query = "SELECT *        FROM comments        WHERE user_id = " + user_id + ";";
         return this.makeQuery(query);
     };
     Users.prototype.getAllPostsByUser = function (user_id) {

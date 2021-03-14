@@ -3,12 +3,21 @@ import * as express from 'express';
 
 const apiUsersRouter = express.Router();
 
-apiUsersRouter.get('/:user_id/posts', (req, res, next) => {
-    const queryResult = db.users.getAllPostsByUser(Number(req.params.user_id));
-    res.status(200).json(queryResult);
-})
+apiUsersRouter.get('/:user_id/posts', async (req, res, next) => {
+    const queryResult = await db.users.getAllPostsByUser(Number(req.params.user_id));
+    res.status(200).json(queryResult.rows);
+});  //issues in this route
 
-apiUsersRouter.get('/:user_id/comments', (req, res, next) => {
-    const queryResult = db.users.getAllCommentsByUser(Number(req.params.user_id));
-    res
-})
+apiUsersRouter.get('/:user_id/comments', async (req, res, next) => {
+    const queryResult = await db.users.getAllCommentsByUser(Number(req.params.user_id));
+    res.status(200).json(queryResult.rows);
+});
+
+apiUsersRouter.get('/:user_id/public', async (req, res, next) => {
+    const queryResult = await db.users.getUserPublicInfo(Number(req.params.user_id));
+    res.status(200).json(queryResult.rows);
+});
+
+//add routes that require authentication here
+
+export default apiUsersRouter;

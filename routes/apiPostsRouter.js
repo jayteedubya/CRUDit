@@ -36,14 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var db = require("../databaseHandler");
 var express = require("express");
-var apiCommentsRouter = express.Router();
-apiCommentsRouter.get('/:post_id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+var db = require("../databaseHandler");
+var apiPostsRouter = express.Router();
+apiPostsRouter.get('/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var queryResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
+            case 0: return [4 /*yield*/, db.posts.getAllOrderedByDate()];
+            case 1:
+                queryResult = _a.sent();
+                res.status(200).json(queryResult.rows);
+                return [2 /*return*/];
+        }
+    });
+}); });
+apiPostsRouter.get('/ranked', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var queryResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.posts.getAllOrderedByRank()];
+            case 1:
+                queryResult = _a.sent();
+                res.status(200).json(queryResult.rows);
+                return [2 /*return*/];
+        }
+    });
+}); });
+apiPostsRouter.get('/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var queryResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
+            case 1:
+                queryResult = _a.sent();
+                res.status(200).json(queryResult.rows);
+                return [2 /*return*/];
+        }
+    });
+}); });
+apiPostsRouter.get('/:post_id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var queryResult;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
             case 1:
                 queryResult = _a.sent();
                 res.status(200).json(queryResult.rows);
@@ -52,4 +88,4 @@ apiCommentsRouter.get('/:post_id', function (req, res, next) { return __awaiter(
     });
 }); });
 //add routes that require authentication here
-exports["default"] = apiCommentsRouter;
+exports["default"] = apiPostsRouter;

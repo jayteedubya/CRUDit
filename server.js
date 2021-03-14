@@ -2,7 +2,11 @@
 exports.__esModule = true;
 var express = require("express");
 var apiCommentsRouter_1 = require("./routes/apiCommentsRouter");
+var apiPostsRouter_1 = require("./routes/apiPostsRouter");
+var apiUsersRouter_1 = require("./routes/apiUsersRouter");
 var app = express();
 var PORT = process.env.PORT || 4001;
 app.use('/api/comments', apiCommentsRouter_1["default"]);
+app.use('/api/users', apiUsersRouter_1["default"]);
+app.use('/api/posts', apiPostsRouter_1["default"]);
 app.listen(PORT, function () { return console.log("listening on port: " + PORT); });
