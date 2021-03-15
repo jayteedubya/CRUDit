@@ -52,9 +52,11 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getPostById(post_id: number) {
+        console.log(post_id);
         const query = `SELECT *\
         FROM posts\
         WHERE id = ${post_id};`;
+        console.log(query);
         return this.makeQuery(query);
     }
     createPost(title: string, topic: string, body: string, user_id: number) {
@@ -182,16 +184,19 @@ class Users extends Table {
     getAllCommentsByUser(user_id: number) {
         const query = `SELECT *\
         FROM comments\
-        WHERE user_id = ${user_id};`;
+        WHERE user_id = ${user_id}\
+        ORDER BY time_stamp;`;
         return this.makeQuery(query);
     }
     getAllPostsByUser(user_id: number) {
         const query = `SELECT *\
         FROM posts\
-        WHERE id = ${user_id};`;
+        WHERE user_id = ${user_id};`;
         return this.makeQuery(query);
     }
 }
+
+
 
 export const posts = new Posts();
 export const users = new Users();

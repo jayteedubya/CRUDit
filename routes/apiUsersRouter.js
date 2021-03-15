@@ -46,7 +46,8 @@ apiUsersRouter.get('/:user_id/posts', function (req, res, next) { return __await
             case 0: return [4 /*yield*/, db.users.getAllPostsByUser(Number(req.params.user_id))];
             case 1:
                 queryResult = _a.sent();
-                res.status(200).json(queryResult.rows);
+                console.log(queryResult);
+                res.status(200).send(queryResult.rows);
                 return [2 /*return*/];
         }
     });
@@ -58,7 +59,7 @@ apiUsersRouter.get('/:user_id/comments', function (req, res, next) { return __aw
             case 0: return [4 /*yield*/, db.users.getAllCommentsByUser(Number(req.params.user_id))];
             case 1:
                 queryResult = _a.sent();
-                res.status(200).json(queryResult.rows);
+                res.status(200).send(queryResult.rows);
                 return [2 /*return*/];
         }
     });
@@ -70,7 +71,7 @@ apiUsersRouter.get('/:user_id/public', function (req, res, next) { return __awai
             case 0: return [4 /*yield*/, db.users.getUserPublicInfo(Number(req.params.user_id))];
             case 1:
                 queryResult = _a.sent();
-                res.status(200).json(queryResult.rows);
+                res.status(200).send(queryResult.rows);
                 return [2 /*return*/];
         }
     });

@@ -1,11 +1,13 @@
 import * as express from 'express';
+import * as bodyParser from 'body-parser'
 import apiCommentsRouter from './routes/apiCommentsRouter';
 import apiPostsRouter from './routes/apiPostsRouter';
 import apiUsersRouter from './routes/apiUsersRouter';
 
+
 const app = express();
 const PORT = process.env.PORT || 4001;
-
+app.use(bodyParser.json());
 app.use('/api/comments', apiCommentsRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/api/posts', apiPostsRouter);

@@ -69,6 +69,8 @@ comments.getAllCommentsByUser(1).then(res => console.log(res.rows));
 //comments.getCommentsByPostId(1).then(resultHandler).catch(errHandler);
 //ALL PASSED
 
+(1).then(resultHandler).catch(errHandler);
+
 export default {initiate, getRandomString};
 
 

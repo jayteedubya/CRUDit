@@ -131,7 +131,9 @@ var Posts = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Posts.prototype.getPostById = function (post_id) {
+        console.log(post_id);
         var query = "SELECT *        FROM posts        WHERE id = " + post_id + ";";
+        console.log(query);
         return this.makeQuery(query);
     };
     Posts.prototype.createPost = function (title, topic, body, user_id) {
@@ -255,11 +257,11 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.getAllCommentsByUser = function (user_id) {
-        var query = "SELECT *        FROM comments        WHERE user_id = " + user_id + ";";
+        var query = "SELECT *        FROM comments        WHERE user_id = " + user_id + "        ORDER BY time_stamp;";
         return this.makeQuery(query);
     };
     Users.prototype.getAllPostsByUser = function (user_id) {
-        var query = "SELECT *        FROM posts        WHERE id = " + user_id + ";";
+        var query = "SELECT *        FROM posts        WHERE user_id = " + user_id + ";";
         return this.makeQuery(query);
     };
     return Users;

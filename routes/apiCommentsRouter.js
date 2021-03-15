@@ -46,7 +46,7 @@ apiCommentsRouter.get('/:post_id', function (req, res, next) { return __awaiter(
             case 0: return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
             case 1:
                 queryResult = _a.sent();
-                res.status(200).json(queryResult.rows);
+                res.status(200).send(queryResult.rows);
                 return [2 /*return*/];
         }
     });
