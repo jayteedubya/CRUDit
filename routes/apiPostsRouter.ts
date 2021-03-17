@@ -19,10 +19,9 @@ apiPostsRouter.get('/by-topic/:topic', async (req, res, next) => {
 });
 
 apiPostsRouter.get('/by-id/:post_id/', async (req, res, next) => {
-    console.log("why don't I get called?");
     const queryResult = await db.posts.getPostById(Number(req.params.post_id));
     res.status(200).send(queryResult.rows);
-}); //it never got called because you had two routers doing the same thing /:topic and /:post_id
+});
 
 
 

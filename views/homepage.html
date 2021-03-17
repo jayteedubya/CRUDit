@@ -3,7 +3,71 @@
     <head>
         <title>welcome to CRUDit, I guess</title>
     </head>
+    <style>
+        li {
+            list-style-type: none;
+        }
+        .mainlist {
+            list-style-type: none;
+        }
+        .postbox {
+            border: solid black;
+            border-width: 1px;
+            background-color: lightgray;
+            margin-bottom: 15px;
+            margin-top: 15px;
+        }
+        .title {
+            font-size: 20pt;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .author {
+            font-size: 10pt;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .timestamp {
+            font-size: 10pt;
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+        }
+        .navbar {
+            background-color: rgb(148, 240, 148);
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            border: solid black;
+            border-width: 1px;
+        }
+        .navbar-list {
+            display: inline;
+            margin: 30px;
+        }
+    </style>
     <body>
-        
+        <div class="navbar">
+            <ul>
+                <li class="navbar-list"><a href="./topics">topics</a></li>
+                <li class="navbar-list"><a href="./by-date">posts by date</a></li>
+                <li class="navbar-list"><a href="./by-rank">post by rank</a></li>
+            </ul>
+        </div>
+        <ul>
+            <li class="mainlist">
+                <div class="postbox">
+                    <ul>
+                        <li class="title"><a href="./posts/id" class="post">title goes here</a></li>
+                        <li class="author"><a href="./user/id" class="username">username</a></li>
+                        <li class="timestamp">timestamp</li>
+                    </ul>
+                    
+                </div>
+            </li>
+            <li class="mainlist">
+                <div class="postbox">
+                    <ul>
+                        <li class="title"><a href="./posts/id" class="post">title goes here</a></li>
+                        <li class="author"><a href="./user/id" class="username">username</a></li>
+                        <li class="timestamp">timestamp</li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
     </body>
 </html>
