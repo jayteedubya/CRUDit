@@ -37,7 +37,7 @@ class Posts extends Table {
         const query = 'SELECT *\
         FROM posts\
         ORDER BY time_stamp DESC;'
-        return this.makeQuery(query)
+        return this.makeQuery(query);
     }
     getAllOrderedByRank() {
         const query = 'SELECT *\
@@ -73,6 +73,18 @@ class Posts extends Table {
     deletePost(post_id: number) {
         const query = `DELETE FROM posts\
         WHERE id = ${post_id};`;
+        return this.makeQuery(query);
+    }
+    upvote(post_id: number) {
+        const query = `UPDATE posts\
+        SET upvotes = upvotes + 1
+        WHERE id = ${post_id}`;
+        return this.makeQuery(query);
+    }
+    downvote(post_id: number) {
+        const query = `UPDATE posts\
+        SET upvotes = upvotes - 1
+        WHERE id = ${post_id}`;
         return this.makeQuery(query);
     }
 }

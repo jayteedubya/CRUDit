@@ -1,0 +1,47 @@
+#title {
+    font-family: "Comic Sans MS", "Comic Sans", 'Times New Roman';
+    display: inline;
+    margin: 30px;
+}
+.mainlist {
+    list-style-type: none;
+}
+.postbox {
+    border: solid black;
+    border-width: 1px;
+    background-color: rgb(226, 219, 226);
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+.title {
+    font-size: 20pt;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.author {
+    font-size: 10pt;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.timestamp {
+    font-size: 10pt;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.navbar {
+    background-color: rgb(197, 217, 243);
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    border: solid black;
+    border-width: 1px;
+}
+.navbar-list {
+    display: inline;
+    margin: 30px;
+}
+.topic {
+    font-size: 10pt;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+body {
+    background-color: rgb(255, 255, 255);
+}
+li {
+    list-style-type: none;
+}

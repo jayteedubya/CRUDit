@@ -36,44 +36,43 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var db = require("../databaseHandler");
 var express = require("express");
-var apiUsersRouter = express.Router();
-apiUsersRouter.get('/:user_id/posts', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var queryResult;
+var db = require("../databaseHandler");
+var viewsRouter = express.Router();
+viewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var posts;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.posts.getAllOrderedByDate()];
             case 1:
-                queryResult = _a.sent();
-                res.status(200).send(queryResult.rows);
+                posts = _a.sent();
+                res.render('homepage', { posts: posts.rows });
                 return [2 /*return*/];
         }
     });
 }); });
-apiUsersRouter.get('/:user_id/comments', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var queryResult;
+viewsRouter.get('/ranked', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var posts;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getAllCommentsByUser(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.posts.getAllOrderedByRank()];
             case 1:
-                queryResult = _a.sent();
-                res.status(200).send(queryResult.rows);
+                posts = _a.sent();
+                res.render('homepage', { posts: posts.rows });
                 return [2 /*return*/];
         }
     });
 }); });
-apiUsersRouter.get('/:user_id/public', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var queryResult;
+viewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var posts;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getUserPublicInfo(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
             case 1:
-                queryResult = _a.sent();
-                res.status(200).send(queryResult.rows);
+                posts = _a.sent();
+                res.render('homepage', { posts: posts.rows });
                 return [2 /*return*/];
         }
     });
 }); });
-//add routes that require authentication here
-exports["default"] = apiUsersRouter;
+exports["default"] = viewsRouter;

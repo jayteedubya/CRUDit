@@ -79,15 +79,13 @@ apiPostsRouter.get('/by-id/:post_id/', function (req, res, next) { return __awai
     var queryResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                console.log("why don't I get called?");
-                return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
+            case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
             case 1:
                 queryResult = _a.sent();
                 res.status(200).send(queryResult.rows);
                 return [2 /*return*/];
         }
     });
-}); }); //it never got called because you had two routers doing the same thing /:topic and /:post_id
+}); });
 //add routes that require authentication here
 exports["default"] = apiPostsRouter;

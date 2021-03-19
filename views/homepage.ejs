@@ -1,0 +1,14 @@
+<!doctype=html>
+<html>
+    <head>
+        <title>welcome to CRUDit, I guess</title>
+        <link rel="stylesheet" href="/style/style.css">
+    </head>
+
+    <body>
+        <%-include('partials/navbar')%>
+    </body>
+    <ul class="mainlist">
+        <% posts.forEach((post) => {%><%-include('partials/postbox', {post: post})%><%}) %>  <!--js code need escaped-->
+    </ul>
+</html>
