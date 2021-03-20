@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<head>
+    <%-include('partials/head')%>
+</head>
+<body>
+    <%-include('partials/navbar')%>
+    <form>
+        <label for="topic">topic:</label>
+        <input id="topic"type= "text" name="topic">
+        <label for="post-body">body:</label>
+        <textarea id="post-body" name="post-body" rows="100" cols="100">put your text here</textarea>
+        <input type="submit" value="submit" method="post" action="/api/posts/submit">
+
+    </form>
+</body>

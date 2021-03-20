@@ -35,6 +35,8 @@
 .users-navbar-list {
     display: inline;
     margin-bottom: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
 }
 .users-navbar {
     background-color: rgb(0, 185, 15);

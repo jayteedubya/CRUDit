@@ -5,6 +5,7 @@ import apiPostsRouter from './routes/apiPostsRouter';
 import apiUsersRouter from './routes/apiUsersRouter';
 import postViewsRouter from './routes/postViewsRouter';
 import userViewsRouter from './routes/userViewsRouter';
+import submitViewsRouter from './routes/submitViewsRouter';
 
 
 const app = express();
@@ -18,6 +19,7 @@ app.use('/api/users', apiUsersRouter);
 app.use('/api/posts', apiPostsRouter);
 app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
+app.use('/submit', submitViewsRouter);
 
 console.log(__dirname);
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));

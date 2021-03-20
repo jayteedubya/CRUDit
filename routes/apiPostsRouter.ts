@@ -22,6 +22,10 @@ apiPostsRouter.get('/by-id/:post_id/', async (req, res, next) => {
     const queryResult = await db.posts.getPostById(Number(req.params.post_id));
     res.status(200).send(queryResult.rows);
 });
+apiPostsRouter.post('/submit', (req, res, next) => {
+    console.log(req.body);
+    return;
+})
 
 
 
