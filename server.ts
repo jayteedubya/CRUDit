@@ -3,7 +3,8 @@ import * as bodyParser from 'body-parser'
 import apiCommentsRouter from './routes/apiCommentsRouter';
 import apiPostsRouter from './routes/apiPostsRouter';
 import apiUsersRouter from './routes/apiUsersRouter';
-import viewsRouter from './routes/viewsRouter';
+import postViewsRouter from './routes/postViewsRouter';
+import userViewsRouter from './routes/userViewsRouter';
 
 
 const app = express();
@@ -15,7 +16,8 @@ app.use(bodyParser.json());
 app.use('/api/comments', apiCommentsRouter);
 app.use('/api/users', apiUsersRouter);
 app.use('/api/posts', apiPostsRouter);
-app.use('/', viewsRouter);
+app.use('/', postViewsRouter);
+app.use('/user', userViewsRouter);
 
 console.log(__dirname);
 app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
