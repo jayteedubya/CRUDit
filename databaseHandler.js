@@ -107,7 +107,7 @@ var Posts = /** @class */ (function (_super) {
         upvotes INTEGER DEFAULT 0,\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
-        user_id INTEGER REFERENCES users(id));';
+        user_name VARCHAR(40) REFERENCES users(user_name));';
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -136,8 +136,8 @@ var Posts = /** @class */ (function (_super) {
         console.log(query);
         return this.makeQuery(query);
     };
-    Posts.prototype.createPost = function (title, topic, body, user_id) {
-        var query = "INSERT INTO posts (title, topic, body, user_id)        VALUES ('" + title + "', '" + topic + "', '" + body + "', " + user_id + ");";
+    Posts.prototype.createPost = function (title, topic, body, user_name) {
+        var query = "INSERT INTO posts (title, topic, body, user_name)        VALUES ('" + title + "', '" + topic + "', '" + body + "', '" + user_name + "');";
         return this.makeQuery(query);
     };
     Posts.prototype.editPost = function (body, post_id) {
@@ -146,6 +146,14 @@ var Posts = /** @class */ (function (_super) {
     };
     Posts.prototype.deletePost = function (post_id) {
         var query = "DELETE FROM posts        WHERE id = " + post_id + ";";
+        return this.makeQuery(query);
+    };
+    Posts.prototype.upvote = function (post_id) {
+        var query = "UPDATE posts        SET upvotes = upvotes + 1\n        WHERE id = " + post_id;
+        return this.makeQuery(query);
+    };
+    Posts.prototype.downvote = function (post_id) {
+        var query = "UPDATE posts        SET upvotes = upvotes - 1\n        WHERE id = " + post_id;
         return this.makeQuery(query);
     };
     return Posts;
@@ -163,7 +171,7 @@ var Comments = /** @class */ (function (_super) {
                     case 0:
                         startQuery = 'CREATE TABLE comments (\
         id SERIAL PRIMARY KEY,\
-        user_id INTEGER REFERENCES users(id),\
+        user_name VARCHAR(40) REFERENCES users(user_name),\
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
@@ -174,8 +182,8 @@ var Comments = /** @class */ (function (_super) {
             });
         });
     };
-    Comments.prototype.createComment = function (user_id, body, post_id) {
-        var query = "INSERT INTO comments (user_id, body, post_id)        VALUES (" + user_id + ", '" + body + "', " + post_id + ");";
+    Comments.prototype.createComment = function (user_name, body, post_id) {
+        var query = "INSERT INTO comments (user_name, body, post_id)        VALUES ('" + user_name + "', '" + body + "', " + post_id + ");";
         return this.makeQuery(query);
     };
     Comments.prototype.editComment = function (id, body) {
@@ -209,7 +217,7 @@ var Users = /** @class */ (function (_super) {
                     case 0:
                         startQuery = 'CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
-        user_name VARCHAR(40) NOT NULL,\
+        user_name VARCHAR(40) UNIQUE NOT NULL,\
         email VARCHAR(120),\
         upvoted INTEGER[],\
         downvoted INTEGER[],\
@@ -220,8 +228,8 @@ var Users = /** @class */ (function (_super) {
             });
         });
     };
-    Users.prototype.getUserPublicInfo = function (user_id) {
-        var query = "SELECT user_name, upvoted, downvoted        FROM users        WHERE id = " + user_id + ";";
+    Users.prototype.getUserPublicInfo = function (user_name) {
+        var query = "SELECT user_name, upvoted, downvoted        FROM users        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     Users.prototype.getUserIdFromUserName = function (user_name) {
@@ -256,12 +264,12 @@ var Users = /** @class */ (function (_super) {
         var query = "DELETE FROM users        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
-    Users.prototype.getAllCommentsByUser = function (user_id) {
-        var query = "SELECT *        FROM comments        WHERE user_id = " + user_id + "        ORDER BY time_stamp;";
+    Users.prototype.getAllCommentsByUser = function (user_name) {
+        var query = "SELECT *        FROM comments        WHERE user_name = '" + user_name + "'        ORDER BY time_stamp;";
         return this.makeQuery(query);
     };
-    Users.prototype.getAllPostsByUser = function (user_id) {
-        var query = "SELECT *        FROM posts        WHERE user_id = " + user_id + ";";
+    Users.prototype.getAllPostsByUser = function (user_name) {
+        var query = "SELECT *        FROM posts        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     return Users;

@@ -42,6 +42,16 @@ var db = require("./databaseHandler");
 var posts = db.posts;
 var comments = db.comments;
 var users = db.users;
+var sleep = function (duration) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, setTimeout(function () { return console.log('done'); }, duration)];
+            case 1:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
 var initiate = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -53,6 +63,18 @@ var initiate = function () { return __awaiter(void 0, void 0, void 0, function (
                 _a.sent();
                 return [4 /*yield*/, comments.initialize()];
             case 3:
+                _a.sent();
+                return [4 /*yield*/, users.createUser('jayteedubya', 'jimbob@bobnet.com', 'womprats!')];
+            case 4:
+                _a.sent();
+                return [4 /*yield*/, users.createUser('TheCluster', 'salt@sea.net', 'shite2222')];
+            case 5:
+                _a.sent();
+                return [4 /*yield*/, posts.createPost('stuff', 'things', 'body stuff', 'jayteedubya')];
+            case 6:
+                _a.sent();
+                return [4 /*yield*/, comments.createComment('jayteedubya', 'fake and gay', 1)];
+            case 7:
                 _a.sent(); //make sure the tables are initialized in this order, as the table reference each other.
                 return [2 /*return*/];
         }
@@ -63,24 +85,12 @@ var getRandomString = function () {
     var result = Math.random().toString(36).substring(2, 16);
     return result;
 };
+var getRandomInt = function (upperLimit) {
+    var result = Math.floor(Math.random() * upperLimit);
+    return result;
+};
 var errHandler = function (err) { return console.warn(err); };
 var resultHandler = function (res) { return console.log(res); };
-var createRandomUsers = function () {
-    for (var i = 0; i < 10; i++) {
-        users.createUser(getRandomString(), getRandomString(), getRandomString());
-    }
-    return;
-};
-var createRandomPosts = function () {
-    for (var i = 0; i < 10; i++) {
-        posts.createPost(getRandomString(), getRandomString(), getRandomString(), 1);
-    }
-};
-var createRandomComments = function () {
-    for (var i = 0; i < 10; i++) {
-        comments.createComment(1, getRandomString(), 1);
-    }
-};
 //initiate();
 //createRandomUsers();
 /*users.changePassword(1, getRandomString());
@@ -109,5 +119,4 @@ comments.getAllCommentsByUser(1).then(res => console.log(res.rows));
 //comments.addChildComment(1, 3).then(resultHandler).catch(errHandler);
 //comments.getCommentsByPostId(1).then(resultHandler).catch(errHandler);
 //ALL PASSED
-posts.getPostById(1).then(resultHandler)["catch"](errHandler);
-exports["default"] = { initiate: initiate, getRandomString: getRandomString };
+initiate();

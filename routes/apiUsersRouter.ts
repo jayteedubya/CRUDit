@@ -3,18 +3,18 @@ import * as express from 'express';
 
 const apiUsersRouter = express.Router();
 
-apiUsersRouter.get('/:user_id/posts', async (req, res, next) => {
-    const queryResult = await db.users.getAllPostsByUser(Number(req.params.user_id));
+apiUsersRouter.get('/:user_name/posts', async (req, res, next) => {
+    const queryResult = await db.users.getAllPostsByUser(req.params.user_name);
     res.status(200).send(queryResult.rows);
 });
 
-apiUsersRouter.get('/:user_id/comments', async (req, res, next) => {
-    const queryResult = await db.users.getAllCommentsByUser(Number(req.params.user_id));
+apiUsersRouter.get('/:user_name/comments', async (req, res, next) => {
+    const queryResult = await db.users.getAllCommentsByUser(req.params.user_name);
     res.status(200).send(queryResult.rows);
 });
 
-apiUsersRouter.get('/:user_id/public', async (req, res, next) => {
-    const queryResult = await db.users.getUserPublicInfo(Number(req.params.user_id));
+apiUsersRouter.get('/:user_name/public', async (req, res, next) => {
+    const queryResult = await db.users.getUserPublicInfo(req.params.user_name);
     res.status(200).send(queryResult.rows);
 });
 

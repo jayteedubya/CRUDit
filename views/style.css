@@ -3,13 +3,10 @@
     display: inline;
     margin: 30px;
 }
-.mainlist {
-    list-style-type: none;
-}
 .postbox {
     border: solid black;
     border-width: 1px;
-    background-color: rgb(226, 219, 226);
+    background-color: rgb(135, 136, 136);
     margin-bottom: 15px;
     margin-top: 15px;
 }
@@ -26,9 +23,9 @@
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .navbar {
-    background-color: rgb(197, 217, 243);
+    background-color: rgb(255, 0, 0);
     font-family:Verdana, Geneva, Tahoma, sans-serif;
-    border: solid black;
+    border: solid rgb(0, 0, 0);
     border-width: 1px;
 }
 .navbar-list {
@@ -38,6 +35,14 @@
 .topic {
     font-size: 10pt;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+.users-navbar-list {
+    display: inline;
+    margin: 30px;
+}
+.users-navbar {
+    font: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(255, 0, 0);
 }
 body {
     background-color: rgb(255, 255, 255);

@@ -5,37 +5,34 @@ const posts = db.posts
 const comments = db.comments
 const users = db.users;
 
+const sleep = async (duration: number) => {
+    await setTimeout(() => console.log('done'), duration);
+    return;
+}
+
 const initiate = async () => { 
     await users.initialize();
     await posts.initialize();
-    await comments.initialize();   //make sure the tables are initialized in this order, as the table reference each other.
+    await comments.initialize();
+    await users.createUser('jayteedubya', 'jimbob@bobnet.com', 'womprats!');
+    await users.createUser('TheCluster', 'salt@sea.net', 'shite2222');
+    await posts.createPost('stuff', 'things', getRandomString(),'jayteedubya');
+    await comments.createComment('jayteedubya', 'fake and gay', 1);   //make sure the tables are initialized in this order, as the table reference each other.
 }
 //create test values
 const getRandomString = () => {
     const result = Math.random().toString(36).substring(2,16);
     return result;
 }
+
+const getRandomInt = (upperLimit: number) => {
+    const result = Math.floor(Math.random() * upperLimit);
+    return result;
+}
 const errHandler = err => console.warn(err);
+
 const resultHandler = res => console.log(res);
 
-const createRandomUsers = () => {
-    for (let i: number = 0; i < 10; i++) {
-        users.createUser(getRandomString(), getRandomString(), getRandomString());
-    }
-    return;
-}
-
-const createRandomPosts = () => {
-    for (let i: number = 0; i < 10; i ++) {
-        posts.createPost(getRandomString(), getRandomString(), getRandomString(), 1);
-    }
-}
-
-const createRandomComments = () => {
-    for (let i: number = 0; i < 10; i ++) {
-        comments.createComment(1, getRandomString(), 1);
-    }
-}
 
 //initiate();
 
@@ -69,8 +66,7 @@ comments.getAllCommentsByUser(1).then(res => console.log(res.rows));
 //comments.getCommentsByPostId(1).then(resultHandler).catch(errHandler);
 //ALL PASSED
 
-(1).then(resultHandler).catch(errHandler);
+initiate();
 
-export default {initiate, getRandomString};
 
 

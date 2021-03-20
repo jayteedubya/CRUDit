@@ -30,7 +30,7 @@ class Posts extends Table {
         upvotes INTEGER DEFAULT 0,\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
-        user_id INTEGER REFERENCES users(id));'
+        user_name VARCHAR(40) REFERENCES users(user_name));'
         return await this.makeQuery(startQuery);
     }
     getAllOrderedByDate() {
@@ -59,9 +59,9 @@ class Posts extends Table {
         console.log(query);
         return this.makeQuery(query);
     }
-    createPost(title: string, topic: string, body: string, user_id: number) {
-        const query = `INSERT INTO posts (title, topic, body, user_id)\
-        VALUES ('${title}', '${topic}', '${body}', ${user_id});`;
+    createPost(title: string, topic: string, body: string, user_name: string) {
+        const query = `INSERT INTO posts (title, topic, body, user_name)\
+        VALUES ('${title}', '${topic}', '${body}', '${user_name}');`;
         return this.makeQuery(query);
     }
     editPost(body: string, post_id: number) {
@@ -93,16 +93,16 @@ class Comments extends Table {
     async initialize() {
         const startQuery = 'CREATE TABLE comments (\
         id SERIAL PRIMARY KEY,\
-        user_id INTEGER REFERENCES users(id),\
+        user_name VARCHAR(40) REFERENCES users(user_name),\
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
         children INTEGER[]);';
         return await this.makeQuery(startQuery);
     }
-    createComment(user_id: number, body: string, post_id: number) {
-        const query = `INSERT INTO comments (user_id, body, post_id)\
-        VALUES (${user_id}, '${body}', ${post_id});`;
+    createComment(user_name: string, body: string, post_id: number) {
+        const query = `INSERT INTO comments (user_name, body, post_id)\
+        VALUES ('${user_name}', '${body}', ${post_id});`
         return this.makeQuery(query);
     }
     editComment(id: number, body: string) {
@@ -134,17 +134,17 @@ class Users extends Table {
     async initialize() {
         const startQuery = 'CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
-        user_name VARCHAR(40) NOT NULL,\
+        user_name VARCHAR(40) UNIQUE NOT NULL,\
         email VARCHAR(120),\
         upvoted INTEGER[],\
         downvoted INTEGER[],\
         password TEXT);';
         return await this.makeQuery(startQuery);
     }
-    getUserPublicInfo(user_id: number) {
+    getUserPublicInfo(user_name: string) {
         const query = `SELECT user_name, upvoted, downvoted\
         FROM users\
-        WHERE id = ${user_id};`;
+        WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
     getUserIdFromUserName(user_name: string) {
@@ -193,17 +193,17 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
-    getAllCommentsByUser(user_id: number) {
+    getAllCommentsByUser(user_name: string) {
         const query = `SELECT *\
         FROM comments\
-        WHERE user_id = ${user_id}\
+        WHERE user_name = '${user_name}'\
         ORDER BY time_stamp;`;
         return this.makeQuery(query);
     }
-    getAllPostsByUser(user_id: number) {
+    getAllPostsByUser(user_name: string) {
         const query = `SELECT *\
         FROM posts\
-        WHERE user_id = ${user_id};`;
+        WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
 }

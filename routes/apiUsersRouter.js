@@ -39,11 +39,11 @@ exports.__esModule = true;
 var db = require("../databaseHandler");
 var express = require("express");
 var apiUsersRouter = express.Router();
-apiUsersRouter.get('/:user_id/posts', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+apiUsersRouter.get('/:user_name/posts', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var queryResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
             case 1:
                 queryResult = _a.sent();
                 res.status(200).send(queryResult.rows);
@@ -51,11 +51,11 @@ apiUsersRouter.get('/:user_id/posts', function (req, res, next) { return __await
         }
     });
 }); });
-apiUsersRouter.get('/:user_id/comments', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+apiUsersRouter.get('/:user_name/comments', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var queryResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getAllCommentsByUser(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.users.getAllCommentsByUser(req.params.user_name)];
             case 1:
                 queryResult = _a.sent();
                 res.status(200).send(queryResult.rows);
@@ -63,11 +63,11 @@ apiUsersRouter.get('/:user_id/comments', function (req, res, next) { return __aw
         }
     });
 }); });
-apiUsersRouter.get('/:user_id/public', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+apiUsersRouter.get('/:user_name/public', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var queryResult;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getUserPublicInfo(Number(req.params.user_id))];
+            case 0: return [4 /*yield*/, db.users.getUserPublicInfo(req.params.user_name)];
             case 1:
                 queryResult = _a.sent();
                 res.status(200).send(queryResult.rows);

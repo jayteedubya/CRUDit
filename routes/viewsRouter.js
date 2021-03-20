@@ -75,4 +75,28 @@ viewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(vo
         }
     });
 }); });
+viewsRouter.get('/users/:user_name', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var posts, comments, userPublic, userData;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
+            case 1:
+                posts = _a.sent();
+                return [4 /*yield*/, db.users.getAllCommentsByUser(req.params.user_name)];
+            case 2:
+                comments = _a.sent();
+                return [4 /*yield*/, db.users.getUserPublicInfo(req.params.user_name)];
+            case 3:
+                userPublic = _a.sent();
+                userData = {
+                    posts: posts.rows,
+                    comments: comments.rows,
+                    upvoted: userPublic.rows[0].upvoted,
+                    downvoted: userPublic.rows[0].downvoted
+                };
+                res.render('userPage', { user: userData });
+                return [2 /*return*/];
+        }
+    });
+}); });
 exports["default"] = viewsRouter;
