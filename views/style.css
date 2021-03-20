@@ -6,25 +6,22 @@
 .postbox {
     border: solid black;
     border-width: 1px;
-    background-color: rgb(135, 136, 136);
+    background-color: rgba(179, 182, 182, 0.603);
     margin-bottom: 15px;
     margin-top: 15px;
 }
 .title {
     font-size: 20pt;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .author {
     font-size: 10pt;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .timestamp {
     font-size: 10pt;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .navbar {
-    background-color: rgb(255, 0, 0);
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(1, 236, 60);
+
     border: solid rgb(0, 0, 0);
     border-width: 1px;
 }
@@ -34,18 +31,54 @@
 }
 .topic {
     font-size: 10pt;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 .users-navbar-list {
     display: inline;
-    margin: 30px;
+    margin-bottom: 30px;
 }
 .users-navbar {
-    font: Verdana, Geneva, Tahoma, sans-serif;
-    background-color: rgb(255, 0, 0);
+    background-color: rgb(0, 185, 15);
+    align-items: center;
+}
+.author {
+    font-size: 10pt;
+}
+.post-body {
+    font-size: 14pt;
+
+    border: solid rgba(0, 0, 0, 0.534);
+    border-width: 1px;
+    margin: 30px;
+    background-color: rgba(179, 182, 182, 0.603);
+}
+.title {
+    font-size: 20pt;
+    margin: 0;
+}
+.comment-box {
+    border: solid black;
+    border-width: 1px;
+    margin-left: 80px;
+    margin-right: 30px;
+    margin-top: 15px;
+    margin-bottom: 0px;
+    background-color: rgba(179, 182, 182, 0.603);
+}
+.comment-author {
+    font-size: 10pt;
+}
+.comment-time-stamp {
+    font-size: 10pt;
+}
+.comment-body {
+    font-size: 14pt;
+}
+.comment-separator {
+    border-bottom: solid black 1px;
 }
 body {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(90, 85, 85);
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 li {
     list-style-type: none;

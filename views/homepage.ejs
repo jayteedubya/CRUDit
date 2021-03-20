@@ -6,8 +6,8 @@
 
     <body>
         <%-include('partials/navbar')%>
+        <ul class="mainlist">
+            <% posts.forEach((post) => {%><%-include('partials/postbox', {post: post})%><%}) %>  <!--js code need escaped-->
+        </ul>
     </body>
-    <ul class="mainlist">
-        <% posts.forEach((post) => {%><%-include('partials/postbox', {post: post})%><%}) %>  <!--js code need escaped-->
-    </ul>
 </html>

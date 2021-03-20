@@ -75,7 +75,7 @@ viewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(vo
         }
     });
 }); });
-viewsRouter.get('/users/:user_name', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+viewsRouter.get('/user/:user_name', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var posts, comments, userPublic, userData;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -92,11 +92,34 @@ viewsRouter.get('/users/:user_name', function (req, res, next) { return __awaite
                     posts: posts.rows,
                     comments: comments.rows,
                     upvoted: userPublic.rows[0].upvoted,
-                    downvoted: userPublic.rows[0].downvoted
+                    downvoted: userPublic.rows[0].downvoted,
+                    user_name: userPublic.rows[0].user_name
                 };
                 res.render('userPage', { user: userData });
                 return [2 /*return*/];
         }
+    });
+}); });
+viewsRouter.get('/post/:post_id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var post, comments;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
+            case 1:
+                post = _a.sent();
+                return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
+            case 2:
+                comments = _a.sent();
+                post = post.rows[0];
+                post.comments = comments.rows;
+                res.render('textPost', { post: post });
+                return [2 /*return*/];
+        }
+    });
+}); });
+viewsRouter.get('/user/comments', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        return [2 /*return*/];
     });
 }); });
 exports["default"] = viewsRouter;

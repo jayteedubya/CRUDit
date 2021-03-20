@@ -26,7 +26,6 @@ class Posts extends Table {
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
-        comments INTEGER[],\
         upvotes INTEGER DEFAULT 0,\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
@@ -56,7 +55,6 @@ class Posts extends Table {
         const query = `SELECT *\
         FROM posts\
         WHERE id = ${post_id};`;
-        console.log(query);
         return this.makeQuery(query);
     }
     createPost(title: string, topic: string, body: string, user_name: string) {

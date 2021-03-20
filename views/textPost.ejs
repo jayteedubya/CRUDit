@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<head>
+    <%-include('partials/head')%>
+</head>
+
+<body>
+    <%-include('partials/navbar')%>     <!-- make sure not to use a leading / -->
+    <div class="main body text">
+        <div class="post-header">
+            <p class="title"> <%=post.title%> </p>
+            <a href="/user/<%=post.user_name%>"class="author">author: <%=post.user_name%></a>
+            <p class="timestamp">posted: <%=post.time_stamp%></p>
+        </div>
+        <div class="post-body">
+            <p><%=post.body%></p>
+        </div>
+    </div>
+    <p class=" comment-separator">comments</p>
+    <div class="comments">
+        <% post.comments.forEach(comment => {%><%-include('partials/commentBox', {comment: comment})%><%}) %>
+    </div>
+</body>

@@ -103,7 +103,6 @@ var Posts = /** @class */ (function (_super) {
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
-        comments INTEGER[],\
         upvotes INTEGER DEFAULT 0,\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
@@ -133,7 +132,6 @@ var Posts = /** @class */ (function (_super) {
     Posts.prototype.getPostById = function (post_id) {
         console.log(post_id);
         var query = "SELECT *        FROM posts        WHERE id = " + post_id + ";";
-        console.log(query);
         return this.makeQuery(query);
     };
     Posts.prototype.createPost = function (title, topic, body, user_name) {

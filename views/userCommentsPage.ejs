@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+
+<head>
+    <%-include('partials/head')%>
+</head>
+
+<body>
+    <%-include('partials/navbar')%>
+    <%-include('partials/userNavbar')%>
+    <ul>
+        <% user.comments.forEach(comment => {%><%-include('partials/postbox', {comment: comment})%><%}) %>
+    </ul>
+</body>
