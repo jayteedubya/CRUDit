@@ -7,8 +7,9 @@ submitViewsRouter.get('/post', (req, res, next) => {
     res.render('createPost');
     return;
 })
-submitViewsRouter.post('/post', (req, res, next) => {
-    console.log(req.body);
+submitViewsRouter.post('/post', async (req, res, next) => {
+    const request = req.body;
+    const result = await db.posts.createPost(request.title, request.topic, request.post, request.author);
     res.sendStatus(200);
 })
 

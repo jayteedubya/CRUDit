@@ -17,8 +17,7 @@ const upload = multer({dest: '/'});
 app.set('view engine', 'ejs');
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
-app.use(bodyParser.json());
-app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true}));
 
 app.use(upload.none());
 app.use('/api/comments', apiCommentsRouter);

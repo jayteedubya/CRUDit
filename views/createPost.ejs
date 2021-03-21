@@ -3,9 +3,9 @@
     <%-include('partials/head')%>
     <script>
         function submitForm() {
+            console.log('here')
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
-            console.log(myForm.elements);
             fetch('127.0.0.1:4001/submit/post', {
                 method: 'POST',
                 body: formData
@@ -16,10 +16,14 @@
 </head>
 <body>
     <%-include('partials/navbar')%>
-    <form id="post-form" method="post" onsubmit="submitForm()" enctype="multipart/form-data">   <!--make sure you have a method or it won't work!-->
+    <form id="post-form"  method="post" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">   <!--make sure you have a method or it won't work!, also make sure enctype (encoding) is appropriate for situation-->
         <ul>
             <label for="topic">topic:</label>
             <li><input id="topic"type= "text" name="topic"></li>
+            <lable for="user" type="text">author:</lable>
+            <li><input type="text" name="author" id="author"></li>
+            <label for="title" type="text" id="title">post title:</label>
+            <li><input type="text" name="title" id="title"></li>
             <label for="post">body:</label>
             <li><textarea id="post" name="post" rows="50" cols="100"></textarea></li>
             <input type="submit" value="submit">
