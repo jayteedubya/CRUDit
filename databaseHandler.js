@@ -57,7 +57,7 @@ var Table = /** @class */ (function () {
     function Table() {
     }
     Table.prototype.getNewClient = function () {
-        return new pg.Client();
+        return new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
     };
     Table.prototype.makeQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
