@@ -12,8 +12,7 @@ class Table {
             queryResult = await client.query(`${query}`);
         }
         catch(err) {
-            console.warn(err);
-            console.log('QUERY: ' + query);
+            throw new Error('Query Failed')
         }
         client.end();
         return queryResult;
@@ -59,7 +58,8 @@ class Posts extends Table {
     }
     createPost(title: string, topic: string, body: string, user_name: string) {
         const query = `INSERT INTO posts (title, topic, body, user_name)\
-        VALUES ('${title}', '${topic}', '${body}', '${user_name}');`;
+        VALUES ('${title}', '${topic}', '${body}', '${user_name}')\
+        RETURNING id;`;
         return this.makeQuery(query);
     }
     editPost(body: string, post_id: number) {

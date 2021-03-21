@@ -44,17 +44,23 @@ submitViewsRouter.get('/post', function (req, res, next) {
     return;
 });
 submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var request, result;
+    var request, result, postId;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 request = req.body;
-                return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, request.author)];
+                return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, request.author)["catch"](function (err) { return next(err); })];
             case 1:
                 result = _a.sent();
-                res.sendStatus(200);
+                postId = result.rows[0].id;
+                res.redirect("/post/" + postId);
                 return [2 /*return*/];
         }
     });
 }); });
+submitViewsRouter.use(function (err, req, res, next) {
+    console.log(err);
+    res.sendStatus(500);
+    return;
+});
 exports["default"] = submitViewsRouter;

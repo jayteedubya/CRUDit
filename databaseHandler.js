@@ -76,9 +76,7 @@ var Table = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
-                        console.warn(err_1);
-                        console.log('QUERY: ' + query);
-                        return [3 /*break*/, 4];
+                        throw new Error('Query Failed');
                     case 4:
                         client.end();
                         return [2 /*return*/, queryResult];
@@ -135,7 +133,7 @@ var Posts = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Posts.prototype.createPost = function (title, topic, body, user_name) {
-        var query = "INSERT INTO posts (title, topic, body, user_name)        VALUES ('" + title + "', '" + topic + "', '" + body + "', '" + user_name + "');";
+        var query = "INSERT INTO posts (title, topic, body, user_name)        VALUES ('" + title + "', '" + topic + "', '" + body + "', '" + user_name + "')        RETURNING id;";
         return this.makeQuery(query);
     };
     Posts.prototype.editPost = function (body, post_id) {
