@@ -2,6 +2,8 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser'
 import * as multer from 'multer';
 import * as cors from 'cors';
+import * as https from 'https';
+import * as fs from 'fs';
 import apiCommentsRouter from './routes/apiCommentsRouter';
 import apiPostsRouter from './routes/apiPostsRouter';
 import apiUsersRouter from './routes/apiUsersRouter';
@@ -28,5 +30,11 @@ app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
 
-console.log(__dirname);
-app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
+https.createServer({
+    key: fs.readFileSync('./security/server.key'),
+    cert: fs.readFileSync('./security/server.cert')
+  }, app)
+  .listen(PORT, function () {
+    console.log(`listening on port ${PORT}!`)
+  })
+//app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
