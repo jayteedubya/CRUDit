@@ -60,7 +60,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
 }); });
 submitViewsRouter.use(function (err, req, res, next) {
     console.log(err);
-    res.redirect(500, '/');
+    res.redirect(500, '/ranked');
     return;
 });
 exports["default"] = submitViewsRouter;
