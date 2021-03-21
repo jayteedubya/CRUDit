@@ -16,7 +16,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 })
 
 submitViewsRouter.use((err, req, res, next) => {
-    console.log(err)
+    console.log(err);
     res.redirect(500, '/ranked');
     return;
 })
