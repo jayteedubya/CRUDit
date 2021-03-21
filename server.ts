@@ -20,7 +20,7 @@ app.set('view engine', 'ejs');
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
-//app.use(cors());
+app.use(cors());
 
 app.use(upload.none());
 app.use('/api/comments', apiCommentsRouter);
