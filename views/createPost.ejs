@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <head>
     <%-include('partials/head')%>
+    <script>
+        function submitForm() {
+            let myForm = document.getElementById("post-form");
+            let formData = new FormData(myForm);
+            console.log(myForm.elements);
+            fetch('127.0.0.1:4001/submit/post', {
+                method: 'POST',
+                body: formData
+            }).then(console.log('success!'))
+            .catch(err => console.warn(err));
+        }
+    </script>
 </head>
 <body>
     <%-include('partials/navbar')%>
-    <form>
-        <label for="topic">topic:</label>
-        <input id="topic"type= "text" name="topic">
-        <label for="post-body">body:</label>
-        <textarea id="post-body" name="post-body" rows="100" cols="100">put your text here</textarea>
-        <input type="submit" value="submit" method="post" action="/api/posts/submit">
-
+    <form id="post-form" method="post" onsubmit="submitForm()" enctype="multipart/form-data">   <!--make sure you have a method or it won't work!-->
+        <ul>
+            <label for="topic">topic:</label>
+            <li><input id="topic"type= "text" name="topic"></li>
+            <label for="post">body:</label>
+            <li><textarea id="post" name="post" rows="50" cols="100"></textarea></li>
+            <input type="submit" value="submit">
+        </ul>
     </form>
 </body>

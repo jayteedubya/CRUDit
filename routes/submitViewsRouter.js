@@ -6,4 +6,8 @@ submitViewsRouter.get('/post', function (req, res, next) {
     res.render('createPost');
     return;
 });
+submitViewsRouter.post('/post', function (req, res, next) {
+    console.log(req.body);
+    res.sendStatus(200);
+});
 exports["default"] = submitViewsRouter;

@@ -87,9 +87,5 @@ apiPostsRouter.get('/by-id/:post_id/', function (req, res, next) { return __awai
         }
     });
 }); });
-apiPostsRouter.post('/submit', function (req, res, next) {
-    console.log(req.body);
-    return;
-});
 //add routes that require authentication here
 exports["default"] = apiPostsRouter;

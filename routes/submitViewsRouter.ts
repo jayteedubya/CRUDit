@@ -7,6 +7,10 @@ submitViewsRouter.get('/post', (req, res, next) => {
     res.render('createPost');
     return;
 })
+submitViewsRouter.post('/post', (req, res, next) => {
+    console.log(req.body);
+    res.sendStatus(200);
+})
 
 
 
