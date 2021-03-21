@@ -8,7 +8,7 @@ class Table {
             database: 'd20hln16k1rhsg',
             password: 'c42770ab43960a1a1f28a4caf56b542ee4b7de41a2f20dae0dc91f72d1e9b4c8',
             port: 5432,
-          });
+            ssl: {rejectUnauthorized: false}});
     }
     async makeQuery(query: string) {
         const client = this.getNewClient();
@@ -213,7 +213,22 @@ class Users extends Table {
 }
 
 
+const posts = new Posts();
+const users = new Users();
+const comments = new Comments();
 
-export const posts = new Posts();
-export const users = new Users();
-export const comments = new Comments();
+const initializeAll = async () => {
+    await users.initialize();
+    await posts.initialize();
+    await comments.initialize();
+}
+
+const addUsers = async () => {
+    await users.createUser('jayteedubya', 'squirrels@nonsense.com', 'womprats!');
+    await users.createUser('SaltySeaDog', 'salty@sea.net', 'shite2222');
+    await users.createUser('H3ct1cB1rDZ3r0', 'raven@BiquadFilterNode.net', 'duck-sicker');
+    await posts.createPost('stuff', 'things', '1st','jayteedubya');
+    await comments.createComment('jayteedubya', 'this a comment, currently only available by direct SQL query.', 1);
+}
+
+addUsers();
