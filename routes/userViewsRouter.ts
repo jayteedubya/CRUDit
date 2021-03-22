@@ -1,5 +1,7 @@
 import * as express from 'express';
 import * as db from '../databaseHandler';
+import * as passport from 'passport';
+import * as localStrategy from 'passport-local';
 
 const userViewsRouter = express.Router();
 
@@ -26,6 +28,10 @@ userViewsRouter.get('/:user_name', (req, res, next) => {
 userViewsRouter.get('/:user_name/comments', (req, res, next) => {
     res.render('userCommentsPage', {user: req.body.userData});
     return;
+})
+
+userViewsRouter.get('/log-in', (req, res, next) => {
+    
 })
 
 

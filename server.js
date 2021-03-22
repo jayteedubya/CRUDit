@@ -4,6 +4,8 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var multer = require("multer");
 var cors = require("cors");
+var https = require("https");
+var fs = require("fs");
 var apiCommentsRouter_1 = require("./routes/apiCommentsRouter");
 var apiPostsRouter_1 = require("./routes/apiPostsRouter");
 var apiUsersRouter_1 = require("./routes/apiUsersRouter");
@@ -25,11 +27,11 @@ app.use('/api/posts', apiPostsRouter_1["default"]);
 app.use('/', postViewsRouter_1["default"]);
 app.use('/user', userViewsRouter_1["default"]);
 app.use('/submit', submitViewsRouter_1["default"]);
-/*https.createServer({
+https.createServer({
     key: fs.readFileSync('./security/server.key'),
     cert: fs.readFileSync('./security/server.cert')
-  }, app)
-  .listen(PORT, function () {
-    console.log(`listening on port ${PORT}!`)
-  })*/
-app.listen(PORT, function () { return console.log("listening on port: " + PORT); });
+}, app)
+    .listen(PORT, function () {
+    console.log("listening on port " + PORT + "!");
+});
+//app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
