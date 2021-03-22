@@ -22,7 +22,7 @@ app.use(cors());
 app.use(upload.none());
 app.use('/', postViewsRouter);
 //app.use('/user', userViewsRouter);
-app.use('/submit', submitViewsRouter);
+//app.use('/submit', submitViewsRouter);
 
 const server = https.createServer({
     key: fs.readFileSync('./security/server.key'),
