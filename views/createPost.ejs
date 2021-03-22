@@ -6,7 +6,7 @@
             console.log('here')
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
-            fetch('127.0.0.1:4001/submit/post', {
+            fetch('/submit/post', {
                 method: 'POST',
                 body: formData
             }).then(console.log('success!'))

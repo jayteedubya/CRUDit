@@ -26,7 +26,7 @@ class Posts extends Table {
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
         upvotes INTEGER DEFAULT 0,\
-        time_stamp DATE NOT NULL DEFAULT NOW(),\
+        time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
         user_name VARCHAR(40) REFERENCES users(user_name));'
         return await this.makeQuery(startQuery);
