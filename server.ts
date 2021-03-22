@@ -23,17 +23,15 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 app.use(upload.none());
-app.use('/api/comments', apiCommentsRouter);
-app.use('/api/users', apiUsersRouter);
-app.use('/api/posts', apiPostsRouter);
+//app.use('/api/comments', apiCommentsRouter);
+//app.use('/api/users', apiUsersRouter);
+//app.use('/api/posts', apiPostsRouter);
 app.use('/', postViewsRouter);
-app.use('/user', userViewsRouter);
-app.use('/submit', submitViewsRouter);
+//app.use('/user', userViewsRouter);
+//app.use('/submit', submitViewsRouter);
 
-https.createServer({
+const server = https.createServer({
     key: fs.readFileSync('./security/server.key'),
     cert: fs.readFileSync('./security/server.cert')
-  }, app)
-  .listen(PORT, () => {
-    console.log(`listening on port ${PORT}!`)
-  });
+  }, app);
+  server.listen(PORT, () => console.log(`listening on port: ${PORT}`));
