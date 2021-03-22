@@ -82,6 +82,7 @@ var Table = /** @class */ (function () {
                         return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
+                        console.log(err_1);
                         throw new Error('Query Failed');
                     case 4:
                         client.end();
@@ -108,7 +109,7 @@ var Posts = /** @class */ (function (_super) {
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
         upvotes INTEGER DEFAULT 0,\
-        time_stamp DATE NOT NULL DEFAULT NOW(),\
+        time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
         user_name VARCHAR(40) REFERENCES users(user_name));';
                         return [4 /*yield*/, this.makeQuery(startQuery)];
@@ -317,4 +318,17 @@ var addUsers = function () { return __awaiter(void 0, void 0, void 0, function (
         }
     });
 }); };
-addUsers();
+var init = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, initializeAll()];
+            case 1:
+                _a.sent();
+                return [4 /*yield*/, addUsers()];
+            case 2:
+                _a.sent();
+                return [2 /*return*/];
+        }
+    });
+}); };
+init();

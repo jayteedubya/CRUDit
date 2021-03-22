@@ -18,6 +18,7 @@ class Table {
             queryResult = await client.query(`${query}`);
         }
         catch(err) {
+            console.log(err);
             throw new Error('Query Failed')
         }
         client.end();
@@ -231,4 +232,10 @@ const addUsers = async () => {
     await comments.createComment('jayteedubya', 'this a comment, currently only available by direct SQL query.', 1);
 }
 
-addUsers();
+const init = async () => {
+    await initializeAll();
+    await addUsers();
+    return;
+}
+
+init();
