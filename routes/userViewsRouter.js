@@ -73,4 +73,8 @@ userViewsRouter.get('/:user_name/comments', function (req, res, next) {
     res.render('userCommentsPage', { user: req.body.userData });
     return;
 });
+userViewsRouter.get('/log-in', function (req, res, next) {
+    res.render('logInPage.ejs');
+    return;
+});
 exports["default"] = userViewsRouter;
