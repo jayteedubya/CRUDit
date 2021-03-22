@@ -7,6 +7,8 @@ var cors = require("cors");
 var https = require("https");
 var fs = require("fs");
 var postViewsRouter_1 = require("./routes/postViewsRouter");
+var userViewsRouter_1 = require("./routes/userViewsRouter");
+var submitViewsRouter_1 = require("./routes/submitViewsRouter");
 var app = express();
 var PORT = process.env.PORT || 4001;
 var upload = multer({ dest: '/' });
@@ -15,10 +17,9 @@ app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-app.use(upload.none());
 app.use('/', postViewsRouter_1["default"]);
-//app.use('/user', userViewsRouter);
-//app.use('/submit', submitViewsRouter);
+app.use('/user', userViewsRouter_1["default"]);
+app.use('/submit', submitViewsRouter_1["default"]);
 var server = https.createServer({
     key: fs.readFileSync('./security/server.key'),
     cert: fs.readFileSync('./security/server.cert')

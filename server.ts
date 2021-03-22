@@ -18,6 +18,7 @@ app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+
 app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
