@@ -4,9 +4,6 @@ import * as multer from 'multer';
 import * as cors from 'cors';
 import * as https from 'https';
 import * as fs from 'fs';
-import apiCommentsRouter from './routes/apiCommentsRouter';
-import apiPostsRouter from './routes/apiPostsRouter';
-import apiUsersRouter from './routes/apiUsersRouter';
 import postViewsRouter from './routes/postViewsRouter';
 import userViewsRouter from './routes/userViewsRouter';
 import submitViewsRouter from './routes/submitViewsRouter';
@@ -23,11 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
 
 app.use(upload.none());
-//app.use('/api/comments', apiCommentsRouter);
-//app.use('/api/users', apiUsersRouter);
-//app.use('/api/posts', apiPostsRouter);
 app.use('/', postViewsRouter);
-//app.use('/user', userViewsRouter);
+app.use('/user', userViewsRouter);
 //app.use('/submit', submitViewsRouter);
 
 const server = https.createServer({
