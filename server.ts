@@ -30,11 +30,11 @@ app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
 
-https.createServer({
+/*https.createServer({
     key: fs.readFileSync('./security/server.key'),
     cert: fs.readFileSync('./security/server.cert')
   }, app)
   .listen(PORT, () => {
     console.log(`listening on port ${PORT}!`)
-  })
-//app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
+  })*/
+app.listen(PORT, () => console.log(`listening on port: ${PORT}`));
