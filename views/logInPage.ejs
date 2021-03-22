@@ -7,7 +7,7 @@
             console.log('here')
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
-            fetch('127.0.0.1:4001/user/log-in', {
+            fetch('/user/log-in', {
                 method: 'POST',
                 body: formData
             }).then(console.log('success!'))
@@ -17,7 +17,7 @@
     </head>
 
     <body>
-        <div id="login">
+        <div id="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
             <form method="POST" >
                 <label for="username">username:</label>
                 <input type="text" id="username" name="username">
