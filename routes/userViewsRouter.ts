@@ -33,7 +33,7 @@ userViewsRouter.get('/:user_name/comments', (req, res, next) => {
 userViewsRouter.get('/log-in', (req, res, next) => {
     res.render('logInPage.ejs');
     return;
-})
+});
 
 
 export default userViewsRouter;
