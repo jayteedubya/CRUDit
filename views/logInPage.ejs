@@ -18,15 +18,15 @@
 
     <body>
         <%-include('partials/navbar')%> 
-        <div id="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
+        <div class="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
             <form method="POST" >
-                <label for="username">username:</label>
-                <input type="text" id="username" name="username">
-                <br>
-                <label for="password">password:</label>
-                <input type="password" id="password" name="password">
-                <br>
-                <input type="submit" value="log in">
+                <ul>
+                    <label for="username">username:</label>
+                    <li class="login"><input type="text" id="username" name="username"></li>
+                    <label for="password">password:</label>
+                    <li class="login"><input type="password" id="password" name="password"></li>
+                    <li class = sumbit><input type="submit" value="log in"></li>
+                </ul>
             </form>
         </div>
     </body>

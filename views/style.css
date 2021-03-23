@@ -74,6 +74,10 @@
 .comment-separator {
     border-bottom: solid black 1px;
 }
+.login {
+    margin: 30px;
+    
+}
 body {
     background-color: rgb(90, 85, 85);
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
