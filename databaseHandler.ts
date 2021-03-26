@@ -10,6 +10,7 @@ class Table {
         const queryResult = await client.query(`${query}`);
         client.end()
         return queryResult;
+    }
 }
 
 class Posts extends Table {

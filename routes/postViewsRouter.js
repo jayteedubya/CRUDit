@@ -82,12 +82,16 @@ postViewsRouter.get('/post/:post_id', function (req, res, next) { return __await
             case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
             case 1:
                 post = _a.sent();
+                if (!(post.rows.length > 0)) return [3 /*break*/, 3];
                 postObject = post.rows[0];
                 return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
             case 2:
                 comments = _a.sent();
                 postObject.comments = comments.rows;
                 res.render('textPost', { post: postObject });
+                _a.label = 3;
+            case 3:
+                res.redirect('/');
                 return [2 /*return*/];
         }
     });
