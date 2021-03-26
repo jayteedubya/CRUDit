@@ -5,6 +5,7 @@ const userViewsRouter = express.Router();
 
 userViewsRouter.use('/:user_name', async (req, res, next) => {
     const userId = await db.users.getUserIdFromUserName(req.params.user_name);
+    if (userId.rows.length > 0) {
     const posts = await db.users.getAllPostsByUser(req.params.user_name);
     const comments = await db.users.getAllCommentsByUser(req.params.user_name);
     const userPublic = await db.users.getUserPublicInfo(req.params.user_name);
@@ -17,6 +18,8 @@ userViewsRouter.use('/:user_name', async (req, res, next) => {
     }
     req.body.userData = userData;
     next()
+    }
+    res.redirect('/errors/user-not-found');
 });
 
 userViewsRouter.get('/:user_name', (req, res, next) => {

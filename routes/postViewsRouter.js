@@ -46,7 +46,11 @@ postViewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, vo
             case 0: return [4 /*yield*/, db.posts.getAllOrderedByDate()];
             case 1:
                 posts = _a.sent();
-                res.render('homepage', { posts: posts.rows });
+                if (posts.rows.length > 0) {
+                    res.render('homepage', { posts: posts.rows });
+                    return [2 /*return*/];
+                }
+                next();
                 return [2 /*return*/];
         }
     });
@@ -58,7 +62,11 @@ postViewsRouter.get('/ranked', function (req, res, next) { return __awaiter(void
             case 0: return [4 /*yield*/, db.posts.getAllOrderedByRank()];
             case 1:
                 posts = _a.sent();
-                res.render('homepage', { posts: posts.rows });
+                if (posts.rows.length > 0) {
+                    res.render('homepage', { posts: posts.rows });
+                    return [2 /*return*/];
+                }
+                next();
                 return [2 /*return*/];
         }
     });
@@ -70,7 +78,11 @@ postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaite
             case 0: return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
             case 1:
                 posts = _a.sent();
-                res.render('homepage', { posts: posts.rows });
+                if (posts.rows.length > 0) {
+                    res.render('homepage', { posts: posts.rows });
+                    return [2 /*return*/];
+                }
+                next();
                 return [2 /*return*/];
         }
     });
@@ -89,11 +101,14 @@ postViewsRouter.get('/post/:post_id', function (req, res, next) { return __await
                 comments = _a.sent();
                 postObject.comments = comments.rows;
                 res.render('textPost', { post: postObject });
-                _a.label = 3;
+                return [2 /*return*/];
             case 3:
-                res.redirect('/');
+                next();
                 return [2 /*return*/];
         }
     });
 }); });
+postViewsRouter.use(function (err, res, req, next) {
+    res.redirect('/error/post-not-found');
+});
 exports["default"] = postViewsRouter;

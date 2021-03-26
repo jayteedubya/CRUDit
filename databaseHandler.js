@@ -61,17 +61,27 @@ var Table = /** @class */ (function () {
     };
     Table.prototype.makeQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var client, queryResult;
+            var client, queryResult, err_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         client = this.getNewClient();
-                        client.connect();
-                        return [4 /*yield*/, client.query("" + query)];
+                        client.connect()["catch"](function (err) { return console.error(err); });
+                        _a.label = 1;
                     case 1:
+                        _a.trys.push([1, 3, , 4]);
+                        return [4 /*yield*/, client.query("" + query)];
+                    case 2:
                         queryResult = _a.sent();
                         client.end();
-                        return [2 /*return*/, queryResult];
+                        if (queryResult.rows.length > 0) {
+                            return [2 /*return*/, queryResult];
+                        }
+                        throw new Error('result set empty');
+                    case 3:
+                        err_1 = _a.sent();
+                        throw err_1;
+                    case 4: return [2 /*return*/];
                 }
             });
         });
