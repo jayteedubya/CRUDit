@@ -49,7 +49,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 request = req.body;
-                return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, request.author)["catch"](function (err) { return next(err); })];
+                return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, request.author)];
             case 1:
                 result = _a.sent();
                 postId = result.rows[0].id;
@@ -58,9 +58,4 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
         }
     });
 }); });
-submitViewsRouter.use(function (err, req, res, next) {
-    console.log(err);
-    res.redirect(500, '/ranked');
-    return;
-});
 exports["default"] = submitViewsRouter;

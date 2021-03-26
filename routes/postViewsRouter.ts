@@ -22,9 +22,11 @@ postViewsRouter.get('/topic/:topic', async (req, res, next) => {
 });
 
 postViewsRouter.get('/post/:post_id', async (req, res, next) => {
-    let post = await db.posts.getPostById(Number(req.params.post_id));
-    post = post.rows[0];
-    res.render('textPost', {post: post})
+    const post = await db.posts.getPostById(Number(req.params.post_id));
+    const postObject = post.rows[0];
+    const comments = await db.comments.getCommentsByPostId(Number(req.params.post_id));
+    postObject.comments = comments.rows;
+    res.render('textPost', {post: postObject});
     return;
 })
 
