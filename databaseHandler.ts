@@ -9,12 +9,7 @@ class Table {
         client.connect();
         const queryResult = await client.query(`${query}`);
         client.end()
-        console.log(queryResult);
-        if (queryResult.rows.length > 0) {
-            return queryResult;
-        }
-        throw new Error('Query returned no results!');
-    }
+        return queryResult;
 }
 
 class Posts extends Table {
