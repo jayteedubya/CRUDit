@@ -14,8 +14,7 @@ class Table {
         }
         catch (err) {
             console.log('--------------------error----------------------');
-            console.error(err);
-            return;
+            throw err;
         }
         finally {
             console.error('bad things have happened');
