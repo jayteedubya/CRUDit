@@ -12,12 +12,9 @@ class Table {
             queryResult = await client.query(`${query}`);
         }
         catch(err) {
-            throw err;
+            throw new Error('Query Failed')
         }
-        finally {
-            console.log('WTH happened!?');
-        }
-        client.end();
+        client.end()
         return queryResult;
     }
 }

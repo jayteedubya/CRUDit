@@ -4,6 +4,7 @@ import * as db from '../databaseHandler';
 const userViewsRouter = express.Router();
 
 userViewsRouter.use('/:user_name', async (req, res, next) => {
+    db.users.getUserIdFromUserName(req.params.user_name).catch(err => {throw err})
     const posts = await db.users.getAllPostsByUser(req.params.user_name);
     const comments = await db.users.getAllCommentsByUser(req.params.user_name);
     const userPublic = await db.users.getUserPublicInfo(req.params.user_name);

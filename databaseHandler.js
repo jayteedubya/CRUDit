@@ -69,18 +69,15 @@ var Table = /** @class */ (function () {
                         client.connect();
                         _a.label = 1;
                     case 1:
-                        _a.trys.push([1, 3, 4, 5]);
+                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, client.query("" + query)];
                     case 2:
                         queryResult = _a.sent();
-                        return [3 /*break*/, 5];
+                        return [3 /*break*/, 4];
                     case 3:
                         err_1 = _a.sent();
-                        throw err_1;
+                        throw new Error('Query Failed');
                     case 4:
-                        console.log('WTH happened!?');
-                        return [7 /*endfinally*/];
-                    case 5:
                         client.end();
                         return [2 /*return*/, queryResult];
                 }
