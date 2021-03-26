@@ -10,14 +10,12 @@ class Table {
         let queryResult;
         try {
             queryResult = await client.query(`${query}`);
-            console.log(queryResult);
         }
-        catch (err) {
-            console.log('--------------------error----------------------');
+        catch(err) {
             throw err;
         }
         finally {
-            console.error('bad things have happened');
+            console.log('WTH happened!?');
         }
         client.end();
         return queryResult;

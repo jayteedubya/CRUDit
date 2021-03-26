@@ -9,6 +9,6 @@ authRouter.get('/log-in', (req, res, next) => {
     return;
 });
 
-authRouter.post()
+//authRouter.post()
 
 export default authRouter;
