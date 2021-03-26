@@ -5,20 +5,29 @@ const postViewsRouter = express.Router();
 
 postViewsRouter.get('/', async (req, res, next) => {
     const posts = await db.posts.getAllOrderedByDate();
-    res.render('homepage', {posts: posts.rows});
-    return;
+    if (posts.rows.length > 0) {
+        res.render('homepage', {posts: posts.rows});
+        return;
+    }
+    next()
 });
 
 postViewsRouter.get('/ranked', async (req, res, next) => {
     const posts = await db.posts.getAllOrderedByRank();
-    res.render('homepage', {posts: posts.rows});
-    return;
+    if (posts.rows.length > 0) {
+        res.render('homepage', {posts: posts.rows});
+        return;
+    }
+    next()
 });
 
 postViewsRouter.get('/topic/:topic', async (req, res, next) => {
     const posts = await db.posts.getAllByTopic(req.params.topic);
-    res.render('homepage', {posts: posts.rows});
-    return;
+    if (posts.rows.length > 0) {
+        res.render('homepage', {posts: posts.rows});
+        return;
+    }
+    next();
 });
 
 postViewsRouter.get('/post/:post_id', async (req, res, next) => {
@@ -28,10 +37,14 @@ postViewsRouter.get('/post/:post_id', async (req, res, next) => {
         const comments = await db.comments.getCommentsByPostId(Number(req.params.post_id));
         postObject.comments = comments.rows;
         res.render('textPost', {post: postObject});
+        return;
     }
-    res.redirect('/');
+    next();
 })
 
+postViewsRouter.use((err, res, req, next) => {
+    res.redirect('/error/post-not-found');
+})
 
 
 export default postViewsRouter;
