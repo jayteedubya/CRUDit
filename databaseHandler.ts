@@ -10,7 +10,10 @@ class Table {
         const queryResult = await client.query(`${query}`);
         client.end()
         console.log(queryResult);
-        return queryResult;
+        if (queryResult.rows.length > 0) {
+            return queryResult;
+        }
+        throw new Error('Query returned no results!');
     }
 }
 

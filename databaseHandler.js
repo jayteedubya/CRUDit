@@ -72,6 +72,9 @@ var Table = /** @class */ (function () {
                         queryResult = _a.sent();
                         client.end();
                         console.log(queryResult);
+                        if (!queryResult.rows) {
+                            throw new Error('Query returned no results!');
+                        }
                         return [2 /*return*/, queryResult];
                 }
             });
