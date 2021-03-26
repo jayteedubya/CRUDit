@@ -76,17 +76,13 @@ postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaite
     });
 }); });
 postViewsRouter.get('/post/:post_id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var post, comments;
+    var post;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
             case 1:
                 post = _a.sent();
-                return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
-            case 2:
-                comments = _a.sent();
                 post = post.rows[0];
-                post.comments = comments.rows;
                 res.render('textPost', { post: post });
                 return [2 /*return*/];
         }

@@ -25,10 +25,4 @@ app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
 app.use('/auth', authRouter);
 
-/*const server = https.createServer({
-    key: fs.readFileSync('./security/server.key'),
-    cert: fs.readFileSync('./security/server.cert')
-  }, app);
-  server.listen(PORT, () => console.log(`listening on port: ${PORT}`)); */
-
-  app.listen(PORT, () => console.log(`listening on port ${PORT}`))
+app.listen(PORT, () => console.log(`listening on port ${PORT}`))

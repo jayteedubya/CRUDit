@@ -22,9 +22,4 @@ app.use('/', postViewsRouter_1["default"]);
 app.use('/user', userViewsRouter_1["default"]);
 app.use('/submit', submitViewsRouter_1["default"]);
 app.use('/auth', authRouter_1["default"]);
-/*const server = https.createServer({
-    key: fs.readFileSync('./security/server.key'),
-    cert: fs.readFileSync('./security/server.cert')
-  }, app);
-  server.listen(PORT, () => console.log(`listening on port: ${PORT}`)); */
 app.listen(PORT, function () { return console.log("listening on port " + PORT); });

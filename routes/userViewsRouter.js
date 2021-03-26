@@ -43,9 +43,7 @@ userViewsRouter.use('/:user_name', function (req, res, next) { return __awaiter(
     var posts, comments, userPublic, userData;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                db.users.getUserIdFromUserName(req.params.user_name)["catch"](function (err) { throw err; });
-                return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
+            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
             case 1:
                 posts = _a.sent();
                 return [4 /*yield*/, db.users.getAllCommentsByUser(req.params.user_name)];

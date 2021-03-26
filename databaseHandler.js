@@ -73,13 +73,13 @@ var Table = /** @class */ (function () {
                         return [4 /*yield*/, client.query("" + query)];
                     case 2:
                         queryResult = _a.sent();
-                        return [3 /*break*/, 4];
-                    case 3:
-                        err_1 = _a.sent();
-                        throw new Error('Query Failed');
-                    case 4:
                         client.end();
                         return [2 /*return*/, queryResult];
+                    case 3:
+                        err_1 = _a.sent();
+                        client.end();
+                        throw new Error('Query Failed');
+                    case 4: return [2 /*return*/];
                 }
             });
         });
