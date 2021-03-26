@@ -61,25 +61,18 @@ var Table = /** @class */ (function () {
     };
     Table.prototype.makeQuery = function (query) {
         return __awaiter(this, void 0, void 0, function () {
-            var client, queryResult, err_1;
+            var client, queryResult;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
                         client = this.getNewClient();
                         client.connect();
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 3, , 4]);
                         return [4 /*yield*/, client.query("" + query)];
-                    case 2:
+                    case 1:
                         queryResult = _a.sent();
                         client.end();
+                        console.log(queryResult);
                         return [2 /*return*/, queryResult];
-                    case 3:
-                        err_1 = _a.sent();
-                        client.end();
-                        throw new Error('Query Failed');
-                    case 4: return [2 /*return*/];
                 }
             });
         });

@@ -7,15 +7,10 @@ class Table {
     async makeQuery(query: string) {
         const client = this.getNewClient();
         client.connect();
-        try {
-            const queryResult = await client.query(`${query}`);
-            client.end()
-            return queryResult;
-        }
-        catch(err) {
-            client.end();
-            throw new Error('Query Failed');
-        }
+        const queryResult = await client.query(`${query}`);
+        client.end()
+        console.log(queryResult);
+        return queryResult;
     }
 }
 
