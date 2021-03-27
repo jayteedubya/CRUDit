@@ -63,6 +63,7 @@ userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(v
                     user_name: username
                 };
                 req.body.userData = userData;
+                next();
                 return [3 /*break*/, 5];
             case 4:
                 err_1 = _a.sent();
@@ -73,6 +74,7 @@ userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(v
     });
 }); });
 userViewsRouter.get('/:user_name', function (req, res, next) {
+    console.log(req.body.userData);
     res.render('userPage', { user: req.body.userData });
     return;
 });

@@ -17,6 +17,7 @@ userViewsRouter.use('/:username', async (req, res, next) => {
             user_name: username
         }
         req.body.userData = userData;
+        next();
     }
     catch(err) {
         next(err);
@@ -25,6 +26,7 @@ userViewsRouter.use('/:username', async (req, res, next) => {
 });
 
 userViewsRouter.get('/:user_name', (req, res, next) => {
+    console.log(req.body.userData);
     res.render('userPage', {user: req.body.userData});
     return;
 })
