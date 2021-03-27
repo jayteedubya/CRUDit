@@ -6,22 +6,13 @@ class Table {
     }
     async makeQuery(query: string) {
         const client = this.getNewClient();
-        client.connect();
-        let queryResult;
-        try {
-            queryResult = await client.query(`${query}`);
-        }
-        catch(err) {
-            console.error(err);
-            return;
-        }
-        finally {
-            console.log('broken!');
-        }
-        client.end()
+        await client.connect();
+        const queryResult = await client.query(query);
+        client.end();
         if (queryResult.rows.length > 0) {
-            return queryResult;
+            return queryResult.rows;
         }
+        throw new Error('Empty result Set');
     }
 }
 
