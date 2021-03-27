@@ -77,8 +77,7 @@ var Table = /** @class */ (function () {
                         if (queryResult.rows.length > 0) {
                             return [2 /*return*/, queryResult.rows];
                         }
-                        queryResult.rows = [];
-                        return [2 /*return*/, queryResult];
+                        throw new Error('Empty result Set');
                     case 3:
                         err_1 = _a.sent();
                         throw err_1;

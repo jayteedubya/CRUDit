@@ -107,7 +107,7 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
                 _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, db.posts.getPostById(postId)];
             case 2:
-                post = _a.sent();
+                post = (_a.sent()) || [];
                 postObject = post[0];
                 return [4 /*yield*/, db.comments.getCommentsByPostId(postId)];
             case 3:
