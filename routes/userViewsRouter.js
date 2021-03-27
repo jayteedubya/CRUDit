@@ -39,17 +39,19 @@ exports.__esModule = true;
 var express = require("express");
 var db = require("../databaseHandler");
 var userViewsRouter = express.Router();
-userViewsRouter.use('/:user_name', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts, comments, userPublic, userData;
+userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var username, posts, comments, userPublic, userData;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
+            case 0:
+                username = req.params.username;
+                return [4 /*yield*/, db.users.getAllPostsByUser(username)];
             case 1:
                 posts = _a.sent();
-                return [4 /*yield*/, db.users.getAllCommentsByUser(req.params.user_name)];
+                return [4 /*yield*/, db.users.getAllCommentsByUser(username)];
             case 2:
                 comments = _a.sent();
-                return [4 /*yield*/, db.users.getUserPublicInfo(req.params.user_name)];
+                return [4 /*yield*/, db.users.getUserPublicInfo(username)];
             case 3:
                 userPublic = _a.sent();
                 userData = {
@@ -57,7 +59,7 @@ userViewsRouter.use('/:user_name', function (req, res, next) { return __awaiter(
                     comments: comments,
                     upvoted: userPublic[0].upvoted,
                     downvoted: userPublic[0].downvoted,
-                    user_name: userPublic[0].user_name
+                    user_name: userPublic[0].userName
                 };
                 req.body.userData = userData;
                 return [2 /*return*/];

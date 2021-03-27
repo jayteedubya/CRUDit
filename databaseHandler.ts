@@ -24,14 +24,14 @@ class Table {
 
 class Posts extends Table {
     async initialize() {
-        const startQuery = 'CREATE TABLE posts (\
+        const startQuery = "CREATE TABLE posts (\
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
         upvotes INTEGER DEFAULT 0,\
         time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
-        user_name VARCHAR(40) REFERENCES users(user_name));'
+        user_name VARCHAR(40) REFERENCES users(user_name));"
         return await this.makeQuery(startQuery);
     }
     getAllOrderedByDate() {
@@ -92,13 +92,13 @@ class Posts extends Table {
 
 class Comments extends Table {
     async initialize() {
-        const startQuery = 'CREATE TABLE comments (\
+        const startQuery = "CREATE TABLE comments (\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) REFERENCES users(user_name),\
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
-        children INTEGER[]);';
+        children INTEGER[] NOT NULL DEFAULT '{}');";
         return await this.makeQuery(startQuery);
     }
     createComment(user_name: string, body: string, post_id: number) {
@@ -133,13 +133,13 @@ class Comments extends Table {
 
 class Users extends Table {
     async initialize() {
-        const startQuery = 'CREATE TABLE users(\
+        const startQuery = "CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) UNIQUE NOT NULL,\
         email VARCHAR(120),\
-        upvoted INTEGER[],\
-        downvoted INTEGER[],\
-        password TEXT);';
+        upvoted INTEGER[] NOT NULL DEFAULT '{}',\
+        downvoted INTEGER[] NOT NULL DEFAULT '{}',\
+        password TEXT);";
         return await this.makeQuery(startQuery);
     }
     getUserPublicInfo(user_name: string) {

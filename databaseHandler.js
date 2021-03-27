@@ -99,14 +99,14 @@ var Posts = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        startQuery = 'CREATE TABLE posts (\
+                        startQuery = "CREATE TABLE posts (\
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
         upvotes INTEGER DEFAULT 0,\
         time_stamp TIMESTAMP NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
-        user_name VARCHAR(40) REFERENCES users(user_name));';
+        user_name VARCHAR(40) REFERENCES users(user_name));";
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -167,13 +167,13 @@ var Comments = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        startQuery = 'CREATE TABLE comments (\
+                        startQuery = "CREATE TABLE comments (\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) REFERENCES users(user_name),\
         body VARCHAR(1000),\
         time_stamp DATE NOT NULL DEFAULT NOW(),\
         post_id INTEGER REFERENCES posts(id),\
-        children INTEGER[]);';
+        children INTEGER[] NOT NULL DEFAULT '{}');";
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -213,13 +213,13 @@ var Users = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        startQuery = 'CREATE TABLE users(\
+                        startQuery = "CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) UNIQUE NOT NULL,\
         email VARCHAR(120),\
-        upvoted INTEGER[],\
-        downvoted INTEGER[],\
-        password TEXT);';
+        upvoted INTEGER[] NOT NULL DEFAULT '{}',\
+        downvoted INTEGER[] NOT NULL DEFAULT '{}',\
+        password TEXT);";
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
