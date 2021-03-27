@@ -76,7 +76,8 @@ var Table = /** @class */ (function () {
                         return [3 /*break*/, 5];
                     case 3:
                         err_1 = _a.sent();
-                        throw err_1;
+                        console.error(err_1);
+                        return [2 /*return*/];
                     case 4:
                         console.log('broken!');
                         return [7 /*endfinally*/];

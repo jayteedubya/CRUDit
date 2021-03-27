@@ -12,7 +12,8 @@ class Table {
             queryResult = await client.query(`${query}`);
         }
         catch(err) {
-            throw err
+            console.error(err);
+            return;
         }
         finally {
             console.log('broken!');
