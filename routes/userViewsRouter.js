@@ -82,4 +82,7 @@ userViewsRouter.get('/:user_name/comments', function (req, res, next) {
     res.render('userCommentsPage', { user: req.body.userData });
     return;
 });
+userViewsRouter.use(function (err, req, res, next) {
+    res.status(404).redirect('/error/user404');
+});
 exports["default"] = userViewsRouter;
