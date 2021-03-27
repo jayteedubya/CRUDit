@@ -10,10 +10,7 @@ class Table {
             await client.connect();
             const queryResult = await client.query(query);
             client.end();
-            if (queryResult.rows.length > 0) {
-                return queryResult.rows;
-            }
-            throw new Error('Empty result Set');
+            return queryResult.rows;
         }
         catch (err) {
             throw err;

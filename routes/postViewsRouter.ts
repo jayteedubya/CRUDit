@@ -39,7 +39,7 @@ postViewsRouter.get('/topic/:topic', async (req, res, next) => {
 postViewsRouter.get('/post/:postId', async (req, res, next) => {
     const postId = Number(req.params.postId)
     try {
-        const post = await db.posts.getPostById(postId) || [];
+        const post = await db.posts.getPostById(postId);
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId);    //issues exist with comments being undefined, that is why only post 1 shows up
         postObject.comments = comments;

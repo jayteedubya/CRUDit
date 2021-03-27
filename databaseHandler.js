@@ -74,10 +74,7 @@ var Table = /** @class */ (function () {
                     case 2:
                         queryResult = _a.sent();
                         client.end();
-                        if (queryResult.rows.length > 0) {
-                            return [2 /*return*/, queryResult.rows];
-                        }
-                        throw new Error('Empty result Set');
+                        return [2 /*return*/, queryResult.rows];
                     case 3:
                         err_1 = _a.sent();
                         throw err_1;
