@@ -13,7 +13,9 @@ class Table {
             if (queryResult.rows.length > 0) {
                 return queryResult.rows;
             }
-            throw new Error('Empty result Set');
+            queryResult.rows = [];
+            return queryResult;
+            //throw new Error('Empty result Set');
         }
         catch (err) {
             throw err;
