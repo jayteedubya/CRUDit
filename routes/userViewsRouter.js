@@ -40,10 +40,11 @@ var express = require("express");
 var db = require("../databaseHandler");
 var userViewsRouter = express.Router();
 userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, posts, comments, userPublic, userData;
+    var username, posts, comments, userPublic, userData, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _a.trys.push([0, 4, , 5]);
                 username = req.params.username;
                 return [4 /*yield*/, db.users.getAllPostsByUser(username)];
             case 1:
@@ -59,10 +60,15 @@ userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(v
                     comments: comments,
                     upvoted: userPublic[0].upvoted,
                     downvoted: userPublic[0].downvoted,
-                    user_name: userPublic[0].userName
+                    user_name: username
                 };
                 req.body.userData = userData;
-                return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 4:
+                err_1 = _a.sent();
+                next(err_1);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
