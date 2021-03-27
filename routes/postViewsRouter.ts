@@ -52,7 +52,8 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
 })
 
 postViewsRouter.use((err, req, res, next) => {
-    res.redirect(err, '/error/post-not-found');
+    console.error(err);
+    res.redirect('/error/post-not-found');
 })
 
 

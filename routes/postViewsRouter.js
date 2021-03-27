@@ -124,6 +124,7 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
     });
 }); });
 postViewsRouter.use(function (err, req, res, next) {
-    res.redirect(err, '/error/post-not-found');
+    console.error(err);
+    res.redirect('/error/post-not-found');
 });
 exports["default"] = postViewsRouter;
