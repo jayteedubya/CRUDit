@@ -40,75 +40,90 @@ var express = require("express");
 var db = require("../databaseHandler");
 var postViewsRouter = express.Router();
 postViewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts;
+    var posts, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.posts.getAllOrderedByDate()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.posts.getAllOrderedByDate()];
             case 1:
                 posts = _a.sent();
-                if (posts.rows.length > 0) {
-                    res.render('homepage', { posts: posts.rows });
-                    return [2 /*return*/];
-                }
-                next();
+                res.render('homepage', { posts: posts });
                 return [2 /*return*/];
+            case 2:
+                err_1 = _a.sent();
+                next(err_1);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 postViewsRouter.get('/ranked', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts;
+    var posts, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.posts.getAllOrderedByRank()];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.posts.getAllOrderedByRank()];
             case 1:
                 posts = _a.sent();
-                if (posts.rows.length > 0) {
-                    res.render('homepage', { posts: posts.rows });
-                    return [2 /*return*/];
-                }
-                next();
+                res.render('homepage', { posts: posts });
                 return [2 /*return*/];
+            case 2:
+                err_2 = _a.sent();
+                next(err_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
 postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts;
+    var posts, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
             case 1:
                 posts = _a.sent();
-                if (posts.rows.length > 0) {
-                    res.render('homepage', { posts: posts.rows });
-                    return [2 /*return*/];
-                }
-                next();
+                res.render('homepage', { posts: posts });
                 return [2 /*return*/];
+            case 2:
+                err_3 = _a.sent();
+                next(err_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
         }
     });
 }); });
-postViewsRouter.get('/post/:post_id', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var post, postObject, comments;
+postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var postId, post, postObject, comments, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.posts.getPostById(Number(req.params.post_id))];
+            case 0:
+                postId = Number(req.params.postId);
+                _a.label = 1;
             case 1:
-                post = _a.sent();
-                if (!(post.rows.length > 0)) return [3 /*break*/, 3];
-                postObject = post.rows[0];
-                return [4 /*yield*/, db.comments.getCommentsByPostId(Number(req.params.post_id))];
+                _a.trys.push([1, 4, , 5]);
+                return [4 /*yield*/, db.posts.getPostById(postId)];
             case 2:
+                post = _a.sent();
+                postObject = post[0];
+                return [4 /*yield*/, db.comments.getCommentsByPostId(postId)];
+            case 3:
                 comments = _a.sent();
-                postObject.comments = comments.rows;
+                postObject.comments = comments;
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
-            case 3:
-                next();
-                return [2 /*return*/];
+            case 4:
+                err_4 = _a.sent();
+                next(err_4);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
 postViewsRouter.use(function (err, res, req, next) {
-    res.redirect('/error/post-not-found');
+    res.redirect(err, '/error/post-not-found');
 });
 exports["default"] = postViewsRouter;

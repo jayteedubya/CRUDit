@@ -52,7 +52,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
                 return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, request.author)];
             case 1:
                 result = _a.sent();
-                postId = result.rows[0].id;
+                postId = result[0].id;
                 res.redirect("/post/" + postId);
                 return [2 /*return*/];
         }

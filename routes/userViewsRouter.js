@@ -40,34 +40,26 @@ var express = require("express");
 var db = require("../databaseHandler");
 var userViewsRouter = express.Router();
 userViewsRouter.use('/:user_name', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, posts, comments, userPublic, userData;
+    var posts, comments, userPublic, userData;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.users.getUserIdFromUserName(req.params.user_name)];
+            case 0: return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
             case 1:
-                userId = _a.sent();
-                if (!(userId.rows.length > 0)) return [3 /*break*/, 5];
-                return [4 /*yield*/, db.users.getAllPostsByUser(req.params.user_name)];
-            case 2:
                 posts = _a.sent();
                 return [4 /*yield*/, db.users.getAllCommentsByUser(req.params.user_name)];
-            case 3:
+            case 2:
                 comments = _a.sent();
                 return [4 /*yield*/, db.users.getUserPublicInfo(req.params.user_name)];
-            case 4:
+            case 3:
                 userPublic = _a.sent();
                 userData = {
-                    posts: posts.rows,
-                    comments: comments.rows,
-                    upvoted: userPublic.rows[0].upvoted,
-                    downvoted: userPublic.rows[0].downvoted,
-                    user_name: userPublic.rows[0].user_name
+                    posts: posts,
+                    comments: comments,
+                    upvoted: userPublic[0].upvoted,
+                    downvoted: userPublic[0].downvoted,
+                    user_name: userPublic[0].user_name
                 };
                 req.body.userData = userData;
-                next();
-                _a.label = 5;
-            case 5:
-                res.redirect('/errors/user-not-found');
                 return [2 /*return*/];
         }
     });

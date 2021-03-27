@@ -65,28 +65,23 @@ var Table = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        _a.trys.push([0, 3, , 4]);
                         client = this.getNewClient();
-                        client.connect();
-                        _a.label = 1;
+                        return [4 /*yield*/, client.connect()];
                     case 1:
-                        _a.trys.push([1, 3, 4, 5]);
-                        return [4 /*yield*/, client.query("" + query)];
+                        _a.sent();
+                        return [4 /*yield*/, client.query(query)];
                     case 2:
                         queryResult = _a.sent();
-                        return [3 /*break*/, 5];
-                    case 3:
-                        err_1 = _a.sent();
-                        console.error(err_1);
-                        return [2 /*return*/];
-                    case 4:
-                        console.log('broken!');
-                        return [7 /*endfinally*/];
-                    case 5:
                         client.end();
                         if (queryResult.rows.length > 0) {
-                            return [2 /*return*/, queryResult];
+                            return [2 /*return*/, queryResult.rows];
                         }
-                        return [2 /*return*/];
+                        throw new Error('Empty result Set');
+                    case 3:
+                        err_1 = _a.sent();
+                        throw err_1;
+                    case 4: return [2 /*return*/];
                 }
             });
         });

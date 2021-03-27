@@ -5,14 +5,20 @@ class Table {
         return new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}});
     }
     async makeQuery(query: string) {
-        const client = this.getNewClient();
-        await client.connect();
-        const queryResult = await client.query(query);
-        client.end();
-        if (queryResult.rows.length > 0) {
-            return queryResult.rows;
+        try {
+            const client = this.getNewClient();
+            await client.connect();
+            const queryResult = await client.query(query);
+            client.end();
+            if (queryResult.rows.length > 0) {
+                return queryResult.rows;
+            }
+            throw new Error('Empty result Set');
         }
-        throw new Error('Empty result Set');
+        catch (err) {
+            throw err;
+        }
+        
     }
 }
 
