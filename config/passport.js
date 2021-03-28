@@ -53,6 +53,7 @@ passport.use(new localStrategy(function (user, password, done) { return __awaite
                 return [4 /*yield*/, db.users.getUserFullInfo(userId)[0]];
             case 2:
                 userInfo = _a.sent();
+                console.log(userInfo);
                 return [4 /*yield*/, bcrypt.compare(password, userInfo.password)];
             case 3:
                 result = _a.sent();

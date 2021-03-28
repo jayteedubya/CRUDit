@@ -5,10 +5,11 @@ import * as db from '../databaseHandler';
 
 const localStrategy = local.Strategy;
 
-passport.use(new localStrategy(async (user: string, password: string, done) => {
+passport.use(new localStrategy('local', async (user: string, password: string, done) => {
     try {
         const userId = await db.users.getUserIdFromUserName(user);
         const userInfo = await db.users.getUserFullInfo(userId)[0];
+        console.log(userInfo);
         const result = await bcrypt.compare(password, userInfo.password);  //boolean
         if (result) {
             done(null, {id: userInfo.id, username: userInfo.username,});
