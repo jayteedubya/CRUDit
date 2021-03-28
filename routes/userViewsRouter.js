@@ -41,8 +41,41 @@ var db = require("../databaseHandler");
 var passport = require("passport");
 var bcrypt = require("bcrypt");
 var userViewsRouter = express.Router();
+userViewsRouter.get('/auth/log-in', function (req, res, next) {
+    res.render('logInPage');
+});
+userViewsRouter.post('/auth/log-in', passport.authenticate('local', { successRedirect: '/' }));
+userViewsRouter.get('/auth/sign-up', function (req, res, next) {
+    res.render('createUserPage');
+});
+userViewsRouter.post('/auth/sign-up', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var userData, hashedPassword, result, err_1;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                userData = req.body;
+                return [4 /*yield*/, bcrypt.hash(userData.password, 10)];
+            case 1:
+                hashedPassword = _a.sent();
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, db.users.createUser(userData.username, userData.emailaddress, hashedPassword)];
+            case 3:
+                result = _a.sent();
+                res.redirect("/" + result[0].user_name);
+                return [3 /*break*/, 5];
+            case 4:
+                err_1 = _a.sent();
+                console.log(err_1);
+                res.status(403).redirect('/error/user403');
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
 userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, posts, comments, userPublic, userData, err_1;
+    var username, posts, comments, userPublic, userData, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -68,41 +101,8 @@ userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(v
                 next();
                 return [3 /*break*/, 5];
             case 4:
-                err_1 = _a.sent();
-                next(err_1);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
-userViewsRouter.get('/auth/log-in', function (req, res, next) {
-    res.render('logInPage');
-});
-userViewsRouter.post('/auth/log-in', passport.authenticate('local', { successRedirect: '/' }));
-userViewsRouter.get('/auth/sign-up', function (req, res, next) {
-    res.render('createUserPage');
-});
-userViewsRouter.post('/auth/sign-up', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userData, hashedPassword, result, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                userData = req.body;
-                return [4 /*yield*/, bcrypt.hash(userData.password, 10)];
-            case 1:
-                hashedPassword = _a.sent();
-                _a.label = 2;
-            case 2:
-                _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, db.users.createUser(userData.username, userData.emailaddress, hashedPassword)];
-            case 3:
-                result = _a.sent();
-                res.redirect("/" + result[0].user_name);
-                return [3 /*break*/, 5];
-            case 4:
                 err_2 = _a.sent();
-                console.log(err_2);
-                res.status(403).redirect('/error/user403');
+                next(err_2);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
@@ -117,6 +117,7 @@ userViewsRouter.get('/:user_name/comments', function (req, res, next) {
     return;
 });
 userViewsRouter.use(function (err, req, res, next) {
+    console.error(err);
     res.status(404).redirect('/error/user404');
 });
 exports["default"] = userViewsRouter;
