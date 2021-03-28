@@ -149,7 +149,7 @@ class Users extends Table {
         const query = `SELECT id\
         FROM users\
         WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        return this.makeQuery(query)[0];
     }
     getPasswordByUserId(user_id: number) {
         const query = `SELECT password\
@@ -165,7 +165,8 @@ class Users extends Table {
     }
     createUser(user_name: string, email: string, password: string) {
         const query = `INSERT INTO users (user_name, email, password)\
-        VALUES ('${user_name}', '${email}', '${password}');`;
+        VALUES ('${user_name}', '${email}', '${password}')\
+        RETURNING user_name;`;
         return this.makeQuery(query);
     }
     changePassword(user_id: number, newPassword: string) {

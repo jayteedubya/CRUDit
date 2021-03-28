@@ -2,12 +2,11 @@ import * as express from 'express';
 import * as bodyParser from 'body-parser'
 import * as multer from 'multer';
 import * as cors from 'cors';
-//import * as https from 'https';
-//import * as fs from 'fs';
+import * as passport from 'passport'
 import postViewsRouter from './routes/postViewsRouter';
 import userViewsRouter from './routes/userViewsRouter';
 import submitViewsRouter from './routes/submitViewsRouter';
-import authRouter from './routes/authRouter';
+
 
 
 const app = express();
@@ -19,10 +18,11 @@ app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
+app.use(passport.initialize());  //
+app.use(passport.session());     //
 
 app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
-app.use('/auth', authRouter);
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`))

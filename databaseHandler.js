@@ -229,7 +229,7 @@ var Users = /** @class */ (function (_super) {
     };
     Users.prototype.getUserIdFromUserName = function (user_name) {
         var query = "SELECT id        FROM users        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        return this.makeQuery(query)[0];
     };
     Users.prototype.getPasswordByUserId = function (user_id) {
         var query = "SELECT password        FROM users        WHERE id = " + user_id + ";";
@@ -240,7 +240,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password) {
-        var query = "INSERT INTO users (user_name, email, password)        VALUES ('" + user_name + "', '" + email + "', '" + password + "');";
+        var query = "INSERT INTO users (user_name, email, password)        VALUES ('" + user_name + "', '" + email + "', '" + password + "')        RETURNING user_name;";
         return this.makeQuery(query);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {

@@ -1,17 +1,43 @@
-import * as passport from 'passport';
-import * as localStrategy from 'passport-local';
-import * as db from'../databaseHandler'
+import * as passport from 'passport'
 import * as bcrypt from 'bcrypt';
+import * as local from 'passport-local';
+import * as db from '../databaseHandler';
 
-passport.use(new localStrategy( async (username: string, password: string, done) => {
-    const userIdQuery = await db.users.getUserIdFromUserName(username);
-    const userId: number = userIdQuery.rows[0];
-    const storedPasswordQuery = await db.users.getPasswordByUserId(userId);
-    const storedPassword: string = storedPasswordQuery.rows[0];
-    const isValidPassword: boolean = bcrypt.compare(password, storedPassword) //this compares a plaintext password to a hashed password
-    if (isValidPassword) {
-        done(null, username);
-        return;
+const localStrategy = local.Strategy;
+
+passport.use(new localStrategy(async (user: string, password: string, done) => {
+    try {
+        const userId = await db.users.getUserIdFromUserName(user);
+        const userInfo = await db.users.getUserFullInfo(userId)[0];
+        const result = await bcrypt.compare(password, userInfo.password);  //boolean
+        if (result) {
+            done(null, {id: userInfo.id, username: userInfo.username,});
+            return;
+        }
+        if (!result) {
+            done(null, false);
+            return;
+        }
     }
-    done(null, false)
-}))
+    catch (err) {
+        done(err);
+    }
+}));
+
+passport.serializeUser((user, done) => {
+    done(null, user.id)
+  })
+  
+  passport.deserializeUser(async (id, done) => {
+    try {
+        const result = await db.users.getUserFullInfo(id);
+        done(null, result[0]);
+      }
+    catch (err) {
+        done(err);
+    }
+  
+      
+    })
+  })
+  
