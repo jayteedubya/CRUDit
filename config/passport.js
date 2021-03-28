@@ -36,88 +36,62 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var express = require("express");
-var db = require("../databaseHandler");
 var passport = require("passport");
 var bcrypt = require("bcrypt");
-var userViewsRouter = express.Router();
-userViewsRouter.get('/auth/log-in', function (req, res, next) {
-    res.render('logInPage');
-});
-userViewsRouter.post('/auth/log-in', passport.authenticate('local', { successRedirect: '/' }));
-userViewsRouter.get('/auth/sign-up', function (req, res, next) {
-    res.render('createUserPage');
-});
-userViewsRouter.post('/auth/sign-up', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userData, hashedPassword, result, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                userData = req.body;
-                return [4 /*yield*/, bcrypt.hash(userData.password, 10)];
-            case 1:
-                hashedPassword = _a.sent();
-                _a.label = 2;
-            case 2:
-                _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, db.users.createUser(userData.username, userData.emailaddress, hashedPassword)];
-            case 3:
-                result = _a.sent();
-                res.redirect("/users/" + result[0].user_name);
-                return [3 /*break*/, 5];
-            case 4:
-                err_1 = _a.sent();
-                console.log(err_1);
-                res.status(403).redirect('/error/user403');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
-userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, posts, comments, userPublic, userData, err_2;
+var local = require("passport-local");
+var db = require("../databaseHandler");
+var localStrategy = local.Strategy;
+passport.use(new localStrategy(function (user, password, done) { return __awaiter(void 0, void 0, void 0, function () {
+    var userId, userInfo, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 4, , 5]);
-                username = req.params.username;
-                return [4 /*yield*/, db.users.getAllPostsByUser(username)];
+                return [4 /*yield*/, db.users.getUserIdFromUserName(user)];
             case 1:
-                posts = _a.sent();
-                return [4 /*yield*/, db.users.getAllCommentsByUser(username)];
+                userId = _a.sent();
+                return [4 /*yield*/, db.users.getUserFullInfo(userId)[0]];
             case 2:
-                comments = _a.sent();
-                return [4 /*yield*/, db.users.getUserPublicInfo(username)];
+                userInfo = _a.sent();
+                return [4 /*yield*/, bcrypt.compare(password, userInfo.password)];
             case 3:
-                userPublic = _a.sent();
-                userData = {
-                    posts: posts,
-                    comments: comments,
-                    upvoted: userPublic[0].upvoted,
-                    downvoted: userPublic[0].downvoted,
-                    user_name: username
-                };
-                req.body.userData = userData;
-                next();
+                result = _a.sent();
+                if (result) {
+                    done(null, { id: userInfo.id, username: userInfo.username });
+                    return [2 /*return*/];
+                }
+                if (!result) {
+                    done(null, false);
+                    return [2 /*return*/];
+                }
                 return [3 /*break*/, 5];
             case 4:
-                err_2 = _a.sent();
-                next(err_2);
+                err_1 = _a.sent();
+                done(err_1);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
     });
+}); }));
+passport.serializeUser(function (user, done) {
+    done(null, user.id);
+});
+passport.deserializeUser(function (id, done) { return __awaiter(void 0, void 0, void 0, function () {
+    var result, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.users.getUserFullInfo(id)];
+            case 1:
+                result = _a.sent();
+                done(null, result[0]);
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                done(err_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
 }); });
-userViewsRouter.get('/:user_name', function (req, res, next) {
-    res.render('userPage', { user: req.body.userData });
-    return;
-});
-userViewsRouter.get('/:user_name/comments', function (req, res, next) {
-    res.render('userCommentsPage', { user: req.body.userData });
-    return;
-});
-userViewsRouter.use(function (err, req, res, next) {
-    console.error(err);
-    res.status(404).redirect('/error/user404');
-});
-exports["default"] = userViewsRouter;

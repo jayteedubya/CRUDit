@@ -8,6 +8,7 @@ var passport = require("passport");
 var postViewsRouter_1 = require("./routes/postViewsRouter");
 var userViewsRouter_1 = require("./routes/userViewsRouter");
 var submitViewsRouter_1 = require("./routes/submitViewsRouter");
+require("./config/passport");
 var app = express();
 var PORT = process.env.PORT || 4001;
 var upload = multer({ dest: '/' });

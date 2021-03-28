@@ -35,9 +35,6 @@ passport.serializeUser((user, done) => {
       }
     catch (err) {
         done(err);
-    }
-  
-      
-    })
-  })
+    }     
+})
   
