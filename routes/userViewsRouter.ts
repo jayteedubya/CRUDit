@@ -27,16 +27,6 @@ userViewsRouter.use('/:username', async (req, res, next) => {
     
 });
 
-userViewsRouter.get('/:user_name', (req, res, next) => {
-    res.render('userPage', {user: req.body.userData});
-    return;
-})
-
-userViewsRouter.get('/:user_name/comments', (req, res, next) => {
-    res.render('userCommentsPage', {user: req.body.userData});
-    return;
-});
-
 userViewsRouter.get('/auth/log-in', (req, res, next) => {
     res.render('logInPage');
 });
@@ -60,6 +50,16 @@ userViewsRouter.post('/auth/sign-up', async (req, res, next) => {
     }
 
 })
+
+userViewsRouter.get('/:user_name', (req, res, next) => {
+    res.render('userPage', {user: req.body.userData});
+    return;
+})
+
+userViewsRouter.get('/:user_name/comments', (req, res, next) => {
+    res.render('userCommentsPage', {user: req.body.userData});
+    return;
+});
 
 userViewsRouter.use((err, req, res, next) => {
     res.status(404).redirect('/error/user404');

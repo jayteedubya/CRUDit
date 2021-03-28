@@ -75,14 +75,6 @@ userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(v
         }
     });
 }); });
-userViewsRouter.get('/:user_name', function (req, res, next) {
-    res.render('userPage', { user: req.body.userData });
-    return;
-});
-userViewsRouter.get('/:user_name/comments', function (req, res, next) {
-    res.render('userCommentsPage', { user: req.body.userData });
-    return;
-});
 userViewsRouter.get('/auth/log-in', function (req, res, next) {
     res.render('logInPage');
 });
@@ -116,6 +108,14 @@ userViewsRouter.post('/auth/sign-up', function (req, res, next) { return __await
         }
     });
 }); });
+userViewsRouter.get('/:user_name', function (req, res, next) {
+    res.render('userPage', { user: req.body.userData });
+    return;
+});
+userViewsRouter.get('/:user_name/comments', function (req, res, next) {
+    res.render('userCommentsPage', { user: req.body.userData });
+    return;
+});
 userViewsRouter.use(function (err, req, res, next) {
     res.status(404).redirect('/error/user404');
 });
