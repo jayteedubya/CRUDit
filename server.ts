@@ -6,7 +6,7 @@ import * as passport from 'passport'
 import postViewsRouter from './routes/postViewsRouter';
 import userViewsRouter from './routes/userViewsRouter';
 import submitViewsRouter from './routes/submitViewsRouter';
-import "./config/passport"; 
+import "./config/passport.ts"; 
 
 
 
