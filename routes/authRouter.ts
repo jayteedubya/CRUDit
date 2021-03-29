@@ -22,13 +22,30 @@ authRouter.post('/log-in', async (req, res, next) => {
         if (result) {
             //@ts-ignore  //this makes the compiler stop complaining
             req.session.user = req.body.user_name;
+            res.redirect(`/user/${userName}`);
         }
     }
     catch (err) {
-        res.send(err);
+        console.warn(err);
+        res.send('failed');
     }
 
 });
+
+authRouter.post('/sign-up', async (req, res, next) => {
+    const username = req.body.user_name;
+    const password = req.body.password;
+    const emailaddress = req.body.emailaddress;
+    const hashedPassword = await bcrypt.hash(password, 10);
+    try {
+        await db.users.createUser(username, hashedPassword, emailaddress);
+        res.redirect(`/user/${username}`);
+    }
+    catch (err) {
+        console.warn(err)
+        res.send('no worky worky');
+    }
+})
 
 authRouter.get('/am-i-in', (req, res, next) => {
     //@ts-ignore

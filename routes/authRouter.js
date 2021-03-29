@@ -63,13 +63,43 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 if (result) {
                     //@ts-ignore  //this makes the compiler stop complaining
                     req.session.user = req.body.user_name;
+                    res.redirect("/user/" + userName);
                 }
                 return [3 /*break*/, 4];
             case 3:
                 err_1 = _a.sent();
-                res.send(err_1);
+                console.warn(err_1);
+                res.send('failed');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
+        }
+    });
+}); });
+authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var username, password, emailaddress, hashedPassword, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                username = req.body.user_name;
+                password = req.body.password;
+                emailaddress = req.body.emailaddress;
+                return [4 /*yield*/, bcrypt.hash(password, 10)];
+            case 1:
+                hashedPassword = _a.sent();
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, db.users.createUser(username, hashedPassword, emailaddress)];
+            case 3:
+                _a.sent();
+                res.redirect("/user/" + username);
+                return [3 /*break*/, 5];
+            case 4:
+                err_2 = _a.sent();
+                console.warn(err_2);
+                res.send('no worky worky');
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });

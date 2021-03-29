@@ -7,7 +7,7 @@
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
             try {
-                fetch('/user/log-in', {
+                fetch('/auth/sign-up', {
                 method: 'POST',
                 body: formData
                 })
@@ -23,11 +23,11 @@
         <div class="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
             <form method="POST" >
                 <ul>
-                    <label for="username">username:</label>
+                    <label for="username">username </label>
                     <li class="login"><input type="text" id="username" name="username"></li>
                     <label for="emailaddress">email address</label>
-                    <li class="login"><input type="text" id="email-address" name="email-address"</li>
-                    <label for="password">password:</label>
+                    <li class="login"><input type="text" id="email-address" name="email-address"></li>
+                    <label for="password">password </label>
                     <li class="login"><input type="password" id="password" name="password"></li>
                     <li class = sumbit><input type="submit" value="create account"></li>
                 </ul>

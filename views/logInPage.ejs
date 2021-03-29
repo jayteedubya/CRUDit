@@ -6,7 +6,7 @@
             function submitForm() {
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
-            fetch('/user/log-in', {
+            fetch('/auth/log-in', {
                 method: 'POST',
                 body: formData
             }).then(console.log('success!'))
