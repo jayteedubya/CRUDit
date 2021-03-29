@@ -38,13 +38,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var express = require("express");
 var db = require("../databaseHandler");
-var passport = require("passport");
 var bcrypt = require("bcrypt");
 var userViewsRouter = express.Router();
 userViewsRouter.get('/auth/log-in', function (req, res, next) {
     res.render('logInPage');
 });
-userViewsRouter.post('/auth/log-in', passport.authenticate('local', { successRedirect: '/' }));
+userViewsRouter.post('/auth/log-in');
 userViewsRouter.get('/auth/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });

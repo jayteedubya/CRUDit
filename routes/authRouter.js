@@ -36,63 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var passport = require("passport");
-var bcrypt = require("bcrypt");
-var local = require("passport-local");
+var express = require("express");
 var db = require("../databaseHandler");
-var localStrategy = local.Strategy;
-passport.use(new localStrategy(function (user, password, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var userId, userInfo, result, err_1;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, db.users.getUserIdFromUserName(user)];
-            case 1:
-                userId = _a.sent();
-                return [4 /*yield*/, db.users.getUserFullInfo(userId)[0]];
-            case 2:
-                userInfo = _a.sent();
-                console.log(userInfo);
-                return [4 /*yield*/, bcrypt.compare(password, userInfo.password)];
-            case 3:
-                result = _a.sent();
-                if (result) {
-                    done(null, { id: userInfo.id, username: userInfo.username });
-                    return [2 /*return*/];
-                }
-                if (!result) {
-                    done(null, false);
-                    return [2 /*return*/];
-                }
-                return [3 /*break*/, 5];
-            case 4:
-                err_1 = _a.sent();
-                done(err_1);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); }));
-passport.serializeUser(function (user, done) {
-    done(null, user.id);
+var bcrypt = require("bcrypt");
+var authRouter = express.Router();
+authRouter.get('/log-in', function (req, res, next) {
+    res.render('logInPage');
 });
-passport.deserializeUser(function (id, done) { return __awaiter(void 0, void 0, void 0, function () {
-    var result, err_2;
+authRouter.get('/sign-up', function (req, res, next) {
+    res.render('createUserPage');
+});
+authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var userName, password, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.users.getUserFullInfo(id)];
+                userName = req.body.user_name;
+                password = req.body.password;
+                _a.label = 1;
             case 1:
-                result = _a.sent();
-                done(null, result[0]);
-                return [3 /*break*/, 3];
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.users.getUserFullInfo(userName)[0]];
             case 2:
-                err_2 = _a.sent();
-                done(err_2);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+                user = _a.sent();
+                result = bcrypt.compare(password, user.password);
+                if (result) {
+                    //@ts-ignore  //this makes the compiler stop complaining
+                    req.session.user = req.body.user_name;
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                err_1 = _a.sent();
+                res.send(err_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
+authRouter.get('/am-i-in', function (req, res, next) {
+    //@ts-ignore
+    var user = req.session.user;
+    if (user) {
+        res.send(user);
+        return;
+    }
+    res.send('no worky worky');
+});
+exports["default"] = authRouter;

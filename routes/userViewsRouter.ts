@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as db from '../databaseHandler';
-import * as passport from 'passport';
 import * as bcrypt from 'bcrypt';
 
 const userViewsRouter = express.Router();
@@ -9,7 +8,7 @@ userViewsRouter.get('/auth/log-in', (req, res, next) => {
     res.render('logInPage');
 });
 
-userViewsRouter.post('/auth/log-in', passport.authenticate('local', {successRedirect: '/'}));
+userViewsRouter.post('/auth/log-in', );
 
 userViewsRouter.get('/auth/sign-up', (req, res, next) => {
     res.render('createUserPage');
