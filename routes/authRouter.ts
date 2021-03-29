@@ -14,14 +14,14 @@ authRouter.get('/sign-up', (req, res, next) => {
 });
 
 authRouter.post('/log-in', async (req, res, next) => {
-    const userName = req.body.user_name;
+    const userName = req.body.username;
     const password = req.body.password;
     try {
         const user = await db.users.getUserFullInfo(userName)[0];
         const result = bcrypt.compare(password, user.password);
         if (result) {
             //@ts-ignore  //this makes the compiler stop complaining
-            req.session.user = req.body.user_name;
+            req.session.user = req.body.username;
             res.redirect(`/user/${userName}`);
         }
     }
@@ -33,12 +33,14 @@ authRouter.post('/log-in', async (req, res, next) => {
 });
 
 authRouter.post('/sign-up', async (req, res, next) => {
-    const username = req.body.user_name;
+    const username = req.body.username;
     const password = req.body.password;
     const emailaddress = req.body.emailaddress;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-        await db.users.createUser(username, hashedPassword, emailaddress);
+        await db.users.createUser(username, emailaddress, hashedPassword);
+        //@ts-ignore
+        req.session.user = username;
         res.redirect(`/user/${username}`);
     }
     catch (err) {

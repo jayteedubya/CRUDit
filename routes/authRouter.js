@@ -51,7 +51,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                userName = req.body.user_name;
+                userName = req.body.username;
                 password = req.body.password;
                 _a.label = 1;
             case 1:
@@ -62,7 +62,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 result = bcrypt.compare(password, user.password);
                 if (result) {
                     //@ts-ignore  //this makes the compiler stop complaining
-                    req.session.user = req.body.user_name;
+                    req.session.user = req.body.username;
                     res.redirect("/user/" + userName);
                 }
                 return [3 /*break*/, 4];
@@ -80,7 +80,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                username = req.body.user_name;
+                username = req.body.username;
                 password = req.body.password;
                 emailaddress = req.body.emailaddress;
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
@@ -89,9 +89,11 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, db.users.createUser(username, hashedPassword, emailaddress)];
+                return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword)];
             case 3:
                 _a.sent();
+                //@ts-ignore
+                req.session.user = username;
                 res.redirect("/user/" + username);
                 return [3 /*break*/, 5];
             case 4:
