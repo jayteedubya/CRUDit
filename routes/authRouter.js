@@ -60,6 +60,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, db.users.getUserFullInfo(userName)[0]];
             case 2:
                 user = _a.sent();
+                console.log(user);
                 result = bcrypt.compare(password, user.password);
                 if (result) {
                     db.users.startSession(userName, req.sessionID);
