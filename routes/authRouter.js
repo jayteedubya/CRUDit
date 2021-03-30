@@ -53,6 +53,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
             case 0:
                 userName = req.body.username;
                 password = req.body.password;
+                console.log(req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
