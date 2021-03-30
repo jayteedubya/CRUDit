@@ -136,7 +136,8 @@ class Users extends Table {
         email VARCHAR(120),\
         upvoted INTEGER[] NOT NULL DEFAULT '{}',\
         downvoted INTEGER[] NOT NULL DEFAULT '{}',\
-        password TEXT);";
+        password TEXT\
+        current_session);";
         return await this.makeQuery(startQuery);
     }
     getUserPublicInfo(user_name: string) {
@@ -163,9 +164,9 @@ class Users extends Table {
         WHERE id = ${user_id};`;
         return this.makeQuery(query);
     }
-    createUser(user_name: string, email: string, password: string) {
-        const query = `INSERT INTO users (user_name, email, password)\
-        VALUES ('${user_name}', '${email}', '${password}')\
+    createUser(user_name: string, email: string, password: string, current_session: string) {
+        const query = `INSERT INTO users (user_name, email, password, current_session)\
+        VALUES ('${user_name}', '${email}', '${password}, ${current_session}')\
         RETURNING user_name;`;
         return this.makeQuery(query);
     }
@@ -204,6 +205,23 @@ class Users extends Table {
         FROM posts\
         WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
+    }
+    getUserFromSession(sessionID: string) {
+        const query = `SELECT user_name\
+        FROM users\
+        WHERE current_session = ${sessionID}`;
+        return this.makeQuery(query);
+    }
+    endSession(user_name: string) {
+        const query = `UPDATE users\
+        SET current_session = 'null'\
+        WHERE user_name = ${user_name};`;
+        return this.makeQuery(query);
+    }
+    startSession(user_name: string, sessionID: string) {
+        const query = `UPDATE users\
+        SET current_session = ${sessionID}
+        WHERE user_name = ${user_name};`;
     }
 }
 

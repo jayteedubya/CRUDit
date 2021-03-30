@@ -216,7 +216,8 @@ var Users = /** @class */ (function (_super) {
         email VARCHAR(120),\
         upvoted INTEGER[] NOT NULL DEFAULT '{}',\
         downvoted INTEGER[] NOT NULL DEFAULT '{}',\
-        password TEXT);";
+        password TEXT\
+        current_session);";
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -239,8 +240,8 @@ var Users = /** @class */ (function (_super) {
         var query = "SELECT *        FROM users        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
-    Users.prototype.createUser = function (user_name, email, password) {
-        var query = "INSERT INTO users (user_name, email, password)        VALUES ('" + user_name + "', '" + email + "', '" + password + "')        RETURNING user_name;";
+    Users.prototype.createUser = function (user_name, email, password, current_session) {
+        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('" + user_name + "', '" + email + "', '" + password + ", " + current_session + "')        RETURNING user_name;";
         return this.makeQuery(query);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {
@@ -266,6 +267,17 @@ var Users = /** @class */ (function (_super) {
     Users.prototype.getAllPostsByUser = function (user_name) {
         var query = "SELECT *        FROM posts        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
+    };
+    Users.prototype.getUserFromSession = function (sessionID) {
+        var query = "SELECT user_name        FROM users        WHERE current_session = " + sessionID;
+        return this.makeQuery(query);
+    };
+    Users.prototype.endSession = function (user_name) {
+        var query = "UPDATE users        SET current_session = 'null'        WHERE user_name = " + user_name + ";";
+        return this.makeQuery(query);
+    };
+    Users.prototype.startSession = function (user_name, sessionID) {
+        var query = "UPDATE users        SET current_session = " + sessionID + "\n        WHERE user_name = " + user_name + ";";
     };
     return Users;
 }(Table));

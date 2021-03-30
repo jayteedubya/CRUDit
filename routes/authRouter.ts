@@ -20,8 +20,7 @@ authRouter.post('/log-in', async (req, res, next) => {
         const user = await db.users.getUserFullInfo(userName)[0];
         const result = bcrypt.compare(password, user.password);
         if (result) {
-            //@ts-ignore  //this makes the compiler stop complaining
-            req.session.user = req.body.username;
+            db.users.startSession(userName, req.sessionID);
             res.redirect(`/user/${userName}`);
         }
     }
@@ -38,9 +37,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
     const emailaddress = req.body.emailaddress;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-        await db.users.createUser(username, emailaddress, hashedPassword);
-        //@ts-ignore
-        req.session.user = username;
+        await db.users.createUser(username, emailaddress, hashedPassword, req.sessionID);
         res.redirect(`/user/${username}`);
     }
     catch (err) {
@@ -50,12 +47,11 @@ authRouter.post('/sign-up', async (req, res, next) => {
 })
 
 authRouter.get('/am-i-in', (req, res, next) => {
-    //@ts-ignore
-    const user = req.session.user;
-    if (user) {
-        res.send(user);
-        return;
+    const sessionID = req.sessionID;
+    const user = db.users.getUserFromSession(sessionID);
+    if (!user) {
+        res.send('no worky worky');
     }
-    res.send('no worky worky');
+    res.send('yes');
 })
 export default authRouter;

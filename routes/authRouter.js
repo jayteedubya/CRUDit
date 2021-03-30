@@ -61,8 +61,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 user = _a.sent();
                 result = bcrypt.compare(password, user.password);
                 if (result) {
-                    //@ts-ignore  //this makes the compiler stop complaining
-                    req.session.user = req.body.username;
+                    db.users.startSession(userName, req.sessionID);
                     res.redirect("/user/" + userName);
                 }
                 return [3 /*break*/, 4];
@@ -89,11 +88,9 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword)];
+                return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword, req.sessionID)];
             case 3:
                 _a.sent();
-                //@ts-ignore
-                req.session.user = username;
                 res.redirect("/user/" + username);
                 return [3 /*break*/, 5];
             case 4:
@@ -106,12 +103,11 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
     });
 }); });
 authRouter.get('/am-i-in', function (req, res, next) {
-    //@ts-ignore
-    var user = req.session.user;
-    if (user) {
-        res.send(user);
-        return;
+    var sessionID = req.sessionID;
+    var user = db.users.getUserFromSession(sessionID);
+    if (!user) {
+        res.send('no worky worky');
     }
-    res.send('no worky worky');
+    res.send('yes');
 });
 exports["default"] = authRouter;
