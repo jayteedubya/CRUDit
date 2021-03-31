@@ -19,7 +19,8 @@ authRouter.post('/log-in', async (req, res, next) => {
     console.log(req.body);
     try {
         const userID = await db.users.getUserIdFromUserName(username);
-        const user = await db.users.getUserFullInfo(Number(userID))[0];
+        const userArr = await db.users.getUserFullInfo(userID);
+        const user = userArr[0];
         console.log('user:   ', user);
         const result = await bcrypt.compare(password, user.password);
         if (result) {
