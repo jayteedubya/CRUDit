@@ -161,7 +161,7 @@ class Users extends Table {
     getUserFullInfo(user_name: string) {
         const query = `SELECT *\
         FROM users\
-        WHERE user_name = ${user_name};`;
+        WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
