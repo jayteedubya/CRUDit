@@ -146,11 +146,11 @@ class Users extends Table {
         WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
-    getUserIdFromUserName(user_name: string) {
+    async getUserIdFromUserName(user_name: string) {
         const query = `SELECT id\
         FROM users\
         WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query)[0];
+        return await this.makeQuery(query)[0];
     }
     getPasswordByUserId(user_id: number) {
         const query = `SELECT password\
