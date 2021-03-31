@@ -64,7 +64,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
             case 3:
                 userArr = _a.sent();
                 user = userArr[0];
-                console.log('user:   ', user);
+                console.log('user:   ', userArr);
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
             case 4:
                 result = _a.sent();
