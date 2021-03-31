@@ -47,7 +47,7 @@ authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, userIDarr, userID, userArr, user, result, err_1;
+    var username, password, userID, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -57,17 +57,12 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 5, , 6]);
-                console.log(typeof username);
                 return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
             case 2:
-                userIDarr = _a.sent();
-                console.log('userIDarr  ', userIDarr); //undefined, but why?
-                userID = userIDarr[0];
-                return [4 /*yield*/, db.users.getUserFullInfo(Number(userID))];
+                userID = _a.sent();
+                return [4 /*yield*/, db.users.getUserFullInfo(Number(userID))[0]];
             case 3:
-                userArr = _a.sent();
-                console.log('userArr  ', userArr);
-                user = userArr[0];
+                user = _a.sent();
                 console.log('user:   ', user);
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
             case 4:
