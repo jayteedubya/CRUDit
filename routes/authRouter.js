@@ -60,11 +60,12 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
             case 2:
                 userID = _a.sent();
+                console.log('user ID   ', userID);
                 return [4 /*yield*/, db.users.getUserFullInfo(userID)];
             case 3:
                 userArr = _a.sent();
+                console.log('user array  ', userArr);
                 user = userArr[0];
-                console.log('user:   ', userArr);
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
             case 4:
                 result = _a.sent();
