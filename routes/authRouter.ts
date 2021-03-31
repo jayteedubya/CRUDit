@@ -18,10 +18,7 @@ authRouter.post('/log-in', async (req, res, next) => {
     const password = req.body.password;
     console.log(req.body);
     try {
-        const userIDarr = await db.users.getUserIdFromUserName(username);
-        const userID = userIDarr[0];
-        console.log('user ID   ', userID);
-        const userArr = await db.users.getUserFullInfo(userID);
+        const userArr = await db.users.getUserFullInfo(username);
         console.log('user array  ', userArr);
         const user = userArr[0];   //still undefined for some reason
         const result = await bcrypt.compare(password, user.password);

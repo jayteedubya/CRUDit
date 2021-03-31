@@ -47,7 +47,7 @@ authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, userIDarr, userID, userArr, user, result, err_1;
+    var username, password, userArr, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -56,31 +56,26 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 console.log(req.body);
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 5, , 6]);
-                return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
+                _a.trys.push([1, 4, , 5]);
+                return [4 /*yield*/, db.users.getUserFullInfo(username)];
             case 2:
-                userIDarr = _a.sent();
-                userID = userIDarr[0];
-                console.log('user ID   ', userID);
-                return [4 /*yield*/, db.users.getUserFullInfo(userID)];
-            case 3:
                 userArr = _a.sent();
                 console.log('user array  ', userArr);
                 user = userArr[0];
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
-            case 4:
+            case 3:
                 result = _a.sent();
                 if (result) {
                     db.users.startSession(username, req.sessionID);
                     res.redirect("/user/" + username);
                 }
-                return [3 /*break*/, 6];
-            case 5:
+                return [3 /*break*/, 5];
+            case 4:
                 err_1 = _a.sent();
                 console.warn(err_1);
                 res.send('failed');
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });

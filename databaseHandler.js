@@ -236,8 +236,8 @@ var Users = /** @class */ (function (_super) {
         var query = "SELECT password        FROM users        WHERE id = " + user_id + ";";
         return this.makeQuery(query);
     };
-    Users.prototype.getUserFullInfo = function (user_id) {
-        var query = "SELECT *        FROM users        WHERE id = " + user_id + ";";
+    Users.prototype.getUserFullInfo = function (user_name) {
+        var query = "SELECT *        FROM users        WHERE user_name = " + user_name + ";";
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password, current_session) {
