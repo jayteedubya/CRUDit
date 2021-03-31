@@ -61,7 +61,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
             case 2:
                 userIDarr = _a.sent();
                 userID = userIDarr[0];
-                return [4 /*yield*/, db.users.getUserFullInfo(userID)];
+                return [4 /*yield*/, db.users.getUserFullInfo(Number(userID))];
             case 3:
                 userArr = _a.sent();
                 user = userArr[0];
