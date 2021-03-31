@@ -47,7 +47,7 @@ authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, userID, user, result, err_1;
+    var username, password, userIDarr, userID, userArr, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -56,24 +56,30 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 console.log(req.body);
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.users.getUserIdFromUserName(username)[0]];
+                _a.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
             case 2:
-                userID = _a.sent();
-                user = db.users.getUserFullInfo(userID)[0];
-                console.log('user', user);
-                result = bcrypt.compare(password, user.password);
+                userIDarr = _a.sent();
+                userID = userIDarr[0];
+                return [4 /*yield*/, db.users.getUserFullInfo(userID)];
+            case 3:
+                userArr = _a.sent();
+                user = userArr[0];
+                console.log('user:   ', user);
+                return [4 /*yield*/, bcrypt.compare(password, user.password)];
+            case 4:
+                result = _a.sent();
                 if (result) {
                     db.users.startSession(username, req.sessionID);
                     res.redirect("/user/" + username);
                 }
-                return [3 /*break*/, 4];
-            case 3:
+                return [3 /*break*/, 6];
+            case 5:
                 err_1 = _a.sent();
                 console.warn(err_1);
                 res.send('failed');
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
