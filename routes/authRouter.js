@@ -57,10 +57,11 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 5, , 6]);
+                console.log(typeof username);
                 return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
             case 2:
                 userIDarr = _a.sent();
-                console.log('userIDarr  ', userIDarr);
+                console.log('userIDarr  ', userIDarr); //undefined, but why?
                 userID = userIDarr[0];
                 return [4 /*yield*/, db.users.getUserFullInfo(Number(userID))];
             case 3:

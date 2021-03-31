@@ -18,8 +18,9 @@ authRouter.post('/log-in', async (req, res, next) => {
     const password = req.body.password;
     console.log(req.body);
     try {
+        console.log(typeof username);
         const userIDarr = await db.users.getUserIdFromUserName(username);
-        console.log('userIDarr  ', userIDarr);
+        console.log('userIDarr  ', userIDarr);  //undefined, but why?
         const userID = userIDarr[0];
         const userArr = await db.users.getUserFullInfo(Number(userID));
         console.log('userArr  ', userArr);
