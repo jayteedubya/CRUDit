@@ -47,7 +47,7 @@ authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var userName, password, user, result, err_1;
+    var userName, password, userData, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -57,10 +57,12 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.users.getUserFullInfo(userName)[0]];
+                return [4 /*yield*/, db.users.getUserFullInfo(userName)];
             case 2:
-                user = _a.sent();
-                console.log(user);
+                userData = _a.sent();
+                console.log(userData);
+                user = userData[0];
+                console.log(userData);
                 result = bcrypt.compare(password, user.password);
                 if (result) {
                     db.users.startSession(userName, req.sessionID);

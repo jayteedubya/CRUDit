@@ -18,8 +18,10 @@ authRouter.post('/log-in', async (req, res, next) => {
     const password = req.body.password;
     console.log(req.body);
     try {
-        const user = await db.users.getUserFullInfo(userName)[0];
-        console.log(user);
+        const userData = await db.users.getUserFullInfo(userName);
+        console.log(userData);
+        const user = userData[0];
+        console.log(userData);
         const result = bcrypt.compare(password, user.password);
         if (result) {
             db.users.startSession(userName, req.sessionID);
