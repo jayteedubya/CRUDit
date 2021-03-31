@@ -47,7 +47,7 @@ authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, userID, userArr, user, result, err_1;
+    var username, password, userIDarr, userID, userArr, user, result, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -59,7 +59,8 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 _a.trys.push([1, 5, , 6]);
                 return [4 /*yield*/, db.users.getUserIdFromUserName(username)];
             case 2:
-                userID = _a.sent();
+                userIDarr = _a.sent();
+                userID = userIDarr[0];
                 console.log('user ID   ', userID);
                 return [4 /*yield*/, db.users.getUserFullInfo(userID)];
             case 3:

@@ -229,17 +229,8 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.getUserIdFromUserName = function (user_name) {
-        return __awaiter(this, void 0, void 0, function () {
-            var query;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        query = "SELECT id        FROM users        WHERE user_name = '" + user_name + "';";
-                        return [4 /*yield*/, this.makeQuery(query)[0]];
-                    case 1: return [2 /*return*/, _a.sent()];
-                }
-            });
-        });
+        var query = "SELECT id        FROM users        WHERE user_name = '" + user_name + "';";
+        return this.makeQuery(query);
     };
     Users.prototype.getPasswordByUserId = function (user_id) {
         var query = "SELECT password        FROM users        WHERE id = " + user_id + ";";
