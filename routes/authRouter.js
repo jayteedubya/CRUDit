@@ -56,7 +56,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 password = req.body.password;
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([1, 6, , 7]);
                 return [4 /*yield*/, db.users.getUserFullInfo(username)];
             case 2:
                 userArr = _a.sent();
@@ -64,18 +64,20 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
             case 3:
                 result = _a.sent();
-                if (result) {
-                    db.users.startSession(username, req.session.id);
-                    console.log(userArr[0]);
-                    res.redirect("/user/" + username);
-                }
-                return [3 /*break*/, 5];
+                if (!result) return [3 /*break*/, 5];
+                return [4 /*yield*/, db.users.startSession(username, req.session.id)];
             case 4:
+                _a.sent();
+                console.log(userArr[0]);
+                res.redirect("/user/" + username);
+                _a.label = 5;
+            case 5: return [3 /*break*/, 7];
+            case 6:
                 err_1 = _a.sent();
                 console.warn(err_1);
                 res.send('failed');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 7];
+            case 7: return [2 /*return*/];
         }
     });
 }); });

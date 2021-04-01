@@ -19,10 +19,10 @@ authRouter.post('/log-in', async (req, res, next) => {
     const password = req.body.password;
     try {
         const userArr = await db.users.getUserFullInfo(username);
-        const user = userArr[0];   
+        const user = userArr[0];   //for some god damn reason it wont add the damn session to the damn database
         const result = await bcrypt.compare(password, user.password);
         if (result) {
-            db.users.startSession(username, req.session.id);
+            await db.users.startSession(username, req.session.id);
             console.log(userArr[0]);
             res.redirect(`/user/${username}`);
         }

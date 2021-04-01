@@ -273,11 +273,11 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.endSession = function (user_name) {
-        var query = "UPDATE users        SET current_session = 'null'        WHERE user_name = '" + user_name + "';";
+        var query = "UPDATE users        SET current_session = ''        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     Users.prototype.startSession = function (user_name, sessionID) {
-        var query = "UPDATE users        SET current_session = " + sessionID + "\n        WHERE user_name = '" + user_name + "';";
+        var query = "UPDATE users        SET current_session = '" + sessionID + "'        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     return Users;
