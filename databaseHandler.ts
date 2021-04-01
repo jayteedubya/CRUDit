@@ -209,7 +209,7 @@ class Users extends Table {
     getUserFromSession(sessionID: string) {
         const query = `SELECT user_name\
         FROM users\
-        WHERE current_session = '${sessionID}'`;
+        WHERE current_session = '${sessionID}';`;
         return this.makeQuery(query);
     }
     endSession(user_name: string) {

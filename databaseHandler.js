@@ -269,7 +269,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.getUserFromSession = function (sessionID) {
-        var query = "SELECT user_name        FROM users        WHERE current_session = '" + sessionID + "'";
+        var query = "SELECT user_name        FROM users        WHERE current_session = '" + sessionID + "';";
         return this.makeQuery(query);
     };
     Users.prototype.endSession = function (user_name) {
