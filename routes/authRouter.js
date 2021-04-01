@@ -113,7 +113,7 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                sessionID = req.sessionID;
+                sessionID = req.session.id;
                 console.log(sessionID);
                 _a.label = 1;
             case 1:

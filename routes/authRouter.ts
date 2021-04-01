@@ -52,7 +52,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
 })
 
 authRouter.get('/am-i-in', async (req, res, next) => {
-    const sessionID = req.sessionID;
+    const sessionID = req.session.id;
     console.log(sessionID);
     try {
         const user = await db.users.getUserFromSession(sessionID);
