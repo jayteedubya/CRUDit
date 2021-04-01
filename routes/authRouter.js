@@ -46,6 +46,7 @@ authRouter.get('/log-in', function (req, res, next) {
 authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
+//fix memory leak session cookie store.
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var username, password, userArr, user, result, err_1;
     return __generator(this, function (_a) {
@@ -107,12 +108,26 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-authRouter.get('/am-i-in', function (req, res, next) {
-    var sessionID = req.sessionID;
-    var user = db.users.getUserFromSession(sessionID);
-    if (!user) {
-        res.send('no worky worky');
-    }
-    res.send('yes');
-});
+authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var sessionID, user, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                sessionID = req.sessionID;
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.users.getUserFromSession(sessionID)];
+            case 2:
+                user = _a.sent();
+                res.send("you are logged in as " + user[0].user_name);
+                return [3 /*break*/, 4];
+            case 3:
+                err_3 = _a.sent();
+                res.send('you are not logged in.');
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); });
 exports["default"] = authRouter;

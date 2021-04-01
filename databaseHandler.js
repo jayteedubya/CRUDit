@@ -241,7 +241,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password, current_session) {
-        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('" + user_name + "', '" + email + "', '" + password + ", " + current_session + "')        RETURNING user_name;";
+        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('" + user_name + "', '" + email + "', '" + password + ", '" + current_session + "')        RETURNING user_name;";
         return this.makeQuery(query);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {
@@ -269,15 +269,15 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.getUserFromSession = function (sessionID) {
-        var query = "SELECT user_name        FROM users        WHERE current_session = " + sessionID;
+        var query = "SELECT user_name        FROM users        WHERE current_session = '" + sessionID + "'";
         return this.makeQuery(query);
     };
     Users.prototype.endSession = function (user_name) {
-        var query = "UPDATE users        SET current_session = 'null'        WHERE user_name = " + user_name + ";";
+        var query = "UPDATE users        SET current_session = 'null'        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     Users.prototype.startSession = function (user_name, sessionID) {
-        var query = "UPDATE users        SET current_session = " + sessionID + "\n        WHERE user_name = " + user_name + ";";
+        var query = "UPDATE users        SET current_session = " + sessionID + "\n        WHERE user_name = '" + user_name + "';";
     };
     return Users;
 }(Table));

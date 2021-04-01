@@ -166,7 +166,7 @@ class Users extends Table {
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
         const query = `INSERT INTO users (user_name, email, password, current_session)\
-        VALUES ('${user_name}', '${email}', '${password}, ${current_session}')\
+        VALUES ('${user_name}', '${email}', '${password}, '${current_session}')\
         RETURNING user_name;`;
         return this.makeQuery(query);
     }
@@ -209,19 +209,19 @@ class Users extends Table {
     getUserFromSession(sessionID: string) {
         const query = `SELECT user_name\
         FROM users\
-        WHERE current_session = ${sessionID}`;
+        WHERE current_session = '${sessionID}'`;
         return this.makeQuery(query);
     }
     endSession(user_name: string) {
         const query = `UPDATE users\
         SET current_session = 'null'\
-        WHERE user_name = ${user_name};`;
+        WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }
     startSession(user_name: string, sessionID: string) {
         const query = `UPDATE users\
         SET current_session = ${sessionID}
-        WHERE user_name = ${user_name};`;
+        WHERE user_name = '${user_name}';`;
     }
 }
 

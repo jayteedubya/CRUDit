@@ -13,6 +13,8 @@ authRouter.get('/sign-up', (req, res, next) => {
     res.render('createUserPage');
 });
 
+//fix memory leak session cookie store.
+
 authRouter.post('/log-in', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -20,7 +22,7 @@ authRouter.post('/log-in', async (req, res, next) => {
     try {
         const userArr = await db.users.getUserFullInfo(username);
         console.log('user array  ', userArr);
-        const user = userArr[0];   //still undefined for some reason
+        const user = userArr[0];   
         const result = await bcrypt.compare(password, user.password);
         if (result) {
             db.users.startSession(username, req.sessionID);
@@ -49,12 +51,14 @@ authRouter.post('/sign-up', async (req, res, next) => {
     }
 })
 
-authRouter.get('/am-i-in', (req, res, next) => {
+authRouter.get('/am-i-in', async (req, res, next) => {
     const sessionID = req.sessionID;
-    const user = db.users.getUserFromSession(sessionID);
-    if (!user) {
-        res.send('no worky worky');
+    try {
+        const user = await db.users.getUserFromSession(sessionID);
+        res.send(`you are logged in as ${user[0].user_name}`);
     }
-    res.send('yes');
+    catch (err) {
+        res.send('you are not logged in.');
+    }
 })
 export default authRouter;
