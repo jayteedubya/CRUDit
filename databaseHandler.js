@@ -216,8 +216,8 @@ var Users = /** @class */ (function (_super) {
         email VARCHAR(120),\
         upvoted INTEGER[] NOT NULL DEFAULT '{}',\
         downvoted INTEGER[] NOT NULL DEFAULT '{}',\
-        password TEXT\
-        current_session);";
+        password TEXT,\
+        current_session TEXT);";
                         return [4 /*yield*/, this.makeQuery(startQuery)];
                     case 1: return [2 /*return*/, _a.sent()];
                 }
@@ -278,6 +278,7 @@ var Users = /** @class */ (function (_super) {
     };
     Users.prototype.startSession = function (user_name, sessionID) {
         var query = "UPDATE users        SET current_session = " + sessionID + "\n        WHERE user_name = '" + user_name + "';";
+        return this.makeQuery(query);
     };
     return Users;
 }(Table));

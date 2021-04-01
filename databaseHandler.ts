@@ -136,8 +136,8 @@ class Users extends Table {
         email VARCHAR(120),\
         upvoted INTEGER[] NOT NULL DEFAULT '{}',\
         downvoted INTEGER[] NOT NULL DEFAULT '{}',\
-        password TEXT\
-        current_session);";
+        password TEXT,\
+        current_session TEXT);";
         return await this.makeQuery(startQuery);
     }
     getUserPublicInfo(user_name: string) {
@@ -222,6 +222,7 @@ class Users extends Table {
         const query = `UPDATE users\
         SET current_session = ${sessionID}
         WHERE user_name = '${user_name}';`;
+        return this.makeQuery(query);
     }
 }
 
