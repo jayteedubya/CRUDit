@@ -51,10 +51,10 @@ authRouter.post('/sign-up', async (req, res, next) => {
 
 authRouter.get('/am-i-in', async (req, res, next) => {
     const sessionID = req.session.id;
-    console.log(sessionID);
+    console.log('session id before try', sessionID);
     try {
         const user = await db.users.getUserFromSession(sessionID);
-        console.log(user[0].current_session);
+        console.log('user, from am i in', user);
         res.send(`you are logged in as ${user[0].user_name}`);
     }
     catch (err) {
