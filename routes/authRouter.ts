@@ -1,5 +1,4 @@
 import * as express from 'express';
-import * as session from 'express-session';
 import * as db from '../databaseHandler';
 import * as bcrypt from 'bcrypt';
 
@@ -18,14 +17,13 @@ authRouter.get('/sign-up', (req, res, next) => {
 authRouter.post('/log-in', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(req.body);
     try {
         const userArr = await db.users.getUserFullInfo(username);
-        console.log('user array  ', userArr);
         const user = userArr[0];   
         const result = await bcrypt.compare(password, user.password);
         if (result) {
-            db.users.startSession(username, req.sessionID);
+            db.users.startSession(username, req.session.id);
+            console.log(userArr[0]);
             res.redirect(`/user/${username}`);
         }
     }
@@ -42,14 +40,14 @@ authRouter.post('/sign-up', async (req, res, next) => {
     const emailaddress = req.body.emailaddress;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-        await db.users.createUser(username, emailaddress, hashedPassword, req.sessionID);
+        await db.users.createUser(username, emailaddress, hashedPassword, req.session.id);
         res.redirect(`/user/${username}`);
     }
     catch (err) {
-        console.warn(err)
+        console.warn(err);
         res.send('no worky worky');
     }
-})
+});
 
 authRouter.get('/am-i-in', async (req, res, next) => {
     const sessionID = req.session.id;
@@ -60,7 +58,8 @@ authRouter.get('/am-i-in', async (req, res, next) => {
         res.send(`you are logged in as ${user[0].user_name}`);
     }
     catch (err) {
+        console.warn(err);
         res.send('you are not logged in.');
     }
-})
+});
 export default authRouter;

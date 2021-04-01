@@ -54,20 +54,19 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
             case 0:
                 username = req.body.username;
                 password = req.body.password;
-                console.log(req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);
                 return [4 /*yield*/, db.users.getUserFullInfo(username)];
             case 2:
                 userArr = _a.sent();
-                console.log('user array  ', userArr);
                 user = userArr[0];
                 return [4 /*yield*/, bcrypt.compare(password, user.password)];
             case 3:
                 result = _a.sent();
                 if (result) {
-                    db.users.startSession(username, req.sessionID);
+                    db.users.startSession(username, req.session.id);
+                    console.log(userArr[0]);
                     res.redirect("/user/" + username);
                 }
                 return [3 /*break*/, 5];
@@ -94,7 +93,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 _a.label = 2;
             case 2:
                 _a.trys.push([2, 4, , 5]);
-                return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword, req.sessionID)];
+                return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword, req.session.id)];
             case 3:
                 _a.sent();
                 res.redirect("/user/" + username);
@@ -126,6 +125,7 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
                 return [3 /*break*/, 4];
             case 3:
                 err_3 = _a.sent();
+                console.warn(err_3);
                 res.send('you are not logged in.');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
