@@ -133,7 +133,7 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
             case 1:
                 user = _a.sent();
                 if (!user[0]) return [3 /*break*/, 3];
-                return [4 /*yield*/, db.comments.createComment(user[0].username, req.body.comment, Number(req.params.postId))];
+                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
             case 2:
                 _a.sent();
                 res.redirect('back');

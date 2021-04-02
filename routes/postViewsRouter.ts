@@ -55,7 +55,7 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
     try {
         const user = await db.users.getUserFromSession(req.session.id);
         if (user[0]) {
-            await db.comments.createComment(user[0].username, req.body.comment, Number(req.params.postId));
+            await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
             res.redirect('back');
         }
         res.redirect('back');
