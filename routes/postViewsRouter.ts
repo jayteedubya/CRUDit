@@ -51,9 +51,25 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
     }
 })
 
+postViewsRouter.get('/post/:postId', async (req, res, next) => {
+    try {
+        const user = await db.users.getUserFromSession(req.session.id);
+        if (user[0]) {
+            await db.comments.createComment(user[0].username, req.body.comment, Number(req.params.postId));
+            res.redirect('back');
+        }
+        res.redirect('back');
+    }
+    catch(err) {
+        console.warn(err);
+        res.redirect('/');
+    }
+
+})
+
 postViewsRouter.use((err, req, res, next) => {
     console.error(err);
-    res.status(404).redirect('/error/post404');
+    res.status(404).redirect('/');
 })
 
 

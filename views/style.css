@@ -76,7 +76,15 @@
 }
 .login {
     margin: 10px;
-
+}
+.upvote {
+    padding-bottom: 50%;
+}
+.downvote {
+    padding-top: 50%;
+}
+.upvote {
+    background-image: url('upvote.png');
 }
 body {
     background-color: rgb(90, 85, 85);
@@ -84,4 +92,11 @@ body {
 }
 li {
     list-style-type: none;
+}
+br {
+    display: block;
+    margin: -0.4em;
+}
+ul {
+    display: inline-block;
 }
