@@ -93,10 +93,3 @@ body {
 li {
     list-style-type: none;
 }
-br {
-    display: block;
-    margin: -0.4em;
-}
-ul {
-    display: inline-block;
-}

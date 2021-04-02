@@ -51,7 +51,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
     }
 })
 
-postViewsRouter.get('/post/:postId', async (req, res, next) => {
+postViewsRouter.post('/post/:postId', async (req, res, next) => {
     try {
         const user = await db.users.getUserFromSession(req.session.id);
         if (user[0]) {
