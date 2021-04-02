@@ -109,8 +109,33 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
+authRouter.post('/log-out', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+            case 1:
+                user = _a.sent();
+                if (user) {
+                    db.users.endSession(user[0].user_name);
+                    res.redirect('/');
+                    return [2 /*return*/];
+                }
+                res.send('already out');
+                return [3 /*break*/, 3];
+            case 2:
+                err_3 = _a.sent();
+                console.log(err_3);
+                res.redirect('/error/auth-err');
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var sessionID, user, err_3;
+    var sessionID, user, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -126,8 +151,8 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
                 res.send("you are logged in as " + user[0].user_name);
                 return [3 /*break*/, 4];
             case 3:
-                err_3 = _a.sent();
-                console.warn(err_3);
+                err_4 = _a.sent();
+                console.warn(err_4);
                 res.send('you are not logged in.');
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];

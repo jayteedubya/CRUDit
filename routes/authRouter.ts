@@ -49,6 +49,22 @@ authRouter.post('/sign-up', async (req, res, next) => {
     }
 });
 
+authRouter.post('/log-out', async (req, res, next) => {
+    try {
+        const user = await db.users.getUserFromSession(req.session.id);
+        if (user) {
+            db.users.endSession(user[0].user_name);
+            res.redirect('/');
+            return;
+        }
+        res.send('already out');
+    }
+    catch (err) {
+        console.log(err);
+        res.redirect('/error/auth-err');
+    }
+})
+
 authRouter.get('/am-i-in', async (req, res, next) => {
     const sessionID = req.session.id;
     console.log('session id before try', sessionID);
