@@ -3,7 +3,6 @@
     <%-include('partials/head')%>
     <script>
         function submitForm() {
-            console.log('here')
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
             fetch('/submit/post', {
@@ -20,8 +19,6 @@
         <ul>
             <label for="topic">topic:</label>
             <li><input id="topic"type= "text" name="topic" maxlength="30"></li>
-            <lable for="author" type="text">author:</lable>
-            <li><input type="text" name="author" id="author" maxlength="40"></li>
             <label for="title" type="text" id="title">post title:</label>
             <li><input type="text" name="title" id="title" maxlength="100"></li>
             <label for="post">body:</label>
