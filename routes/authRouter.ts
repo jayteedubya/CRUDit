@@ -49,7 +49,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
     }
 });
 
-authRouter.post('/log-out', async (req, res, next) => {
+authRouter.get('/log-out', async (req, res, next) => {
     try {
         const user = await db.users.getUserFromSession(req.session.id);
         if (user) {

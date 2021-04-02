@@ -109,7 +109,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
         }
     });
 }); });
-authRouter.post('/log-out', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+authRouter.get('/log-out', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
