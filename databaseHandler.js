@@ -142,7 +142,6 @@ var Posts = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('deleting post!');
                         deletePostQuery = "DELETE FROM posts        WHERE id = " + post_id + ";";
                         deletePostCommentsQuery = "DELETE FROM comments        WHERE post_id = " + post_id + ";";
                         return [4 /*yield*/, this.makeQuery(deletePostCommentsQuery)];
