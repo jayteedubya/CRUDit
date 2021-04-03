@@ -1,5 +1,6 @@
 import * as express from 'express';
 import * as db from '../databaseHandler';
+import * as cors from 'cors';
 
 const postViewsRouter = express.Router();
 
@@ -66,8 +67,10 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
         console.warn(err);
         res.redirect('/');
     }
-
-postViewsRouter.delete('/post/:postId', async (req, res, next) => {
+//@ts-ignore
+postViewsRouter.options('/post/:postId', cors());
+//@ts-ignore
+postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
     try {
         let user = await db.users.getUserFromSession(req.session.id);  //the request never gets here, why?
         user = user[0].user_name;

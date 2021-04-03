@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var express = require("express");
 var db = require("../databaseHandler");
+var cors = require("cors");
 var postViewsRouter = express.Router();
 postViewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var posts, err_1;
@@ -151,7 +152,10 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
                 res.redirect('/');
                 return [3 /*break*/, 5];
             case 5:
-                postViewsRouter["delete"]('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+                //@ts-ignore
+                postViewsRouter.options('/post/:postId', cors());
+                //@ts-ignore
+                postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
                     var user, err_6;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
