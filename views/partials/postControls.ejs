@@ -1,6 +1,10 @@
 <script>
     const deletePost = async (postID) => {
-        const result = await fetch(window.location.href, {method: 'DELETE'});
+        const result = await fetch(window.location.href, {
+            method: 'DELETE', headers: {
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            }
+        });
         console.log(result);
         return;
     }
