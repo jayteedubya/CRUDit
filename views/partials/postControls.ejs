@@ -4,8 +4,7 @@
             method: 'DELETE', headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
-            credentials: 'include',
-            redirect: `/user/${post.user_name}`
+            credentials: 'include'
         });
         if (!result.ok) {
             console.log('delete failed!');
