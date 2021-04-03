@@ -3,7 +3,8 @@
         const result = await fetch(window.location.href, {
             method: 'DELETE', headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            }
+            },
+            credentials: 'include'
         });
         console.log(result);
         return;
