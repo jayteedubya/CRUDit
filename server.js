@@ -13,6 +13,10 @@ var app = express();
 var PORT = process.env.PORT || 4001;
 var upload = multer({ dest: '/' });
 app.set('view engine', 'ejs');
+app.use(function (req, res, next) {
+    console.log(req.method);
+    next();
+});
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
