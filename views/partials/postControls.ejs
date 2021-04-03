@@ -1,0 +1,14 @@
+<script>
+    const deletePost = () => {
+        fetch(`/post/${post.id}`, {method: 'DELETE'});
+        return;
+    }
+    const editPost = () => {
+        console.log("can't rn");
+        return;
+    }
+</script>
+<ul>
+    <li><button class="post-control" onclick="deletePost()"> delete post </button></li>
+    <li><button class="post-control" onclick="editPost()"> edit post </button></li>
+</ul>

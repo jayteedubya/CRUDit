@@ -97,29 +97,34 @@ postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaite
     });
 }); });
 postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, post, postObject, comments, err_4;
+    var postId, userFromSession, post, postObject, comments, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 postId = Number(req.params.postId);
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
-                return [4 /*yield*/, db.posts.getPostById(postId)];
+                _a.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
             case 2:
+                userFromSession = _a.sent();
+                userFromSession = userFromSession[0].user_name;
+                return [4 /*yield*/, db.posts.getPostById(postId)];
+            case 3:
                 post = _a.sent();
                 postObject = post[0];
                 return [4 /*yield*/, db.comments.getCommentsByPostId(postId)];
-            case 3:
+            case 4:
                 comments = _a.sent();
                 postObject.comments = comments;
+                postObject.userLoggedIn = !!userFromSession;
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
-            case 4:
+            case 5:
                 err_4 = _a.sent();
                 next(err_4);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
@@ -139,14 +144,71 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
                 res.redirect('back');
                 _a.label = 3;
             case 3:
-                res.redirect('back');
+                res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
                 err_5 = _a.sent();
                 console.warn(err_5);
                 res.redirect('/');
                 return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+            case 5:
+                postViewsRouter["delete"]('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+                    var user, err_6;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 4, , 5]);
+                                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+                            case 1:
+                                user = _a.sent();
+                                user = user[0].user_name;
+                                if (!user) return [3 /*break*/, 3];
+                                return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
+                            case 2:
+                                _a.sent();
+                                res.redirect("/user/" + user);
+                                return [2 /*return*/];
+                            case 3:
+                                res.redirect('/auth/log-in');
+                                return [2 /*return*/];
+                            case 4:
+                                err_6 = _a.sent();
+                                console.log(err_6);
+                                res.redirect('back');
+                                return [3 /*break*/, 5];
+                            case 5: return [2 /*return*/];
+                        }
+                    });
+                }); });
+                postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+                    var user, err_7;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 4, , 5]);
+                                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+                            case 1:
+                                user = _a.sent();
+                                user = user[0].user_name;
+                                if (!user) return [3 /*break*/, 3];
+                                return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
+                            case 2:
+                                _a.sent();
+                                res.redirect('back');
+                                _a.label = 3;
+                            case 3:
+                                res.redirect('/auth/log-in');
+                                return [3 /*break*/, 5];
+                            case 4:
+                                err_7 = _a.sent();
+                                console.log(err_7);
+                                res.redirect('back');
+                                return [3 /*break*/, 5];
+                            case 5: return [2 /*return*/];
+                        }
+                    });
+                }); });
+                return [2 /*return*/];
         }
     });
 }); });

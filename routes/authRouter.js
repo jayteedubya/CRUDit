@@ -140,20 +140,22 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
         switch (_a.label) {
             case 0:
                 sessionID = req.session.id;
-                console.log('session id before try', sessionID);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, db.users.getUserFromSession(sessionID)];
             case 2:
                 user = _a.sent();
-                console.log('user, from am i in', user);
-                res.send("you are logged in as " + user[0].user_name);
+                if (user[0].user_name) {
+                    res.send(true);
+                    return [2 /*return*/];
+                }
+                res.send(false);
                 return [3 /*break*/, 4];
             case 3:
                 err_4 = _a.sent();
                 console.warn(err_4);
-                res.send('you are not logged in.');
+                res.send(false);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

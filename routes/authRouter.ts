@@ -67,15 +67,17 @@ authRouter.get('/log-out', async (req, res, next) => {
 
 authRouter.get('/am-i-in', async (req, res, next) => {
     const sessionID = req.session.id;
-    console.log('session id before try', sessionID);
     try {
         const user = await db.users.getUserFromSession(sessionID);
-        console.log('user, from am i in', user);
-        res.send(`you are logged in as ${user[0].user_name}`);
+        if (user[0].user_name) {  
+            res.send(true);
+            return;
+        }
+        res.send(false);
     }
     catch (err) {
         console.warn(err);
-        res.send('you are not logged in.');
+        res.send(false);
     }
 });
 export default authRouter;

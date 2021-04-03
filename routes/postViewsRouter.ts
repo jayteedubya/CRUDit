@@ -39,10 +39,13 @@ postViewsRouter.get('/topic/:topic', async (req, res, next) => {
 postViewsRouter.get('/post/:postId', async (req, res, next) => {
     const postId = Number(req.params.postId)
     try {
+        let userFromSession = await db.users.getUserFromSession(req.session.id);
+        userFromSession = userFromSession[0].user_name;
         const post = await db.posts.getPostById(postId);
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId);    //issues exist with comments being undefined, that is why only post 1 shows up
         postObject.comments = comments;
+        postObject.userLoggedIn = !!userFromSession;
         res.render('textPost', {post: postObject});
         return;
     }
@@ -58,12 +61,46 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
             await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
             res.redirect('back');
         }
-        res.redirect('back');
+        res.redirect('/auth/log-in');
     }
     catch(err) {
         console.warn(err);
         res.redirect('/');
     }
+
+postViewsRouter.delete('/post/:postId', async (req, res, next) => {
+    try {
+        let user = await db.users.getUserFromSession(req.session.id);
+        user = user[0].user_name;
+        if (user) {
+            await db.posts.deletePost(Number(req.params.postId));
+            res.redirect(`/user/${user}`);
+            return;
+        }
+        res.redirect('/auth/log-in');
+        return;
+    }
+    catch (err) {
+        console.log(err);
+        res.redirect('back');
+    }
+})
+
+postViewsRouter.put('/post/:postId', async (req, res, next) => {
+    try {
+        let user = await db.users.getUserFromSession(req.session.id);
+        user = user[0].user_name;
+        if (user) {
+            await db.posts.editPost(req.body.postbody, Number(req.params.postId));
+            res.redirect('back');
+        }
+        res.redirect('/auth/log-in') 
+    }
+    catch (err) {
+        console.log(err);
+        res.redirect('back');
+    }
+})
 
 })
 
