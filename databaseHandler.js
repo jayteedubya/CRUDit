@@ -137,9 +137,24 @@ var Posts = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Posts.prototype.deletePost = function (post_id) {
-        console.log('deleting post!');
-        var query = "DELETE FROM posts        WHERE id = " + post_id + ";";
-        return this.makeQuery(query);
+        return __awaiter(this, void 0, void 0, function () {
+            var deletePostQuery, deletePostCommentsQuery;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('deleting post!');
+                        deletePostQuery = "DELETE FROM posts        WHERE id = " + post_id + ";";
+                        deletePostCommentsQuery = "DELETE FROM comments        WHERE post_id = " + post_id + ";";
+                        return [4 /*yield*/, this.makeQuery(deletePostCommentsQuery)];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, this.makeQuery(deletePostQuery)];
+                    case 2:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     return Posts;
 }(Table));
