@@ -6,8 +6,11 @@
             },
             credentials: 'include'
         });
-        window.location.replace (`/user/${post.user_name}`);
-        return;
+        if (result.ok) {
+            window.location.replace (`/user/${post.user_name}`);
+            return;
+        }
+        console.log('delete failed!');
     }
     const editPost = () => {
         console.log("I DON'T KNOW HOOOWWWOOOOWWWW!!!  :'(");
