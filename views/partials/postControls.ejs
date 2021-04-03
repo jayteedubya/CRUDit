@@ -4,13 +4,12 @@
             method: 'DELETE', headers: {
                 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
             },
-            credentials: 'include'
+            credentials: 'include',
+            redirect: `/user/${post.user_name}`
         });
-        if (result.ok) {
-            window.location.replace (`/user/${post.user_name}`);
-            return;
+        if (!result.ok) {
+            console.log('delete failed!');
         }
-        console.log('delete failed!');
     }
     const editPost = () => {
         console.log("I DON'T KNOW HOOOWWWOOOOWWWW!!!  :'(");
