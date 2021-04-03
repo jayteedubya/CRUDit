@@ -16,7 +16,7 @@ app.use(function (req, res, next) {
     console.log(req.method); //requests are being recieved
     next();
 });
-//app.use(upload.none());
+app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 //app.use(cors()); 
