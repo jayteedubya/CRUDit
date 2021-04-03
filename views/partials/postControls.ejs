@@ -6,7 +6,7 @@
             },
             credentials: 'include'
         });
-        window.location.href = `/user/${post.user_name}`;
+        window.location.replace (`/user/${post.user_name}`);
         return;
     }
     const editPost = () => {
