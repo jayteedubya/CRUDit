@@ -68,9 +68,8 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
     }
 
 postViewsRouter.delete('/post/:postId', async (req, res, next) => {
-    console.log(req.method);
     try {
-        let user = await db.users.getUserFromSession(req.session.id);
+        let user = await db.users.getUserFromSession(req.session.id);  //the request never gets here, why?
         user = user[0].user_name;
         if (user) {
             await db.posts.deletePost(Number(req.params.postId));
