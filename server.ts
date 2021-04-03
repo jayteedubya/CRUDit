@@ -25,7 +25,6 @@ app.use((req, res, next) => {
     console.log(req.session.id); //requests are being recieved
     next();
 });
-
 app.use('/', postViewsRouter);  //the request never makes it to the router. but why?
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
