@@ -68,6 +68,7 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
     }
 
 postViewsRouter.delete('/post/:postId', async (req, res, next) => {
+    console.log(req.method);
     try {
         let user = await db.users.getUserFromSession(req.session.id);
         user = user[0].user_name;

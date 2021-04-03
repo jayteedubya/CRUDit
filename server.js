@@ -3,6 +3,7 @@ exports.__esModule = true;
 var express = require("express");
 var bodyParser = require("body-parser");
 var multer = require("multer");
+var cors = require("cors");
 var session = require("express-session");
 var postViewsRouter_1 = require("./routes/postViewsRouter");
 var userViewsRouter_1 = require("./routes/userViewsRouter");
@@ -19,7 +20,7 @@ app.use(function (req, res, next) {
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(cors()); 
+app.use(cors()); //not a cors issue
 app.use(session({ secret: process.env.SECRET, cookie: { secure: true }, proxy: true })); //make sure proxy is set to true of using https;
 app.use('/', postViewsRouter_1["default"]);
 app.use('/user', userViewsRouter_1["default"]);
