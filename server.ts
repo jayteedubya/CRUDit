@@ -15,16 +15,16 @@ const PORT = process.env.PORT || 4001;
 const upload = multer({dest: '/'});
 
 app.set('view engine', 'ejs');
-app.use((req, res, next) => {
-    console.log(req.method);
-    console.log(req.session.id)  //requests are being recieved
-    next();
-});
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());  //not a cors issue
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true }));  //make sure proxy is set to true if using https;
+app.use((req, res, next) => {
+    console.log(req.method);
+    console.log(req.session.id); //requests are being recieved
+    next();
+});
 
 app.use('/', postViewsRouter);  //the request never makes it to the router. but why?
 app.use('/user', userViewsRouter);
