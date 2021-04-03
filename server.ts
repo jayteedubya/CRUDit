@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
-//app.use(cors()); 
+app.use(cors()); 
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true }));  //make sure proxy is et to true of using https;
 
 app.use('/', postViewsRouter);
