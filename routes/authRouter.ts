@@ -23,7 +23,6 @@ authRouter.post('/log-in', async (req, res, next) => {
         const result = await bcrypt.compare(password, user.password);
         if (result) {
             await db.users.startSession(username, req.session.id);
-            console.log(userArr[0]);
             res.redirect(`/user/${username}`);
         }
     }

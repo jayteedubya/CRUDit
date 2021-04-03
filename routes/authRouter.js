@@ -68,7 +68,6 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, db.users.startSession(username, req.session.id)];
             case 4:
                 _a.sent();
-                console.log(userArr[0]);
                 res.redirect("/user/" + username);
                 _a.label = 5;
             case 5: return [3 /*break*/, 7];
