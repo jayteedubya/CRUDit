@@ -86,7 +86,7 @@
 .upvote {
     background-image: url('upvote.png');
 }
-.post-control ul {
+.post-control li {
     display: inline;
     margin-right: 15px;
 }

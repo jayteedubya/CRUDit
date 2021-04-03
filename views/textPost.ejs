@@ -25,7 +25,7 @@
         <div class="post-body">
             <p><%=post.body%></p>
         </div>
-        <%if (post.userLoggedIn) {%><%-include('partials/postControls')%><%}%>
+        <%if (post.userLoggedIn === 'true') {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
     <form id="post-form" method="post" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
