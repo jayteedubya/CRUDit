@@ -1,6 +1,7 @@
 <script>
-    const deletePost = (postID) => {
-        fetch(window.location.href, {method: 'DELETE'});
+    const deletePost = async (postID) => {
+        const result = await fetch(window.location.href, {method: 'DELETE'});
+        console.log(result);
         return;
     }
     const editPost = () => {
