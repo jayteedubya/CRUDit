@@ -39,11 +39,10 @@ postViewsRouter.get('/topic/:topic', async (req, res, next) => {
 postViewsRouter.get('/post/:postId', async (req, res, next) => {
     const postId = Number(req.params.postId)
     try {
-        let userFromSession = await db.users.getUserFromSession(req.session.id);
-        userFromSession = userFromSession[0].user_name;
+        const userFromSession = await db.users.getUserFromSession(req.session.id);
         const post = await db.posts.getPostById(postId);
         const postObject = post[0];
-        const comments = await db.comments.getCommentsByPostId(postId);    //issues exist with comments being undefined, that is why only post 1 shows up
+        const comments = await db.comments.getCommentsByPostId(postId); 
         postObject.comments = comments;
         postObject.userLoggedIn = !!userFromSession;
         res.render('textPost', {post: postObject});

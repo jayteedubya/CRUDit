@@ -108,7 +108,6 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
                 return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
             case 2:
                 userFromSession = _a.sent();
-                userFromSession = userFromSession[0].user_name;
                 return [4 /*yield*/, db.posts.getPostById(postId)];
             case 3:
                 post = _a.sent();
