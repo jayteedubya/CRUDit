@@ -64,12 +64,13 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     async deletePost(post_id: number) {
+        console.log('deleting post');
         const deletePostQuery = `DELETE FROM posts\
         WHERE id = ${post_id};`;
         const deletePostCommentsQuery = `DELETE FROM comments\
         WHERE post_id = ${post_id};`;
         await this.makeQuery(deletePostCommentsQuery);
-        await this.makeQuery(deletePostQuery);
+        return await this.makeQuery(deletePostQuery);
     }
 }
 
