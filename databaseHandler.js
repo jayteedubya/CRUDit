@@ -57,6 +57,7 @@ var Table = /** @class */ (function () {
     function Table() {
     }
     Table.prototype.getNewClient = function () {
+        console.log('getting new client');
         return new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
     };
     Table.prototype.makeQuery = function (query) {
@@ -65,20 +66,23 @@ var Table = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        _a.trys.push([0, 3, , 4]);
+                        console.log('querying database');
+                        _a.label = 1;
+                    case 1:
+                        _a.trys.push([1, 4, , 5]);
                         client = this.getNewClient();
                         return [4 /*yield*/, client.connect()];
-                    case 1:
+                    case 2:
                         _a.sent();
                         return [4 /*yield*/, client.query(query)];
-                    case 2:
+                    case 3:
                         queryResult = _a.sent();
                         client.end();
                         return [2 /*return*/, queryResult.rows];
-                    case 3:
+                    case 4:
                         err_1 = _a.sent();
                         throw err_1;
-                    case 4: return [2 /*return*/];
+                    case 5: return [2 /*return*/];
                 }
             });
         });
@@ -100,7 +104,6 @@ var Posts = /** @class */ (function (_super) {
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
-        upvotes INTEGER DEFAULT 0,\
         time_stamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
         user_name VARCHAR(40) REFERENCES users(user_name));";
@@ -114,12 +117,6 @@ var Posts = /** @class */ (function (_super) {
         var query = 'SELECT *\
         FROM posts\
         ORDER BY time_stamp DESC;';
-        return this.makeQuery(query);
-    };
-    Posts.prototype.getAllOrderedByRank = function () {
-        var query = 'SELECT *\
-        FROM posts\
-        ORDER BY upvotes DESC;';
         return this.makeQuery(query);
     };
     Posts.prototype.getAllByTopic = function (topic) {
@@ -140,15 +137,8 @@ var Posts = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Posts.prototype.deletePost = function (post_id) {
+        console.log('deleting post!');
         var query = "DELETE FROM posts        WHERE id = " + post_id + ";";
-        return this.makeQuery(query);
-    };
-    Posts.prototype.upvote = function (post_id) {
-        var query = "UPDATE posts        SET upvotes = upvotes + 1\n        WHERE id = " + post_id;
-        return this.makeQuery(query);
-    };
-    Posts.prototype.downvote = function (post_id) {
-        var query = "UPDATE posts        SET upvotes = upvotes - 1\n        WHERE id = " + post_id;
         return this.makeQuery(query);
     };
     return Posts;

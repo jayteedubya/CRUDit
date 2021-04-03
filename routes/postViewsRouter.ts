@@ -15,17 +15,6 @@ postViewsRouter.get('/', async (req, res, next) => {
     }
 });
 
-postViewsRouter.get('/ranked', async (req, res, next) => {
-    try {
-        const posts = await db.posts.getAllOrderedByRank();
-        res.render('homepage', {posts: posts});
-        return;
-    }
-    catch(err) {
-        next(err);
-    }
-});
-
 postViewsRouter.get('/topic/:topic', async (req, res, next) => {
     try {
         const posts = await db.posts.getAllByTopic(req.params.topic);
@@ -72,7 +61,8 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
 postViewsRouter.options('/post/:postId', cors());
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
-    console.log(req.session.id);
+    //requests now make it this far, then get a database issue, too many connections
+    console.log('delete request recieved');
     try {
         let user = await db.users.getUserFromSession(req.session.id);  //the request never gets here, why?
         user = user[0].user_name;

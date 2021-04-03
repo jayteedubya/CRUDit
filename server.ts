@@ -20,12 +20,8 @@ app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());  //not a cors issue
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true }));  //make sure proxy is set to true if using https;
-app.use((req, res, next) => {
-    console.log(req.method);
-    console.log(req.session.id); //requests are being recieved
-    next();
-});
-app.use('/', postViewsRouter);  //the request never makes it to the router. but why?
+
+app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);
 app.use('/submit', submitViewsRouter);
 app.use('/auth', authRouter);

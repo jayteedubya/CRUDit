@@ -59,13 +59,13 @@ postViewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, vo
         }
     });
 }); });
-postViewsRouter.get('/ranked', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var posts, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.posts.getAllOrderedByRank()];
+                return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
             case 1:
                 posts = _a.sent();
                 res.render('homepage', { posts: posts });
@@ -78,27 +78,8 @@ postViewsRouter.get('/ranked', function (req, res, next) { return __awaiter(void
         }
     });
 }); });
-postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts, err_3;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.posts.getAllByTopic(req.params.topic)];
-            case 1:
-                posts = _a.sent();
-                res.render('homepage', { posts: posts });
-                return [2 /*return*/];
-            case 2:
-                err_3 = _a.sent();
-                next(err_3);
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
-        }
-    });
-}); });
 postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, userFromSession, post, postObject, comments, err_4;
+    var postId, userFromSession, post, postObject, comments, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -121,15 +102,15 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
             case 5:
-                err_4 = _a.sent();
-                next(err_4);
+                err_3 = _a.sent();
+                next(err_3);
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
     });
 }); });
 postViewsRouter.post('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_5;
+    var user, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -147,8 +128,8 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
                 res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
-                err_5 = _a.sent();
-                console.warn(err_5);
+                err_4 = _a.sent();
+                console.warn(err_4);
                 res.redirect('/');
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
@@ -159,11 +140,12 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
 postViewsRouter.options('/post/:postId', cors());
 //@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_6;
+    var user, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.session.id);
+                //requests now make it this far, then get a database issue, too many connections
+                console.log('delete request recieved');
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 5, , 6]);
@@ -181,8 +163,8 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
             case 5:
-                err_6 = _a.sent();
-                console.log(err_6);
+                err_5 = _a.sent();
+                console.log(err_5);
                 res.redirect('back');
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
@@ -190,7 +172,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
     });
 }); });
 postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_7;
+    var user, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -209,8 +191,8 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
                 res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
-                err_7 = _a.sent();
-                console.log(err_7);
+                err_6 = _a.sent();
+                console.log(err_6);
                 res.redirect('back');
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];

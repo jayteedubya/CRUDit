@@ -2,9 +2,11 @@ import * as pg from 'pg';
 
 class Table {
     getNewClient() {
+        console.log('getting new client');
         return new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}});
     }
     async makeQuery(query: string) {
+        console.log('querying database');
         try {
             const client = this.getNewClient();
             await client.connect();
@@ -25,7 +27,6 @@ class Posts extends Table {
         id SERIAL PRIMARY KEY,\
         title VARCHAR(100) NOT NULL,\
         topic VARCHAR(30),\
-        upvotes INTEGER DEFAULT 0,\
         time_stamp TIMESTAMPTZ NOT NULL DEFAULT NOW(),\
         body VARCHAR(5000),\
         user_name VARCHAR(40) REFERENCES users(user_name));"
@@ -35,12 +36,6 @@ class Posts extends Table {
         const query = 'SELECT *\
         FROM posts\
         ORDER BY time_stamp DESC;'
-        return this.makeQuery(query);
-    }
-    getAllOrderedByRank() {
-        const query = 'SELECT *\
-        FROM posts\
-        ORDER BY upvotes DESC;'
         return this.makeQuery(query);
     }
     getAllByTopic(topic: string) {
@@ -69,20 +64,9 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     deletePost(post_id: number) {
+        console.log('deleting post!');
         const query = `DELETE FROM posts\
         WHERE id = ${post_id};`;
-        return this.makeQuery(query);
-    }
-    upvote(post_id: number) {
-        const query = `UPDATE posts\
-        SET upvotes = upvotes + 1
-        WHERE id = ${post_id}`;
-        return this.makeQuery(query);
-    }
-    downvote(post_id: number) {
-        const query = `UPDATE posts\
-        SET upvotes = upvotes - 1
-        WHERE id = ${post_id}`;
         return this.makeQuery(query);
     }
 }
