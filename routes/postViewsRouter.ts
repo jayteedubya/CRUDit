@@ -34,7 +34,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId); 
         postObject.comments = comments;
-        if (userFromSession[0].user_name) {
+        if (userFromSession[0]) {
             postObject.userLoggedIn = (postObject.user_name === userFromSession[0].user_name);
         }
         else {
