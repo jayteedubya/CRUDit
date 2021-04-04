@@ -65,6 +65,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
         let user = await db.users.getUserFromSession(req.session.id);
         user = user[0].user_name;
         if (user) {
+            res.sendStatus(200);
             await db.posts.deletePost(Number(req.params.postId));
             res.redirect(`/user/${user}`);
         }

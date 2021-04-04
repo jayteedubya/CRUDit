@@ -150,6 +150,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 user = _a.sent();
                 user = user[0].user_name;
                 if (!user) return [3 /*break*/, 3];
+                res.sendStatus(200);
                 return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
             case 2:
                 _a.sent();
