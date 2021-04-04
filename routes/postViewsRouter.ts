@@ -58,7 +58,7 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
     }
 });
 //@ts-ignore
-postViewsRouter.options('/post/:postId', cors());
+postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
     try {
@@ -66,8 +66,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
         user = user[0].user_name;
         if (user) {
             await db.posts.deletePost(Number(req.params.postId));
-            res.redirect('back');
-            return;
+            res.redirect(`/user/${user}`);
         }
         res.redirect('/auth/log-in');
         return;
@@ -84,7 +83,8 @@ postViewsRouter.put('/post/:postId', async (req, res, next) => {
         user = user[0].user_name;
         if (user) {
             await db.posts.editPost(req.body.postbody, Number(req.params.postId));
-            res.redirect('back');
+            res.sendStatus(200);
+            res.redirect('/');
         }
         res.redirect('/auth/log-in') 
     }

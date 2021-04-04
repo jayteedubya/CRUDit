@@ -137,7 +137,7 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
     });
 }); });
 //@ts-ignore
-postViewsRouter.options('/post/:postId', cors());
+postViewsRouter.options('/post/:postId', cors()); //need to add cors as middleware to any unsafe routes
 //@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_5;
@@ -153,8 +153,8 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
             case 2:
                 _a.sent();
-                res.redirect('back');
-                return [2 /*return*/];
+                res.redirect("/user/" + user);
+                _a.label = 3;
             case 3:
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
@@ -181,7 +181,8 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
             case 2:
                 _a.sent();
-                res.redirect('back');
+                res.sendStatus(200);
+                res.redirect('/');
                 _a.label = 3;
             case 3:
                 res.redirect('/auth/log-in');
