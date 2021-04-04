@@ -157,7 +157,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
             case 3:
                 _a.sent();
-                res.sendStatus(200);
+                res.redirect("/user/" + user);
                 return [2 /*return*/];
             case 4:
                 res.redirect('/auth/log-in');
