@@ -182,7 +182,7 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
             case 2:
                 _a.sent();
                 res.sendStatus(200);
-                res.redirect('/');
+                res.redirect("/user/" + user);
                 _a.label = 3;
             case 3:
                 res.redirect('/auth/log-in');

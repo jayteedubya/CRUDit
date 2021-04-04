@@ -84,7 +84,7 @@ postViewsRouter.put('/post/:postId', async (req, res, next) => {
         if (user) {
             await db.posts.editPost(req.body.postbody, Number(req.params.postId));
             res.sendStatus(200);
-            res.redirect('/');
+            res.redirect(`/user/${user}`);
         }
         res.redirect('/auth/log-in') 
     }
