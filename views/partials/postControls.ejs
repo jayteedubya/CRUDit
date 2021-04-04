@@ -3,12 +3,9 @@
         const result = await fetch(window.location.href, {
             method: 'DELETE',
             credentials: 'include',
-            redirect: 'follow'
         });
-        console.log(result);
-        if (!result.ok) {
-            console.log('delete failed!');  //result is not ok for some reason
-        }
+        window.location.assign('https://crudit.herokuapp.com/');
+        return;
     }
     const editPost = () => {
         console.log("I DON'T KNOW HOOOWWWOOOOWWWW!!!  :'(");
