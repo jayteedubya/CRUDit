@@ -4,7 +4,7 @@
             method: 'DELETE',
             credentials: 'include',
         });
-        window.location.assign('https://crudit.herokuapp.com/');
+        window.location.assign(`/user/${post.user_name}`);
         return;
     }
     const editPost = () => {
