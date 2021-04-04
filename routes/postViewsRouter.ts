@@ -50,7 +50,7 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
             await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
             res.redirect('back');
         }
-        res.redirect('/auth/log-in');
+        res.status(302).redirect('/auth/log-in');
     }
     catch(err) {
         console.warn(err);

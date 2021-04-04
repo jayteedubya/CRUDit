@@ -125,7 +125,7 @@ postViewsRouter.post('/post/:postId', function (req, res, next) { return __await
                 res.redirect('back');
                 _a.label = 3;
             case 3:
-                res.redirect('/auth/log-in');
+                res.status(302).redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
                 err_4 = _a.sent();
