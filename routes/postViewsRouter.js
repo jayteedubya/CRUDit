@@ -98,7 +98,12 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
             case 4:
                 comments = _a.sent();
                 postObject.comments = comments;
-                postObject.userLoggedIn = (postObject.user_name === userFromSession[0].user_name);
+                if (userFromSession[0].user_name) {
+                    postObject.userLoggedIn = (postObject.user_name === userFromSession[0].user_name);
+                }
+                else {
+                    postObject.userLoggedIn = false;
+                }
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
             case 5:
