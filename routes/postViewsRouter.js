@@ -181,11 +181,10 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
             case 2:
                 _a.sent();
-                res.sendStatus(200);
                 res.redirect("/user/" + user);
                 _a.label = 3;
             case 3:
-                res.redirect('/auth/log-in');
+                res.status(200).send().redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
                 err_6 = _a.sent();
