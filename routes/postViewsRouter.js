@@ -184,7 +184,7 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
                 res.redirect("/user/" + user);
                 _a.label = 3;
             case 3:
-                res.status(200).send().redirect('/auth/log-in');
+                res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
                 err_6 = _a.sent();
