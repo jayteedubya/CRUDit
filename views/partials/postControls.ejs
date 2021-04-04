@@ -5,8 +5,9 @@
             credentials: 'include',
             redirect: 'follow'
         });
+        console.log(result);
         if (!result.ok) {
-            console.log('delete failed!');
+            console.log('delete failed!');  //result is not ok for some reason
         }
     }
     const editPost = () => {
