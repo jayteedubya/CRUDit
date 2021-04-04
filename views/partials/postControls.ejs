@@ -3,7 +3,7 @@
         const result = await fetch(window.location.href, {
             method: 'DELETE',
             credentials: 'include',
-            redired: 'follow'
+            redirect: 'follow'
         });
         if (!result.ok) {
             console.log('delete failed!');
