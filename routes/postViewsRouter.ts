@@ -61,14 +61,12 @@ postViewsRouter.post('/post/:postId', async (req, res, next) => {
 postViewsRouter.options('/post/:postId', cors());
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
-    //requests now make it this far, then get a database issue, too many connections
-    console.log('delete request recieved');
     try {
-        let user = await db.users.getUserFromSession(req.session.id);  //the request never gets here, why?
+        let user = await db.users.getUserFromSession(req.session.id);
         user = user[0].user_name;
         if (user) {
             await db.posts.deletePost(Number(req.params.postId));
-            res.redirect(`/user/${user}`);
+            res.redirect('back');
             return;
         }
         res.redirect('/auth/log-in');

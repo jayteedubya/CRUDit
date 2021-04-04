@@ -144,30 +144,26 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                //requests now make it this far, then get a database issue, too many connections
-                console.log('delete request recieved');
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 5, , 6]);
+                _a.trys.push([0, 4, , 5]);
                 return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
-            case 2:
+            case 1:
                 user = _a.sent();
                 user = user[0].user_name;
-                if (!user) return [3 /*break*/, 4];
+                if (!user) return [3 /*break*/, 3];
                 return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
-            case 3:
+            case 2:
                 _a.sent();
-                res.redirect("/user/" + user);
+                res.redirect('back');
                 return [2 /*return*/];
-            case 4:
+            case 3:
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
-            case 5:
+            case 4:
                 err_5 = _a.sent();
                 console.log(err_5);
                 res.redirect('back');
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
