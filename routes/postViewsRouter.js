@@ -114,38 +114,11 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
         }
     });
 }); });
-postViewsRouter.post('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_4;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
-            case 1:
-                user = _a.sent();
-                if (!user[0]) return [3 /*break*/, 3];
-                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
-            case 2:
-                _a.sent();
-                res.redirect('back');
-                _a.label = 3;
-            case 3:
-                res.status(302).redirect('/auth/log-in');
-                return [3 /*break*/, 5];
-            case 4:
-                err_4 = _a.sent();
-                console.warn(err_4);
-                res.redirect('/');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
-        }
-    });
-}); });
 //@ts-ignore
 postViewsRouter.options('/post/:postId', cors()); //need to add cors as middleware to any unsafe routes
 //@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_5;
+    var user, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -164,8 +137,8 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
             case 4:
-                err_5 = _a.sent();
-                console.log(err_5);
+                err_4 = _a.sent();
+                console.log(err_4);
                 res.redirect('back');
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
@@ -173,7 +146,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
     });
 }); });
 postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_6;
+    var user, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -192,8 +165,8 @@ postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaite
                 res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
-                err_6 = _a.sent();
-                console.log(err_6);
+                err_5 = _a.sent();
+                console.log(err_5);
                 res.redirect('back');
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];

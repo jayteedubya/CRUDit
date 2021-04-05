@@ -47,21 +47,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
         next(err);
     }
 })
-
-postViewsRouter.post('/post/:postId', async (req, res, next) => {
-    try {
-        const user = await db.users.getUserFromSession(req.session.id);
-        if (user[0]) {
-            await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
-            res.redirect('back');
-        }
-        res.status(302).redirect('/auth/log-in');
-    }
-    catch(err) {
-        console.warn(err);
-        res.redirect('/');
-    }
-});
+    
 //@ts-ignore
 postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes
 //@ts-ignore

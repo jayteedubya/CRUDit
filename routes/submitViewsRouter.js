@@ -82,4 +82,31 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
         }
     });
 }); });
+submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var user, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 4, , 5]);
+                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+            case 1:
+                user = _a.sent();
+                if (!user[0]) return [3 /*break*/, 3];
+                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
+            case 2:
+                _a.sent();
+                res.redirect('back');
+                _a.label = 3;
+            case 3:
+                res.status(302).redirect('/auth/log-in');
+                return [3 /*break*/, 5];
+            case 4:
+                err_3 = _a.sent();
+                console.warn(err_3);
+                res.redirect('/');
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
 exports["default"] = submitViewsRouter;

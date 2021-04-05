@@ -2,14 +2,14 @@
 <head>
     <%-include('partials/head')%>
     <script>
-        function submitForm() {
+        function submitForm(url) {
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
-            fetch('/submit/post', {
+            fetch('/submit/comment', {
                 method: 'POST',
                 body: formData
             }).then(console.log('success!'))
-            .catch(err => console.warn(err));
+            .catch(err => console.warn(err));  //the deal here is that there needs to be a separate route for comment submissions
         }
     </script>
 </head>
@@ -28,7 +28,7 @@
         <%if (post.userLoggedIn) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
-    <form id="post-form" method="post" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
+    <form id="post-form" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">  <!--method="post"-->
         <ul>
             <label for="add-comment">add a comment!</label>
             <li><textarea id="comment" name="comment" class="comment" type="text" rows="10" cols="80" maxlength="1000"></textarea></li>
