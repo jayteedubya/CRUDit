@@ -28,7 +28,7 @@
         <%if (post.userLoggedIn) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
-    <form id="post-form" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">  <!--method="post"-->
+    <form id="post-form" onsubmit="submitForm()" method="post" enctype="application/x-www-form-urlencoded">
         <ul>
             <label for="add-comment">add a comment!</label>
             <li><textarea id="comment" name="comment" class="comment" type="text" rows="10" cols="80" maxlength="1000"></textarea></li>
