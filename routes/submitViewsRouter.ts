@@ -32,9 +32,12 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 })
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
+    console.log('arrived at submit comment!')
     try {
         const user = await db.users.getUserFromSession(req.session.id);
         if (user[0]) {
+            console.log('user found, adding comment');
+            console.log(req.body);
             await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
             res.redirect('back');
         }

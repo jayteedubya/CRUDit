@@ -87,25 +87,30 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 4, , 5]);
-                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+                console.log('arrived at submit comment!');
+                _a.label = 1;
             case 1:
-                user = _a.sent();
-                if (!user[0]) return [3 /*break*/, 3];
-                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
+                _a.trys.push([1, 5, , 6]);
+                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
             case 2:
+                user = _a.sent();
+                if (!user[0]) return [3 /*break*/, 4];
+                console.log('user found, adding comment');
+                console.log(req.body);
+                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
+            case 3:
                 _a.sent();
                 res.redirect('back');
-                _a.label = 3;
-            case 3:
-                res.status(302).redirect('/auth/log-in');
-                return [3 /*break*/, 5];
+                _a.label = 4;
             case 4:
+                res.status(302).redirect('/auth/log-in');
+                return [3 /*break*/, 6];
+            case 5:
                 err_3 = _a.sent();
                 console.warn(err_3);
                 res.redirect('/');
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
