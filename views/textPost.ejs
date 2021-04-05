@@ -2,7 +2,7 @@
 <head>
     <%-include('partials/head')%>
     <script>
-        function submitForm(url) {
+        function submitForm() {
             let myForm = document.getElementById("post-form");
             let formData = new FormData(myForm);
             fetch('/submit/comment', {
