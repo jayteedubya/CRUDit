@@ -3,6 +3,7 @@
     <%-include('partials/head')%>
     <script>
         function submitForm() {
+            console.log("submitting form");
             let myForm = document.getElementById("comment");
             let formData = new FormData(myForm);
             fetch('/submit/comment', {
