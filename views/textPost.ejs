@@ -3,7 +3,6 @@
     <%-include('partials/head')%>
     <script>
         function submitForm() {
-            console.log("submitting form");
             let myForm = document.getElementById("comment");
             let formData = new FormData(myForm);
             fetch('/submit/comment', {
@@ -29,7 +28,7 @@
         <%if (post.userLoggedIn) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
-    <form id="post-form" enctype="application/x-www-form-urlencoded"> <!--script is not firing-->
+    <form id="post-form" action="/submit/comment" method="post" enctype="application/x-www-form-urlencoded"> <!--script is not firing-->
         <ul>
             <label for="add-comment">add a comment!</label>
             <li><textarea id="comment" name="comment" class="comment" type="text" rows="10" cols="80" maxlength="1000"></textarea></li>
