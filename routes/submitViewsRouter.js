@@ -97,7 +97,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
                 if (!user[0]) return [3 /*break*/, 4];
                 console.log('user found, adding comment');
                 console.log(req.body);
-                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId))];
+                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.body.postID))];
             case 3:
                 _a.sent();
                 res.redirect('back');

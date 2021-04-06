@@ -38,7 +38,7 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
         if (user[0]) {
             console.log('user found, adding comment');
             console.log(req.body);
-            await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.params.postId));
+            await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.body.postID));
             res.redirect('back');
         }
         res.status(302).redirect('/auth/log-in');
