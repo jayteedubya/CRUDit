@@ -36,53 +36,40 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-var express = require("express");
-var db = require("../databaseHandler");
-var userViewsRouter = express.Router();
-userViewsRouter.use('/:username', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, posts, comments, userPublic, userData, err_1;
+exports.attachUsernameToRequest = exports.generalErrorHandler = void 0;
+var db = require("./databaseHandler");
+var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var sessionID, userArray, username, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 4, , 5]);
-                username = req.params.username;
-                return [4 /*yield*/, db.users.getAllPostsByUser(username)];
+                sessionID = req.session.id;
+                _a.label = 1;
             case 1:
-                posts = _a.sent();
-                return [4 /*yield*/, db.users.getAllCommentsByUser(username)];
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.users.getUserFromSession(sessionID)];
             case 2:
-                comments = _a.sent();
-                return [4 /*yield*/, db.users.getUserPublicInfo(username)];
-            case 3:
-                userPublic = _a.sent();
-                userData = {
-                    posts: posts,
-                    comments: comments,
-                    upvoted: userPublic[0].upvoted,
-                    downvoted: userPublic[0].downvoted,
-                    user_name: username
-                };
-                req.body.userData = userData;
+                userArray = _a.sent();
+                username = userArray[0].user_name;
+                if (username) {
+                    req.body.username = username;
+                    req.body.userLogInStatus = true;
+                    next();
+                }
                 next();
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 4];
+            case 3:
                 err_1 = _a.sent();
                 next(err_1);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
-}); });
-userViewsRouter.get('/:user_name', function (req, res, next) {
-    res.render('userPage', { user: req.body.userData });
-    return;
-});
-userViewsRouter.get('/:user_name/comments', function (req, res, next) {
-    res.render('userCommentsPage', { user: req.body.userData });
-    return;
-});
-userViewsRouter.use(function (err, req, res, next) {
-    console.error(err);
-    res.status(404).redirect('/error/user404');
-});
-exports["default"] = userViewsRouter;
+}); };
+exports.attachUsernameToRequest = attachUsernameToRequest;
+var generalErrorHandler = function (err, req, res, next) {
+    console.warn(err);
+    res.render('errorPage', { error: err });
+    next();
+};
+exports.generalErrorHandler = generalErrorHandler;

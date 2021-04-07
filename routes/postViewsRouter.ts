@@ -29,17 +29,12 @@ postViewsRouter.get('/topic/:topic', async (req, res, next) => {
 postViewsRouter.get('/post/:postId', async (req, res, next) => {
     const postId = Number(req.params.postId)
     try {
-        const userFromSession = await db.users.getUserFromSession(req.session.id);
+        const user = req.body.username
         const post = await db.posts.getPostById(postId);
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId); 
         postObject.comments = comments;
-        if (userFromSession[0]) {
-            postObject.userLoggedIn = (postObject.user_name === userFromSession[0].user_name);
-        }
-        else {
-            postObject.userLoggedIn = false;
-        }
+        postObject.userLogInStatus = req.body.userLogInStatus;
         res.render('textPost', {post: postObject});
         return;
     }
@@ -53,42 +48,32 @@ postViewsRouter.options('/post/:postId', cors());  //need to add cors as middlew
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
     try {
-        let user = await db.users.getUserFromSession(req.session.id);
-        user = user[0].user_name;
-        if (user) {
-            
+        const user = req.body.username;
+        if (req.body.userLogInStatus) {
             await db.posts.deletePost(Number(req.params.postId));
-            res.status(200).redirect(`/user/${user}`);
+            res.redirect(`/user/${user}`);
         }
         res.redirect('/auth/log-in');
         return;
     }
     catch (err) {
-        console.log(err);
-        res.redirect('back');
+        next(err);
     }
 })
 
 postViewsRouter.put('/post/:postId', async (req, res, next) => {
     try {
-        let user = await db.users.getUserFromSession(req.session.id);
-        user = user[0].user_name;
-        if (user) {
+        const user = req.body.username
+        if (req.body.userLogInStatus) {
             await db.posts.editPost(req.body.postbody, Number(req.params.postId));
             res.redirect(`/user/${user}`);
+            return;
         }
         res.redirect('/auth/log-in');
     }
     catch (err) {
-        console.log(err);
-        res.redirect('back');
+        next(err);
     }
 })
-
-postViewsRouter.use((err, req, res, next) => {
-    console.error(err);
-    res.status(404).redirect('/');
-})
-
 
 export default postViewsRouter;

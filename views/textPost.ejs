@@ -14,7 +14,7 @@
         <div class="post-body">
             <p><%=post.body%></p>
         </div>
-        <%if (post.userLoggedIn) {%><%-include('partials/postControls')%><%}%>
+        <%if (post.userLogInStatus) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
     <%if (post.userLoggedIn) {%><%-include('partials/postComment')%><%}%>

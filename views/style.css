@@ -77,15 +77,7 @@
 .login {
     margin: 10px;
 }
-.upvote {
-    padding-bottom: 50%;
-}
-.downvote {
-    padding-top: 50%;
-}
-.upvote {
-    background-image: url('upvote.png');
-}
+
 .post-control li {
     display: inline;
     margin-right: 15px;

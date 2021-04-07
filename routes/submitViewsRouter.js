@@ -44,73 +44,51 @@ submitViewsRouter.get('/post', function (req, res, next) {
     return;
 });
 submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var request, user, author, err_1, result, postId, err_2;
+    var request, author, result, postId, err_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
                 request = req.body;
+                author = req.body.username;
+                if (!req.body.userLogInStatus) return [3 /*break*/, 4];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
-            case 2:
-                user = _a.sent();
-                author = user[0].user_name;
-                return [3 /*break*/, 4];
-            case 3:
-                err_1 = _a.sent();
-                console.warn(err_1);
-                res.redirect('/');
-                return [3 /*break*/, 4];
-            case 4:
-                if (!author) return [3 /*break*/, 8];
-                _a.label = 5;
-            case 5:
-                _a.trys.push([5, 7, , 8]);
                 return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, author)];
-            case 6:
+            case 2:
                 result = _a.sent();
                 postId = result[0].id;
                 res.redirect("/post/" + postId);
                 return [2 /*return*/];
-            case 7:
-                err_2 = _a.sent();
-                console.warn(err_2);
-                res.redirect('/');
-                return [3 /*break*/, 8];
-            case 8: return [2 /*return*/];
+            case 3:
+                err_1 = _a.sent();
+                next(err_1);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });
 submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_3;
+    var user, err_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log('arrived at submit comment!');
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 5, , 6]);
-                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
-            case 2:
-                user = _a.sent();
-                if (!user[0]) return [3 /*break*/, 4];
-                console.log('user found, adding comment');
-                console.log(req.body);
+                _a.trys.push([0, 3, , 4]);
+                user = req.body.username;
+                if (!req.body.userLogInStatus) return [3 /*break*/, 2];
                 return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.body.postID))];
-            case 3:
+            case 1:
                 _a.sent();
                 res.redirect('back');
-                _a.label = 4;
-            case 4:
+                _a.label = 2;
+            case 2:
                 res.status(302).redirect('/auth/log-in');
-                return [3 /*break*/, 6];
-            case 5:
-                err_3 = _a.sent();
-                console.warn(err_3);
-                res.redirect('/');
-                return [3 /*break*/, 6];
-            case 6: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _a.sent();
+                next(err_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });

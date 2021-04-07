@@ -3,16 +3,6 @@ import * as db from '../databaseHandler';
 
 const userViewsRouter = express.Router();
 
-userViewsRouter.get('/auth/log-in', (req, res, next) => {
-    res.render('logInPage');
-});
-
-userViewsRouter.post('/auth/log-in', );
-
-userViewsRouter.get('/auth/sign-up', (req, res, next) => {
-    res.render('createUserPage');
-})
-
 userViewsRouter.use('/:username', async (req, res, next) => {
     try {
         const username = req.params.username;

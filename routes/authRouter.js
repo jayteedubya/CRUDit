@@ -46,7 +46,7 @@ authRouter.get('/log-in', function (req, res, next) {
 authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
-//fix memory leak session cookie store.
+//fix memory leak session cookie store. Maybe.
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var username, password, userArr, user, result, err_1;
     return __generator(this, function (_a) {
@@ -73,8 +73,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
             case 5: return [3 /*break*/, 7];
             case 6:
                 err_1 = _a.sent();
-                console.warn(err_1);
-                res.send('failed');
+                next(err_1);
                 return [3 /*break*/, 7];
             case 7: return [2 /*return*/];
         }
@@ -101,40 +100,32 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 return [3 /*break*/, 5];
             case 4:
                 err_2 = _a.sent();
-                console.warn(err_2);
-                res.send('no worky worky');
+                next(err_2);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
     });
 }); });
 authRouter.get('/log-out', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_3;
+    var user;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                _a.trys.push([0, 2, , 3]);
-                return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
-            case 1:
-                user = _a.sent();
-                if (user) {
-                    db.users.endSession(user[0].user_name);
-                    res.redirect('/');
-                    return [2 /*return*/];
-                }
-                res.send('already out');
-                return [3 /*break*/, 3];
-            case 2:
-                err_3 = _a.sent();
-                console.log(err_3);
-                res.redirect('/error/auth-err');
-                return [3 /*break*/, 3];
-            case 3: return [2 /*return*/];
+        try {
+            user = req.body.username;
+            if (req.body.userLogInStatus) {
+                db.users.endSession(user);
+                res.redirect('/');
+                return [2 /*return*/];
+            }
+            res.send('already out');
         }
+        catch (err) {
+            next(err);
+        }
+        return [2 /*return*/];
     });
 }); });
 authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var sessionID, user, err_4;
+    var sessionID, user, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -152,8 +143,8 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
                 res.send(false);
                 return [3 /*break*/, 4];
             case 3:
-                err_4 = _a.sent();
-                console.warn(err_4);
+                err_3 = _a.sent();
+                console.warn(err_3);
                 res.send(false);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
