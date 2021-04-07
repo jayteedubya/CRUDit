@@ -50,8 +50,8 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
                 return [4 /*yield*/, db.users.getUserFromSession(sessionID)];
             case 2:
                 userArray = _a.sent();
-                username = userArray[0].user_name;
-                if (username) {
+                if (userArray[0]) {
+                    username = userArray[0].user_name;
                     req.body.username = username;
                     req.body.userLogInStatus = true;
                     next();
