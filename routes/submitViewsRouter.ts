@@ -22,6 +22,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
             next(err);
         }
     }
+    res.redirect('/auth/log-in');
 })
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
@@ -31,7 +32,7 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
             await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
             res.redirect('back');
         }
-        res.status(302).redirect('/auth/log-in');
+        res.redirect('/auth/log-in');
     }
     catch(err) {
         next(err);

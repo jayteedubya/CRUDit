@@ -64,7 +64,9 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
                 err_1 = _a.sent();
                 next(err_1);
                 return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+            case 4:
+                res.redirect('/auth/log-in');
+                return [2 /*return*/];
         }
     });
 }); });
@@ -82,7 +84,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
                 res.redirect('back');
                 _a.label = 2;
             case 2:
-                res.status(302).redirect('/auth/log-in');
+                res.redirect('/auth/log-in');
                 return [3 /*break*/, 4];
             case 3:
                 err_2 = _a.sent();
