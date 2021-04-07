@@ -55,9 +55,10 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
                     req.body.username = username;
                     req.body.userLogInStatus = true;
                     next();
+                    return [2 /*return*/];
                 }
                 next();
-                return [3 /*break*/, 4];
+                return [2 /*return*/];
             case 3:
                 err_1 = _a.sent();
                 next(err_1);

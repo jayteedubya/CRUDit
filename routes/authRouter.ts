@@ -72,8 +72,7 @@ authRouter.get('/am-i-in', async (req, res, next) => {
         res.send(false);
     }
     catch (err) {
-        console.warn(err);
-        res.send(false);
+        next(err)
     }
 });
 export default authRouter;

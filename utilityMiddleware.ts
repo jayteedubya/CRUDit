@@ -9,8 +9,10 @@ const attachUsernameToRequest = async (req, res, next) => {
             req.body.username = username;
             req.body.userLogInStatus = true;
             next();
+            return;
         }
         next()
+        return;
     }
     catch (err) {
         next(err)

@@ -144,8 +144,7 @@ authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, 
                 return [3 /*break*/, 4];
             case 3:
                 err_3 = _a.sent();
-                console.warn(err_3);
-                res.send(false);
+                next(err_3);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }
