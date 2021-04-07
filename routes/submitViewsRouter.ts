@@ -25,10 +25,10 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 })
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
-    try {
+    try {  //could use some clean up
         const user = req.body.username;
         if (req.body.userLogInStatus) {
-            await db.comments.createComment(user[0].user_name, req.body.comment, Number(req.body.postID));
+            await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
             res.redirect('back');
         }
         res.status(302).redirect('/auth/log-in');

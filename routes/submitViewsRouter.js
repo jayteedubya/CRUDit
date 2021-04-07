@@ -76,7 +76,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
                 _a.trys.push([0, 3, , 4]);
                 user = req.body.username;
                 if (!req.body.userLogInStatus) return [3 /*break*/, 2];
-                return [4 /*yield*/, db.comments.createComment(user[0].user_name, req.body.comment, Number(req.body.postID))];
+                return [4 /*yield*/, db.comments.createComment(user, req.body.comment, Number(req.body.postID))];
             case 1:
                 _a.sent();
                 res.redirect('back');
