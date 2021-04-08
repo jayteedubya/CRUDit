@@ -12,7 +12,7 @@
             <p class="timestamp">posted: <%=post.time_stamp%></p>
         </div>
         <div class="post-body">
-            <p><%=post.body%></p>
+            <p id="body"><%=post.body%></p>
         </div>
         <%if (post.userLogInStatus) {%><%-include('partials/postControls')%><%}%>
     </div>

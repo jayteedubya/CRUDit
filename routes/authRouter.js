@@ -96,13 +96,14 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword, req.session.id)];
             case 3:
                 _a.sent();
-                res.redirect("/user/" + username);
                 return [3 /*break*/, 5];
             case 4:
                 err_2 = _a.sent();
                 next(err_2);
                 return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+            case 5:
+                res.redirect("/user/" + username);
+                return [2 /*return*/];
         }
     });
 }); });
@@ -120,34 +121,15 @@ authRouter.get('/log-out', function (req, res, next) { return __awaiter(void 0, 
         }
         catch (err) {
             next(err);
+            return [2 /*return*/];
         }
         return [2 /*return*/];
     });
 }); });
 authRouter.get('/am-i-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var sessionID, user, err_3;
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                sessionID = req.session.id;
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.users.getUserFromSession(sessionID)];
-            case 2:
-                user = _a.sent();
-                if (user[0].user_name) {
-                    res.send(true);
-                    return [2 /*return*/];
-                }
-                res.send(false);
-                return [3 /*break*/, 4];
-            case 3:
-                err_3 = _a.sent();
-                next(err_3);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
-        }
+        res.send(req.body.userLogInStatus);
+        return [2 /*return*/];
     });
 }); });
 exports["default"] = authRouter;

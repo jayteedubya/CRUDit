@@ -7,9 +7,15 @@
         window.location.assign('/');
         return;
     }
-    const editPost = () => {
-        console.log("I DON'T KNOW HOOOWWWOOOOWWWW!!!  :'(");
-        return;
+    const editPost = async () => {
+        const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
+        await fetch(window.location.href, {
+            Method: 'PUT',
+            credentials: 'include',
+            postbody: edit
+        });
+        window.location.reload();
+
     }
 </script>
 <ul class="post-control">

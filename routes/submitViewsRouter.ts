@@ -20,23 +20,27 @@ submitViewsRouter.post('/post', async (req, res, next) => {
         }
         catch (err) {
             next(err);
+            return;
         }
     }
     res.redirect('/auth/log-in');
 })
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
-    try {  //could use some clean up
+    if (req.body.userLogInStatus) {
         const user = req.body.username;
-        if (req.body.userLogInStatus) {
+        try {
             await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
-            res.redirect('back');
         }
-        res.redirect('/auth/log-in');
+        catch(err) {
+            next(err);
+            return;
+        }
+        res.redirect('back');
+        return;
     }
-    catch(err) {
-        next(err);
-    }
+    res.redirect('/auth/log-in');
+    
 });
 
 

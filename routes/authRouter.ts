@@ -39,11 +39,11 @@ authRouter.post('/sign-up', async (req, res, next) => {
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
         await db.users.createUser(username, emailaddress, hashedPassword, req.session.id);
-        res.redirect(`/user/${username}`);
     }
     catch (err) {
         next(err);
     }
+    res.redirect(`/user/${username}`);
 });
 
 authRouter.get('/log-out', async (req, res, next) => {
@@ -58,21 +58,12 @@ authRouter.get('/log-out', async (req, res, next) => {
     }
     catch (err) {
         next(err);
+        return;
     }
 })
 
 authRouter.get('/am-i-in', async (req, res, next) => {
-    const sessionID = req.session.id;
-    try {
-        const user = await db.users.getUserFromSession(sessionID);
-        if (user[0].user_name) {  
-            res.send(true);
-            return;
-        }
-        res.send(false);
-    }
-    catch (err) {
-        next(err)
-    }
+    res.send(req.body.userLogInStatus);
+    return;
 });
 export default authRouter;

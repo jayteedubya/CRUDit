@@ -63,7 +63,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 3:
                 err_1 = _a.sent();
                 next(err_1);
-                return [3 /*break*/, 4];
+                return [2 /*return*/];
             case 4:
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
@@ -75,22 +75,25 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
+                if (!req.body.userLogInStatus) return [3 /*break*/, 5];
                 user = req.body.username;
-                if (!req.body.userLogInStatus) return [3 /*break*/, 2];
-                return [4 /*yield*/, db.comments.createComment(user, req.body.comment, Number(req.body.postID))];
+                _a.label = 1;
             case 1:
-                _a.sent();
-                res.redirect('back');
-                _a.label = 2;
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.comments.createComment(user, req.body.comment, Number(req.body.postID))];
             case 2:
-                res.redirect('/auth/log-in');
+                _a.sent();
                 return [3 /*break*/, 4];
             case 3:
                 err_2 = _a.sent();
                 next(err_2);
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [2 /*return*/];
+            case 4:
+                res.redirect('back');
+                return [2 /*return*/];
+            case 5:
+                res.redirect('/auth/log-in');
+                return [2 /*return*/];
         }
     });
 }); });
