@@ -140,7 +140,7 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log(req.body);
+                console.log('request body', req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);
