@@ -134,7 +134,8 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
         }
     });
 }); });
-postViewsRouter.put('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+//@ts-ignore
+postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
