@@ -5,8 +5,8 @@
         <script>
             function submitForm() {
             const formObject = {}
-            formObject.username = document.getElementById("username").innerText;
-            formObject.password = document.getElementById("password").innerText;
+            formObject.username = document.getElementById("username").value;
+            formObject.password = document.getElementById("password").value;
             const reqBody = JSON.stringify(formObject);
             console.log(reqBody);
             fetch('/auth/log-in', {
