@@ -108,7 +108,7 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
     });
 }); });
 //@ts-ignore
-postViewsRouter.options('/post/:postId', cors()); //need to add cors as middleware to any unsafe routes
+//postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes
 //@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var user, err_4;
