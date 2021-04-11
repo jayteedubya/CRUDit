@@ -136,27 +136,27 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
 }); });
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_5;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var user, _a, _b, err_5;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
                 console.log('request body from post views router', req.body);
-                console.log(req.body);
-                _a.label = 1;
+                _c.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _c.trys.push([1, 4, , 5]);
                 user = req.body.username;
                 if (!req.body.userLogInStatus) return [3 /*break*/, 3];
+                _b = (_a = console).log;
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
             case 2:
-                _a.sent();
+                _b.apply(_a, [_c.sent()]);
                 res.redirect("/user/" + user);
                 return [2 /*return*/];
             case 3:
                 res.redirect('/auth/log-in');
                 return [3 /*break*/, 5];
             case 4:
-                err_5 = _a.sent();
+                err_5 = _c.sent();
                 next(err_5);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
