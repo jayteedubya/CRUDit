@@ -21,13 +21,15 @@
     <body>
         <%-include('partials/navbar')%> 
         <div class="login" >
-            <ul>
-                <label for="username">username:</label>
-                <li class="login"><input type="text" id="username" name="username"></li>
-                <label for="password">password:</label>
-                <li class="login"><input type="password" id="password" name="password"></li>
-                <li class ="submit"><button onclick="submitForm()">log in</button></li>
-            </ul>
+            <form id="login-form">
+                <ul>
+                    <label for="username">username:</label>
+                    <li class="login"><input type="text" id="username" name="username"></li>
+                    <label for="password">password:</label>
+                    <li class="login"><input type="password" id="password" name="password"></li>
+                    <li class ="submit"><button onclick="submitForm()">log in</button></li>
+                </ul>
+            </form>
         </div>
     </body>
 </htmL>
