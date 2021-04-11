@@ -21,13 +21,13 @@
     <body>
         <%-include('partials/navbar')%> 
         <div class="login" >
-            <form onsubmit="submitForm()" id="login-form">
+            <form id="login-form">
                 <ul>
                     <label for="username">username:</label>
                     <li class="login"><input type="text" id="username" name="username"></li>
                     <label for="password">password:</label>
                     <li class="login"><input type="password" id="password" name="password"></li>
-                    <li class ="submit"><input type="submit" value="log in"></li>
+                    <li class ="submit"><input type="submit" value="log in" onclick="submitForm()"></li>
                 </ul>
             </form>
         </div>
