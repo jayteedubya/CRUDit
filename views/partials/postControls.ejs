@@ -13,13 +13,18 @@
         const result = await fetch(window.location.href, {
             method: 'PUT',
             credentials: 'include',
-            headers: {'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com'}, //when including credentials, access control allow origin must be set, cors thing
+            headers: {
+                'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
+                origin: 'https://crudit.herokuapp.com',
+                'Access-Control-Allow-Credentials': true
+
+            }, //when including credentials, access control allow origin must be set, cors thing
             body: {
                 postbody: edit
             }
         });
         console.log(result);
-        window.location.reload();
+        //window.location.reload();
     }
 </script>
 <ul class="post-control">
