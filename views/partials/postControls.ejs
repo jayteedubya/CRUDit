@@ -8,7 +8,7 @@
         return;
     }
     const editPost = async () => {
-        const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
+        const edit = prompt('make your edit here!', document.getElementById("body").value);
         console.log(edit);
         const result = await fetch(window.location.href, {
             method: 'PUT',
