@@ -10,6 +10,7 @@
             const reqBody = JSON.stringify(formObject);
             console.log(reqBody);
             fetch('/auth/log-in', {
+                headers: {'Content-Type': 'application/json'},
                 method: 'POST',
                 body: reqBody,
             }).then(console.log('success!'))
