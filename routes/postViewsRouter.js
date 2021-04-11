@@ -140,7 +140,11 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+<<<<<<< HEAD
                 console.log('request body from post views router', req.body);
+=======
+                console.log(req.body);
+>>>>>>> parent of a4f9eed (ack)
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 4, , 5]);

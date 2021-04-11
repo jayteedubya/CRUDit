@@ -62,7 +62,11 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
 })
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
+<<<<<<< HEAD
     console.log('request body from post views router', req.body);
+=======
+    console.log(req.body);
+>>>>>>> parent of a4f9eed (ack)
     try {
         const user = req.body.username
         if (req.body.userLogInStatus) {
