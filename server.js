@@ -18,7 +18,7 @@ app.set('view engine', 'ejs');
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors()); //not a cors issue
+app.use(cors({ origin: 'https://crudit.herokuapp.com' })); //is definetely a cors issue
 app.use(session({ secret: process.env.SECRET, cookie: { secure: true }, proxy: true, resave: true, saveUninitialized: true })); //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);

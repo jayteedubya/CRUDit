@@ -141,6 +141,7 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
         switch (_a.label) {
             case 0:
                 if (!req.body.postbody) {
+                    next();
                     return [2 /*return*/];
                 }
                 _a.label = 1;
