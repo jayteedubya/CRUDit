@@ -4,25 +4,25 @@
         <%-include('partials/head')%>   <!-- no leading slash -->
         <script>
             function submitForm() {
-            const formObject = {}
-            formObject.username = document.getElementById("username").value;
-            formObject.password = document.getElementById("password").value;
-            const reqBody = JSON.stringify(formObject);
-            console.log(reqBody);
-            try {
-                await fetch('/auth/log-in', {
-                headers: {'Content-Type': 'application/json'},
-                credentials: 'include',
-                method: 'POST',
-                body: reqBody
-                })
+                const formObject = {}
+                formObject.username = document.getElementById("username").value;
+                formObject.password = document.getElementById("password").value;
+                const reqBody = JSON.stringify(formObject);
+                console.log(reqBody);
+                try {
+                    await fetch('/auth/log-in', {
+                    headers: {'Content-Type': 'application/json'},
+                    credentials: 'include',
+                    method: 'POST',
+                    body: reqBody
+                    })
+                }
+                catch(err) {
+                    console.log(err)
+                    return;
+                }
+                window.location.assign(`/user/${formObject.username}`);
             }
-            catch(err) {
-                console.log(err)
-                return;
-            }
-            window.location.assign(`/user/${formObject.username}`);
-        }
         </script>
     </head>
 
