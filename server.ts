@@ -24,6 +24,7 @@ app.use(cors());  //not a cors issue
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true }));  //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);
+app.use((req, res, next) => console.log('body, initial request', req.body));
 //routes
 app.use('/', postViewsRouter);
 app.use('/user', userViewsRouter);

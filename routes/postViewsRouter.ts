@@ -62,7 +62,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
 })
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
-    console.log('request body', req.body);
+    console.log('request body from post views router', req.body);
     try {
         const user = req.body.username
         if (req.body.userLogInStatus) {
