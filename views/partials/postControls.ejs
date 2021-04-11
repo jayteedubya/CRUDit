@@ -9,8 +9,9 @@
     }
     const editPost = async () => {
         const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
-        const body = {'edit': edit};
+        let body = {'edit': edit};
         console.log(body);
+        body = JSON.stringify(body);
         const result = await fetch(window.location.href, {
             method: 'PUT',
             credentials: 'include',
