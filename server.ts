@@ -21,7 +21,7 @@ app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());  //not a cors issue
-app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true }));  //make sure proxy is set to true if using https;
+app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true, resave: true, saveUninitialized: true }));  //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);
 app.use((req, res, next) => console.log('body, initial request', req.body));
