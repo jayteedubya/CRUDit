@@ -21,7 +21,7 @@
 
             }, //when including credentials, access control allow origin must be set, cors thing
             body: {
-                'edit': edit
+                'edit': JSON.stringify(edit)
             }
         });
         console.log(result);
