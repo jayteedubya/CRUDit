@@ -10,16 +10,15 @@
     const editPost = async () => {
         const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
         console.log(edit);
-        console.log(await fetch(window.location.href, {
+        const result = await fetch(window.location.href, {
             method: 'PUT',
-            headers: {
-                accept: "application/x-www-form-urlencoded",
-            },
             credentials: 'include',
+            headers: {'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com'}, //when including credentials, access control allow origin must be set, cors thing
             body: {
                 postbody: edit
             }
-        }))
+        });
+        console.log(result);
         //window.location.reload();
     }
 </script>
