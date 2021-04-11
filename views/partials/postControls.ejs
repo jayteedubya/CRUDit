@@ -9,7 +9,8 @@
     }
     const editPost = async () => {
         const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
-        console.log(edit);
+        const body = {'edit': edit};
+        console.log(body);
         const result = await fetch(window.location.href, {
             method: 'PUT',
             credentials: 'include',
@@ -20,9 +21,7 @@
                 'content-type': 'application/json'
 
             }, //when including credentials, access control allow origin must be set, cors thing
-            body: {
-                'edit': JSON.stringify(edit)
-            }
+            body: body
         });
         console.log(result);
         //window.location.reload();
