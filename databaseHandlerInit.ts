@@ -57,7 +57,6 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getPostById(post_id: number) {
-        console.log(post_id);
         const query = `SELECT *\
         FROM posts\
         WHERE id = ${post_id};`;

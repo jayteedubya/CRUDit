@@ -44,6 +44,7 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
         switch (_a.label) {
             case 0:
                 sessionID = req.session.id;
+                console.log('from username to request', req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);

@@ -2,11 +2,9 @@ import * as pg from 'pg';
 
 class Table {
     getNewClient() {
-        console.log('getting new client');
         return new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}});
     }
     async makeQuery(query: string) {
-        console.log('querying database');
         try {
             const client = this.getNewClient();
             await client.connect();
@@ -45,7 +43,6 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getPostById(post_id: number) {
-        console.log(post_id);
         const query = `SELECT *\
         FROM posts\
         WHERE id = ${post_id};`;
@@ -64,7 +61,6 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     async deletePost(post_id: number) {
-        console.log('deleting post');
         const deletePostQuery = `DELETE FROM posts\
         WHERE id = ${post_id};`;
         const deletePostCommentsQuery = `DELETE FROM comments\

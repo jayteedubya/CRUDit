@@ -140,26 +140,23 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
     return __generator(this, function (_c) {
         switch (_c.label) {
             case 0:
-                console.log('request body from post views router', req.body);
-                _c.label = 1;
-            case 1:
-                _c.trys.push([1, 4, , 5]);
+                _c.trys.push([0, 3, , 4]);
                 user = req.body.username;
-                if (!req.body.userLogInStatus) return [3 /*break*/, 3];
+                if (!req.body.userLogInStatus) return [3 /*break*/, 2];
                 _b = (_a = console).log;
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
-            case 2:
+            case 1:
                 _b.apply(_a, [_c.sent()]);
                 res.redirect("/user/" + user);
                 return [2 /*return*/];
-            case 3:
+            case 2:
                 res.redirect('/auth/log-in');
-                return [3 /*break*/, 5];
-            case 4:
+                return [3 /*break*/, 4];
+            case 3:
                 err_5 = _c.sent();
                 next(err_5);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); });

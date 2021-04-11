@@ -2,6 +2,7 @@ import * as db from './databaseHandler';
 
 const attachUsernameToRequest = async (req, res, next) => {
     const sessionID = req.session.id;
+    console.log('from username to request', req.body);
     try {
         const userArray = await db.users.getUserFromSession(sessionID);
         if (userArray[0]) {

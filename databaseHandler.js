@@ -57,7 +57,6 @@ var Table = /** @class */ (function () {
     function Table() {
     }
     Table.prototype.getNewClient = function () {
-        console.log('getting new client');
         return new pg.Client({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
     };
     Table.prototype.makeQuery = function (query) {
@@ -66,23 +65,20 @@ var Table = /** @class */ (function () {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('querying database');
-                        _a.label = 1;
-                    case 1:
-                        _a.trys.push([1, 4, , 5]);
+                        _a.trys.push([0, 3, , 4]);
                         client = this.getNewClient();
                         return [4 /*yield*/, client.connect()];
-                    case 2:
+                    case 1:
                         _a.sent();
                         return [4 /*yield*/, client.query(query)];
-                    case 3:
+                    case 2:
                         queryResult = _a.sent();
                         client.end();
                         return [2 /*return*/, queryResult.rows];
-                    case 4:
+                    case 3:
                         err_1 = _a.sent();
                         throw err_1;
-                    case 5: return [2 /*return*/];
+                    case 4: return [2 /*return*/];
                 }
             });
         });
@@ -124,7 +120,6 @@ var Posts = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Posts.prototype.getPostById = function (post_id) {
-        console.log(post_id);
         var query = "SELECT *        FROM posts        WHERE id = " + post_id + ";";
         return this.makeQuery(query);
     };
@@ -142,7 +137,6 @@ var Posts = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        console.log('deleting post');
                         deletePostQuery = "DELETE FROM posts        WHERE id = " + post_id + ";";
                         deletePostCommentsQuery = "DELETE FROM comments        WHERE post_id = " + post_id + ";";
                         return [4 /*yield*/, this.makeQuery(deletePostCommentsQuery)];
