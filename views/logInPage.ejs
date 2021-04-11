@@ -4,11 +4,14 @@
         <%-include('partials/head')%>   <!-- no leading slash -->
         <script>
             function submitForm() {
-            let myForm = document.getElementById("post-form");
-            let formData = new FormData(myForm);
+            const myForm = document.getElementById("login-form");
+            const formData = new FormData(myForm);
+            const formObject = Object.fromEntries(formData.entries());
+            const reqBody = JSON.stringify(formObject);
+
             fetch('/auth/log-in', {
                 method: 'POST',
-                body: formData
+                body: reqBody,
             }).then(console.log('success!'))
             .catch(err => console.warn(err));
         }
@@ -17,14 +20,14 @@
 
     <body>
         <%-include('partials/navbar')%> 
-        <div class="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
-            <form method="POST" >
+        <div class="login" >
+            <form onsubmit="submitForm()" id="login-form">
                 <ul>
                     <label for="username">username:</label>
                     <li class="login"><input type="text" id="username" name="username"></li>
                     <label for="password">password:</label>
                     <li class="login"><input type="password" id="password" name="password"></li>
-                    <li class = sumbit><input type="submit" value="log in"></li>
+                    <li class ="submit"><input type="submit" value="log in"></li>
                 </ul>
             </form>
         </div>
