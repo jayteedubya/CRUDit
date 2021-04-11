@@ -63,6 +63,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
     if (!req.body.postbody){
+        console.log('no body provided')
         next();
         return;
     }
