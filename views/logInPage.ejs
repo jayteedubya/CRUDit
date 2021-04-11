@@ -16,7 +16,7 @@
                 body: reqBody,
             }).then(console.log('success!'))
             .catch(err => console.warn(err));
-            //window.location.assign('/');
+            window.location.assign(`/user/${formObject.username}`);
         }
         </script>
     </head>

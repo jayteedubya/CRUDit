@@ -9,8 +9,7 @@
     }
     const editPost = async () => {
         const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
-        let body = {'edit': edit};
-        console.log(body);
+        let body = {'postbody': edit};
         body = JSON.stringify(body);
         const result = await fetch(window.location.href, {
             method: 'PUT',
@@ -25,7 +24,7 @@
             body: body
         });
         console.log(result);
-        //window.location.reload();
+        window.location.reload();
     }
 </script>
 <ul class="post-control">
