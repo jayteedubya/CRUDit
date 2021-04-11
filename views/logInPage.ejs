@@ -3,7 +3,7 @@
     <head>
         <%-include('partials/head')%>   <!-- no leading slash -->
         <script>
-            function submitForm() {
+            const submitForm = async () => {
                 const formObject = {}
                 formObject.username = document.getElementById("username").value;
                 formObject.password = document.getElementById("password").value;
