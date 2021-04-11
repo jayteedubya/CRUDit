@@ -19,7 +19,7 @@ const upload = multer({dest: '/'});
 app.set('view engine', 'ejs');
 app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
-app.use(bodyParser.urlencoded({extended: true}));
+//app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(cors({origin: 'https://crudit.herokuapp.com'}));  //now a 404 instead of 503
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true, resave: true, saveUninitialized: true }));  //make sure proxy is set to true if using https;
