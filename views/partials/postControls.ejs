@@ -12,6 +12,9 @@
         console.log(edit);
         await fetch(window.location.href, {
             method: 'PUT',
+            headers: {
+                accept: "application/x-www-form-urlencoded",
+            },
             credentials: 'include',
             body: {postbody: edit}
         });
