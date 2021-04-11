@@ -20,7 +20,9 @@
                 'content-type': 'application/x-www-form-urlencoded'
 
             }, //when including credentials, access control allow origin must be set, cors thing
-            body: edit
+            body: {
+                'edit': edit
+            }
         });
         console.log(result);
         //window.location.reload();
