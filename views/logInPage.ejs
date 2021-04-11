@@ -9,13 +9,18 @@
             formObject.password = document.getElementById("password").value;
             const reqBody = JSON.stringify(formObject);
             console.log(reqBody);
-            fetch('/auth/log-in', {
+            try {
+                await fetch('/auth/log-in', {
                 headers: {'Content-Type': 'application/json'},
                 credentials: 'include',
                 method: 'POST',
-                body: reqBody,
-            }).then(console.log('success!'))
-            .catch(err => console.warn(err));
+                body: reqBody
+                })
+            }
+            catch(err) {
+                console.log(err)
+                return;
+            }
             window.location.assign(`/user/${formObject.username}`);
         }
         </script>
