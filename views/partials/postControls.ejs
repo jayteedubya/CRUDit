@@ -12,6 +12,7 @@
         console.log(edit);
         await fetch(window.location.href, {
             method: 'PUT',
+            mode: 'cors'
             headers: {
                 accept: "application/x-www-form-urlencoded",
             },
