@@ -14,10 +14,10 @@ import authRouter from './routes/authRouter';
 
 const app = express();
 const PORT = process.env.PORT || 4001;
-const upload = multer({dest: '/'});
+//const upload = multer({dest: '/'});
 //third party middleware
 app.set('view engine', 'ejs');
-app.use(upload.none());
+//app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 //app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());

@@ -2,7 +2,6 @@
 exports.__esModule = true;
 var express = require("express");
 var bodyParser = require("body-parser");
-var multer = require("multer");
 var cors = require("cors");
 var session = require("express-session");
 var util = require("./utilityMiddleware");
@@ -12,10 +11,10 @@ var submitViewsRouter_1 = require("./routes/submitViewsRouter");
 var authRouter_1 = require("./routes/authRouter");
 var app = express();
 var PORT = process.env.PORT || 4001;
-var upload = multer({ dest: '/' });
+//const upload = multer({dest: '/'});
 //third party middleware
 app.set('view engine', 'ejs');
-app.use(upload.none());
+//app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
 //app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
