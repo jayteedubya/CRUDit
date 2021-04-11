@@ -8,6 +8,7 @@
             formObject.username = document.getElementById("username").innerText;
             formObject.password = document.getElementById("password").innerText;
             const reqBody = JSON.stringify(formObject);
+            console.log(reqBody);
             fetch('/auth/log-in', {
                 method: 'POST',
                 body: reqBody,
