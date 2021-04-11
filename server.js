@@ -24,8 +24,8 @@ app.use(session({ secret: process.env.SECRET, cookie: { secure: true }, proxy: t
 //my middleware
 app.use(util.attachUsernameToRequest);
 app.use(function (req, res, next) {
-    console.log('body, initial request', req.body);
-    next();
+    req.body = JSON.parse(req.body);
+    console.log("initial request body");
 });
 //routes
 app.use('/', postViewsRouter_1["default"]);
