@@ -44,7 +44,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
 })
     
 //@ts-ignore
-//postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes
+postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes, enable pre-flight
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
     try {
