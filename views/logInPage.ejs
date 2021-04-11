@@ -11,8 +11,9 @@
             console.log(reqBody);
             fetch('/auth/log-in', {
                 headers: {'Content-Type': 'application/json'},
+                credentials: 'include',
                 method: 'POST',
-                body: reqBody,
+                data: reqBody,
             }).then(console.log('success!'))
             .catch(err => console.warn(err));
             //window.location.assign('/');
