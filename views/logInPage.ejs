@@ -5,15 +5,14 @@
         <script>
             function submitForm() {
             const formObject = {}
-            formObject.username = document.getElementById("username");
-            formObject.password = document.getElementById("password");
+            formObject.username = document.getElementById("username").innerText;
+            formObject.password = document.getElementById("password").innerText;
             const reqBody = JSON.stringify(formObject);
             fetch('/auth/log-in', {
                 method: 'POST',
                 body: reqBody,
             }).then(console.log('success!'))
             .catch(err => console.warn(err));
-            return false;
         }
         </script>
     </head>
