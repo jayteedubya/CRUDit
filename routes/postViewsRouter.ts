@@ -62,10 +62,14 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
 })
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
+    if (!req.body.postbody){
+        next();
+        return;
+    }
     try {
         const user = req.body.username
         if (req.body.userLogInStatus) {
-            console.log(await db.posts.editPost(req.body.postbody, Number(req.params.postId)));
+            await db.posts.editPost(req.body.postbody, Number(req.params.postId));
             res.redirect(`/user/${user}`);
             return;
         }

@@ -10,16 +10,17 @@
     const editPost = async () => {
         const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
         console.log(edit);
-        await fetch(window.location.href, {
+        console.log(await fetch(window.location.href, {
             method: 'PUT',
-            mode: 'cors',
             headers: {
                 accept: "application/x-www-form-urlencoded",
             },
             credentials: 'include',
-            body: {postbody: edit}
-        });
-        window.location.reload();
+            body: {
+                postbody: edit
+            }
+        }))
+        //window.location.reload();
     }
 </script>
 <ul class="post-control">
