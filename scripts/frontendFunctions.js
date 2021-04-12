@@ -50,12 +50,12 @@ const submitPost = async () => {
     try {
         const result = await fetch(window.location.href, requestParameters);
         console.log(result);
+        window.location.assign(result.url);
     }
     catch(err) {
         console.warn(err);
         return;
     }
-    window.location.assign(result.url);
 }
 
 
