@@ -9,6 +9,10 @@ const getPostBody = () => {
         topic: stringPrep(document.getElementById("topic").value.replaceAll(' ', '-')),
         post: stringPrep(document.getElementById("post").value)
     }
+    if (!body.title) {
+        alert("empty titles are not allowed");
+        return;
+    }
     return body;
 }
 
