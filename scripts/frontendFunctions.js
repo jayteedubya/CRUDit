@@ -44,6 +44,7 @@ const submitPost = async () => {
         method: 'POST',
         credentials: 'include',
         headers: {'content-type': 'application/json'},
+        redirect: true,
         body: JSON.stringify(getPostBody())
     }
     try {
