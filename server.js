@@ -11,14 +11,12 @@ var submitViewsRouter_1 = require("./routes/submitViewsRouter");
 var authRouter_1 = require("./routes/authRouter");
 var app = express();
 var PORT = process.env.PORT || 4001;
-//const upload = multer({dest: '/'});
 //third party middleware
 app.set('view engine', 'ejs');
-//app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
-//app.use(bodyParser.urlencoded({extended: true}));
+app.use('scripts', express.static(__dirname + '/scripts'));
 app.use(bodyParser.json());
-app.use(cors({ origin: 'https://crudit.herokuapp.com' })); //now a 404 instead of 503
+app.use(cors({ origin: 'https://crudit.herokuapp.com' }));
 app.use(session({ secret: process.env.SECRET, cookie: { secure: true }, proxy: true, resave: true, saveUninitialized: true })); //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);

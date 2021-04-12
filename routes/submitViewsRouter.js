@@ -54,18 +54,18 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.posts.createPost(request.title, request.topic, request.post, author)];
+                return [4 /*yield*/, db.posts.createPost(request.body.title, request.body.topic, request.body.post, author)];
             case 2:
                 result = _a.sent();
                 postId = result[0].id;
-                res.redirect("/post/" + postId);
+                res.send(postId);
                 return [2 /*return*/];
             case 3:
                 err_1 = _a.sent();
                 next(err_1);
                 return [2 /*return*/];
             case 4:
-                res.redirect('/auth/log-in');
+                res.status(401).send();
                 return [2 /*return*/];
         }
     });
