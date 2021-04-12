@@ -1,6 +1,5 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser'
-import * as multer from 'multer';
 import * as cors from 'cors';
 import * as session from 'express-session';
 import * as util from './utilityMiddleware';
@@ -14,14 +13,11 @@ import authRouter from './routes/authRouter';
 
 const app = express();
 const PORT = process.env.PORT || 4001;
-//const upload = multer({dest: '/'});
 //third party middleware
 app.set('view engine', 'ejs');
-//app.use(upload.none());
 app.use('/style', express.static(__dirname + '/views'));
-//app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(cors({origin: 'https://crudit.herokuapp.com'}));  //issue is now a json parsing thing
+app.use(cors({origin: 'https://crudit.herokuapp.com'}));
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true, resave: true, saveUninitialized: true }));  //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);

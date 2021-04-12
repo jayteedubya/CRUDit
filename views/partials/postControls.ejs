@@ -1,32 +1,5 @@
 <script>
-    const deletePost = async () => {
-        const result = await fetch(window.location.href, {
-            method: 'DELETE',
-            credentials: 'include',
-        });
-        window.location.assign('/');
-        return;
-    }
-    const editPost = async () => {
-        const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
-        const formattedEdit = edit.replaceAll("'", "''").replaceAll(`"`, `\"`);
-        let body = {'postbody': formattedEdit};
-        body = JSON.stringify(body);
-        const result = await fetch(window.location.href, {
-            method: 'PUT',
-            credentials: 'include',
-            headers: {
-                'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
-                origin: 'https://crudit.herokuapp.com',
-                'Access-Control-Allow-Credentials': true,
-                'content-type': 'application/json'
-
-            }, //when including credentials, access control allow origin must be set, cors thing
-            body: body
-        });
-        console.log(result);
-        window.location.reload();
-    }
+    
 </script>
 <ul class="post-control">
     <li><button class="post-control" onclick="deletePost()"> delete post </button></li>
