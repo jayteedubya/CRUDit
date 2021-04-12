@@ -16,7 +16,7 @@ const PORT = process.env.PORT || 4001;
 //third party middleware
 app.set('view engine', 'ejs');
 app.use('/style', express.static(__dirname + '/views'));
-app.use('scripts', express.static(__dirname + '/scripts'));
+app.use('/scripts', express.static(__dirname + '/scripts'));
 app.use(bodyParser.json());
 app.use(cors({origin: 'https://crudit.herokuapp.com'}));
 app.use(session({secret: process.env.SECRET, cookie: {secure: true}, proxy: true, resave: true, saveUninitialized: true }));  //make sure proxy is set to true if using https;
