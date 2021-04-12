@@ -5,9 +5,9 @@ const stringPrep = (string) => {
 
 const getPostBody = () => {
     const body = {
-        title: document.getElementById("title").innerHTML,
-        topic: document.getElementById("topic").innerHTML.replaceAll(' ', '-'),
-        post: stringPrep(document.getElementById("post").innerHTML)
+        title: stringPrep(document.getElementById("title").value),
+        topic: stringPrep(document.getElementById("topic").value.replaceAll(' ', '-')),
+        post: stringPrep(document.getElementById("post").value)
     }
     return body;
 }
