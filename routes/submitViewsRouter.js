@@ -58,7 +58,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 2:
                 result = _a.sent();
                 postId = result[0].id;
-                res.redirect('/topic/tests');
+                res.redirect("post/" + postId);
                 return [2 /*return*/];
             case 3:
                 err_1 = _a.sent();
