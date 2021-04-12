@@ -21,8 +21,8 @@ const deletePost = async () => {
     return;
 }
 const editPost = async () => {
-    const edit = prompt('make your edit here!', document.getElementById("body").innerHTML);
-    let body = {'postbody': formattedEdit};
+    const edit = prompt('make your edit here!', document.getElementById("body").value);
+    let body = {'postbody': stringPrep(edit)}
     body = JSON.stringify(body);
     const result = await fetch(window.location.href, {
         method: 'PUT',
@@ -54,7 +54,7 @@ const submitPost = async () => {
         console.warn(err);
         return;
     }
-    window.location.assign('/');
+    //window.location.assign('/');
 }
 
 
