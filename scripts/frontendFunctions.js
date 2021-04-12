@@ -55,7 +55,7 @@ const submitPost = async () => {
         console.warn(err);
         return;
     }
-    //window.location.assign('/');
+    window.location.assign(result.url);
 }
 
 
