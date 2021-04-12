@@ -13,7 +13,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
     const author = req.body.username;
     if (req.body.userLogInStatus) {
         try {
-            const result = await db.posts.createPost(request.body.title, request.body.topic, request.body.post, author);
+            const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
             res.redirect('/topic/tests');
             return;
