@@ -44,7 +44,7 @@ const submitPost = async () => {
         method: 'POST',
         credentials: 'include',
         headers: {'content-type': 'application/json'},
-        body: getPostBody()
+        body: JSON.stringify(getPostBody())
     }
     try {
         const result = await fetch(window.location.href, requestParameters);

@@ -15,7 +15,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
         try {
             const result = await db.posts.createPost(request.body.title, request.body.topic, request.body.post, author);
             const postId = result[0].id;
-            res.send(postId);
+            res.redirect('/topic/tests');
             return;
         }
         catch (err) {
@@ -23,7 +23,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
             return;
         }
     }
-    res.status(401).send();
+    res.sendStatus(401)
 })
 
 submitViewsRouter.post('/comment', async (req, res, next) => {

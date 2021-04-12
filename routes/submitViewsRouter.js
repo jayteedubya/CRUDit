@@ -58,14 +58,14 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 2:
                 result = _a.sent();
                 postId = result[0].id;
-                res.send(postId);
+                res.redirect('/topic/tests');
                 return [2 /*return*/];
             case 3:
                 err_1 = _a.sent();
                 next(err_1);
                 return [2 /*return*/];
             case 4:
-                res.status(401).send();
+                res.sendStatus(401);
                 return [2 /*return*/];
         }
     });
