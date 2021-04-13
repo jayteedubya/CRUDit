@@ -9,11 +9,15 @@ const getPostBody = () => {
         topic: stringPrep(document.getElementById("topic").value.replaceAll(' ', '-')),
         post: stringPrep(document.getElementById("post").value)
     }
-    if (!body.title) {
-        alert("empty titles are not allowed");
-        return;
-    }
     return body;
+}
+
+const getCommentBody = () => {
+    const comment = {
+        comment: stringPrep(document.getElementById("comment").value),
+        postID: document.getElementById("postID").value
+    };
+    return comment;
 }
 
 const deletePost = async () => {
@@ -27,7 +31,7 @@ const deletePost = async () => {
         window.location.assign('/');
         return;
     }
-    catch(err) {
+    catch (err) {
         console.warn(err);
         return;
     }
@@ -53,26 +57,55 @@ const editPost = async () => {
         window.location.reload();
         return;
     }
-    catch(err) {
+    catch (err) {
         console.warn(err);
         return;
     }
 }
 
 const submitPost = async () => {
+    const body = getPostBody();
+    if (!body.title) {
+        alert("empty titles are not allowed");
+        return;
+    }
     const requestParameters = {
         method: 'POST',
         credentials: 'include',
         headers: {'content-type': 'application/json'},
         redirect: "follow",
-        body: JSON.stringify(getPostBody())
+        body: JSON.stringify(body)
     }
     try {
         const result = await fetch(window.location.href, requestParameters);
         console.log(result);
-        window.location.assign(result.url);
+        return;
     }
-    catch(err) {
+    catch (err) {
+        console.warn(err);
+        return;
+    }
+}
+
+const submitComment = async () => {
+    const comment = getCommentBody();
+    if (!comment.comment) {
+        alert("empty comments are not allowed"); 
+        return;  
+    }
+    const requestParameters = {
+        method: 'POST',
+        credentials: 'include',
+        headers: {'content-type': 'application/json'},
+        comment: JSON.stringify(comment)
+    }
+    try {
+        const result = await fetch('/comment', requestParameters);
+        console.log(result);
+        window.location.reload();
+        return
+    }
+    catch (err) {
         console.warn(err);
         return;
     }

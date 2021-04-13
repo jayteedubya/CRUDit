@@ -1,8 +1,6 @@
-<form id="post-form" action="/submit/comment" method="post" enctype="application/x-www-form-urlencoded">
-    <ul>
-        <label for="add-comment">add a comment!</label>
-        <li><textarea id="comment" name="comment" class="comment" type="text" rows="10" cols="80" maxlength="1000"></textarea></li>
-        <li><input type="submit" value="submit"></li>
-        <li><input type="hidden" name="postID" value=<%=post.id%>></li>
-    </ul>
-</form>
+
+<ul>
+    <li><textarea id="comment" name="comment" class="comment" type="text" rows="10" cols="80" maxlength="1000"></textarea></li>
+    <li><button onclick="postComment()"> comment </button></li>
+    <li><input type="hidden" name="postID" value=<%=post.id%>></li>
+</ul>
