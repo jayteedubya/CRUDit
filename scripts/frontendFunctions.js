@@ -26,20 +26,19 @@ const deletePost = async () => {
 }
 const editPost = async () => {
     const edit = prompt('make your edit here!', document.getElementById("body").value);
-    let body = {'postbody': stringPrep(edit)}
-    body = JSON.stringify(body);
-    const result = await fetch(window.location.href, {
+    const body = JSON.stringify({'postbody': stringPrep(edit)});
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
+        origin: 'https://crudit.herokuapp.com',
+        'content-type': 'application/json'
+    }
+    const requestParameters = {
         method: 'PUT',
         credentials: 'include',
-        headers: {
-            'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
-            origin: 'https://crudit.herokuapp.com',
-            'Access-Control-Allow-Credentials': true,
-            'content-type': 'application/json'
-
-        }, //when including credentials, access control allow origin must be set, cors thing
+        headers: headers,
         body: body
-    });
+    }
+    const result = await fetch(window.location.href, requestParameters);
     console.log(result);
     window.location.reload();
 }
