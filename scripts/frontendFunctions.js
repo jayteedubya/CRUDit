@@ -93,6 +93,7 @@ const submitComment = async () => {
         alert("empty comments are not allowed"); 
         return;  
     }
+    console.log(comment);
     const requestParameters = {
         method: 'POST',
         credentials: 'include',
