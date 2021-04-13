@@ -97,13 +97,12 @@ const submitComment = async () => {
         method: 'POST',
         credentials: 'include',
         headers: {'content-type': 'application/json'},
-        comment: JSON.stringify(comment)
-    }
-    console.log(requestParameters.comment);
+        body: JSON.stringify(comment)
+    }  //comment is defined here
     try {
         const result = await fetch('/submit/comment', requestParameters);
         console.log(result);
-        //window.location.reload();
+        window.location.reload();
         return;
     }
     catch (err) {
