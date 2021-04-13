@@ -100,7 +100,7 @@ const submitComment = async () => {
         comment: JSON.stringify(comment)
     }
     try {
-        const result = await fetch('/comment', requestParameters);
+        const result = await fetch('/submit/comment', requestParameters);
         console.log(result);
         window.location.reload();
         return
