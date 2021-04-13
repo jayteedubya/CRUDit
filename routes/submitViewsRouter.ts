@@ -28,15 +28,15 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
     if (req.body.userLogInStatus) {
-        const user = req.body.username; //never receives comment in body;
+        const user = req.body.username;
         try {
             await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
+            res.sendStatus(201);
         }
         catch(err) {
             next(err);
             return;
         }
-        res.redirect('back');
         return;
     }
     res.redirect('/auth/log-in');

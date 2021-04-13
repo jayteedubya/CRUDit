@@ -98,8 +98,9 @@ const submitComment = async () => {
         method: 'POST',
         credentials: 'include',
         headers: {'content-type': 'application/json'},
-        body: JSON.stringify(comment)
-    }  
+        body: JSON.stringify(comment),
+        redirect: "follow"
+    };  
     try {
         const result = await fetch('/submit/comment', requestParameters);
         console.log(result);
