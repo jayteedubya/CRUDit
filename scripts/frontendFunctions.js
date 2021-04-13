@@ -17,13 +17,22 @@ const getPostBody = () => {
 }
 
 const deletePost = async () => {
-    const result = await fetch(window.location.href, {
+    const requestParameters = {
         method: 'DELETE',
         credentials: 'include',
-    });
-    window.location.assign('/');
-    return;
+    }
+    try {
+        const result = await fetch(window.location.href, requestParameters);
+        console.log(result);
+        window.location.assign('/');
+        return;
+    }
+    catch(err) {
+        console.warn(err);
+        return;
+    }
 }
+
 const editPost = async () => {
     const edit = prompt('make your edit here!', document.getElementById("body").value);
     const body = JSON.stringify({'postbody': stringPrep(edit)});
@@ -38,10 +47,18 @@ const editPost = async () => {
         headers: headers,
         body: body
     }
-    const result = await fetch(window.location.href, requestParameters);
-    console.log(result);
-    window.location.reload();
+    try {
+        const result = await fetch(window.location.href, requestParameters);
+        console.log(result);
+        window.location.reload();
+        return;
+    }
+    catch(err) {
+        console.warn(err);
+        return;
+    }
 }
+
 const submitPost = async () => {
     const requestParameters = {
         method: 'POST',
