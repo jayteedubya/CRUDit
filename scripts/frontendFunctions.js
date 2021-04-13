@@ -17,6 +17,7 @@ const getCommentBody = () => {
         comment: stringPrep(document.getElementById("comment").value),
         postID: document.getElementById("postID").value
     };
+    document.getElementById("comment").innerText = '';
     return comment;
 }
 
@@ -98,7 +99,7 @@ const submitComment = async () => {
         credentials: 'include',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(comment)
-    }  //comment is defined here
+    }  
     try {
         const result = await fetch('/submit/comment', requestParameters);
         console.log(result);
