@@ -20,10 +20,6 @@ app.use(cors({ origin: 'https://crudit.herokuapp.com' }));
 app.use(session({ secret: process.env.SECRET, cookie: { secure: true }, proxy: true, resave: true, saveUninitialized: true })); //make sure proxy is set to true if using https;
 //my middleware
 app.use(util.attachUsernameToRequest);
-app.use(function (req, res, next) {
-    console.log("initial request body", req.body);
-    next();
-});
 //routes
 app.use('/', postViewsRouter_1["default"]);
 app.use('/user', userViewsRouter_1["default"]);
