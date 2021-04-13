@@ -77,21 +77,19 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
             case 0:
                 if (!req.body.userLogInStatus) return [3 /*break*/, 5];
                 user = req.body.username;
-                console.log('reuest body', req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, db.comments.createComment(user, req.body.comment, Number(req.body.postID))];
             case 2:
                 _a.sent();
+                res.sendStatus(201);
                 return [3 /*break*/, 4];
             case 3:
                 err_2 = _a.sent();
                 next(err_2);
                 return [2 /*return*/];
-            case 4:
-                res.redirect('back');
-                return [2 /*return*/];
+            case 4: return [2 /*return*/];
             case 5:
                 res.redirect('/auth/log-in');
                 return [2 /*return*/];
