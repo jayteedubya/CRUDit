@@ -28,8 +28,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
     if (req.body.userLogInStatus) {
-        const user = req.body.username;
-        console.log('reuest body', req.body);
+        const user = req.body.username; //never receives comment in body;
         try {
             await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
         }

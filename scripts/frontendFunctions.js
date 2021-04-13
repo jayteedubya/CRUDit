@@ -89,7 +89,6 @@ const submitPost = async () => {
 
 const submitComment = async () => {
     const comment = getCommentBody();
-    console.log('comment', comment);
     if (!comment.comment) {
         alert("empty comments are not allowed"); 
         return;
@@ -100,11 +99,12 @@ const submitComment = async () => {
         headers: {'content-type': 'application/json'},
         comment: JSON.stringify(comment)
     }
+    console.log(requestParameters.comment);
     try {
         const result = await fetch('/submit/comment', requestParameters);
         console.log(result);
-        window.location.reload();
-        return
+        //window.location.reload();
+        return;
     }
     catch (err) {
         console.warn(err);
