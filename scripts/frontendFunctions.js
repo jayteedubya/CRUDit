@@ -17,7 +17,7 @@ const getCommentBody = () => {
         comment: stringPrep(document.getElementById("comment").value),
         postID: document.getElementById("postID").value
     };
-    document.getElementById("comment").innerText = '';
+    document.getElementById("comment").value = '';
     return comment;
 }
 
