@@ -77,7 +77,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
             case 0:
                 if (!req.body.userLogInStatus) return [3 /*break*/, 5];
                 user = req.body.username;
-                console.log(req.body);
+                console.log('reuest body', req.body);
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
