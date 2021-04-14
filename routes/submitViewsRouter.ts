@@ -40,10 +40,7 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
     catch(err) {
         next(err);
         return;
-    }
-}
-    
-    
+    }    
 });
 //@ts-ignore
 submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) => {
