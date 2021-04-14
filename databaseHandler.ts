@@ -119,6 +119,7 @@ class Comments extends Table {
         const query = `SELECT user_name\
         FROM comments\
         WHERE id = ${id};`;
+        return this.makeQuery(query);
     }
 }
 

@@ -63,7 +63,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {  //
 })
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
-    const author = db.posts.getAuthorByPostId(Number(req.params.id));
+    const author = db.posts.getAuthorByPostId(Number(req.params.postId));
     const userAuthorization = author[0].user_name === req.body.username;
     if (!userAuthorization) {
         res.sendStatus(401);

@@ -200,6 +200,7 @@ var Comments = /** @class */ (function (_super) {
     };
     Comments.prototype.getCommentAuthorByCommentId = function (id) {
         var query = "SELECT user_name        FROM comments        WHERE id = " + id + ";";
+        return this.makeQuery(query);
     };
     return Comments;
 }(Table));
