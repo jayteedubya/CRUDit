@@ -1,12 +1,13 @@
 import * as express from 'express';
 import * as db from '../databaseHandler';
+import * as cors from 'cors';
 
 const submitViewsRouter = express.Router();
 
 submitViewsRouter.get('/post', (req, res, next) => {
     res.render('createPost');
     return;
-})
+});
 
 submitViewsRouter.post('/post', async (req, res, next) => {
     const request = req.body;
@@ -15,7 +16,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
         try {
             const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
-            res.redirect(`/post/${postId}`);
+            res.status(201).redirect(`/post/${postId}`);
             return;
         }
         catch (err) {
@@ -24,7 +25,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
         }
     }
     res.sendStatus(401)
-})
+});
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
     if (req.body.userLogInStatus) {
@@ -39,9 +40,40 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
         }
         return;
     }
-    res.redirect('/auth/log-in');
+    res.status(401).redirect('/auth/log-in');
     
 });
-
+//@ts-ignore
+submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) => {
+    if (!req.body.userLogInStatus) {
+        res.sendStatus(401);
+        return;
+    }
+    try {
+        await db.comments.deleteComment(Number(req.params.commentID));
+        res.sendStatus(204);
+        return;
+    }
+    catch (err) {
+        next(err);
+        return;
+    }
+});
+//@ts-ignore
+submitViewsRouter.put('/comment/:commentID', cors(), async (req, res, next) => {
+    if (!req.body.userLogInStatus) {
+        res.sendStatus(401);
+        return;
+    }
+    try {
+        await db.comments.editComment(Number(req.params.commentID), req.body.commentbody);
+        res.sendStatus(200);
+        return;
+    }
+    catch (err) {
+        next (err);
+        return;
+    }
+});
 
 export default submitViewsRouter;

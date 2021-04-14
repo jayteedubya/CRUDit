@@ -24,7 +24,7 @@ const getCommentBody = () => {
 const deletePost = async () => {
     const requestParameters = {
         method: 'DELETE',
-        credentials: 'include',
+        credentials: 'include'
     }
     try {
         const result = await fetch(window.location.href, requestParameters);
@@ -103,6 +103,49 @@ const submitComment = async () => {
     };  
     try {
         const result = await fetch('/submit/comment', requestParameters);
+        console.log(result);
+        window.location.reload();
+        return;
+    }
+    catch (err) {
+        console.warn(err);
+        return;
+    }
+}
+
+const editComment = async (id) => {
+    const edit = prompt('make your edit here!', document.getElementById(`${id}`).value);
+    const body = JSON.stringify({'commentbody': stringPrep(edit)});
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
+        origin: 'https://crudit.herokuapp.com',
+        'content-type': 'application/json'
+    }
+    const requestParameters = {
+        method: 'PUT',
+        credentials: 'include',
+        headers: headers,
+        body: body
+    }
+    try {
+        const result = await fetch(`/submit/comment/${id}`, requestParameters);
+        console.log(result);
+        window.location.reload();
+        return;
+    }
+    catch (err) {
+        console.warn(err);
+        return;
+    }
+}
+
+const deleteComment = async (id) => {
+    const requestParameters = {
+        method: 'DELETE',
+        credentials: 'include'
+    }
+    try {
+        const result = await fetch(`/submit/comment${id}`, requestParameters);
         console.log(result);
         window.location.reload();
         return;
