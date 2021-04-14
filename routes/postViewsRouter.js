@@ -96,7 +96,8 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
             case 3:
                 comments = _a.sent();
                 postObject.comments = comments;
-                postObject.userLogInStatus = req.body.userLogInStatus;
+                postObject.userLogInStatus = user === postObject.user_name;
+                postObject.userViewing = user;
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
             case 4:
@@ -108,23 +109,24 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
     });
 }); });
 //@ts-ignore
-postViewsRouter.options('/post/:postId', cors()); //need to add cors as middleware to any unsafe routes, enable pre-flight
-//@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_4;
+    var author, userAuthorization, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                _a.trys.push([0, 3, , 4]);
-                user = req.body.username;
-                if (!req.body.userLogInStatus) return [3 /*break*/, 2];
-                return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
+                author = db.posts.getAuthorByPostId(Number(req.params.id));
+                userAuthorization = author[0].user_name === req.body.username;
+                if (!userAuthorization) {
+                    res.sendStatus(401);
+                    return [2 /*return*/];
+                }
+                _a.label = 1;
             case 1:
-                _a.sent();
-                res.redirect("/user/" + user);
-                _a.label = 2;
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
             case 2:
-                res.redirect('/auth/log-in');
+                _a.sent();
+                res.redirect("/user/" + req.body.username);
                 return [2 /*return*/];
             case 3:
                 err_4 = _a.sent();
@@ -136,10 +138,16 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
 }); });
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var user, err_5;
+    var author, userAuthorization, user, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                author = db.posts.getAuthorByPostId(Number(req.params.id));
+                userAuthorization = author[0].user_name === req.body.username;
+                if (!userAuthorization) {
+                    res.sendStatus(401);
+                    return [2 /*return*/];
+                }
                 if (!req.body.postbody) {
                     console.log('no body provided');
                     next();
@@ -147,22 +155,18 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
                 }
                 _a.label = 1;
             case 1:
-                _a.trys.push([1, 4, , 5]);
+                _a.trys.push([1, 3, , 4]);
                 user = req.body.username;
-                if (!req.body.userLogInStatus) return [3 /*break*/, 3];
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
             case 2:
                 _a.sent();
                 res.redirect("/user/" + user);
                 return [2 /*return*/];
             case 3:
-                res.redirect('/auth/log-in');
-                return [3 /*break*/, 5];
-            case 4:
                 err_5 = _a.sent();
                 next(err_5);
-                return [3 /*break*/, 5];
-            case 5: return [2 /*return*/];
+                return [2 /*return*/];
+            case 4: return [2 /*return*/];
         }
     });
 }); });

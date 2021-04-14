@@ -131,6 +131,10 @@ var Posts = /** @class */ (function (_super) {
         var query = "UPDATE posts        SET body = '" + body + "'        WHERE id = " + post_id + ";";
         return this.makeQuery(query);
     };
+    Posts.prototype.getAuthorByPostId = function (post_id) {
+        var query = "SELECT user_name        FROM posts        WHERE id = " + post_id + ";";
+        return this.makeQuery(query);
+    };
     Posts.prototype.deletePost = function (post_id) {
         return __awaiter(this, void 0, void 0, function () {
             var deletePostQuery, deletePostCommentsQuery;
@@ -193,6 +197,9 @@ var Comments = /** @class */ (function (_super) {
     Comments.prototype.addChildComment = function (parent_id, child_id) {
         var query = "UPDATE comments        SET children = array_append(children, " + child_id + ")        WHERE id = " + parent_id + ";";
         return this.makeQuery(query);
+    };
+    Comments.prototype.getCommentAuthorByCommentId = function (id) {
+        var query = "SELECT user_name        FROM comments        WHERE id = " + id + ";";
     };
     return Comments;
 }(Table));

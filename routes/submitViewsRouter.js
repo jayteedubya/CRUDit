@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 exports.__esModule = true;
 var express = require("express");
 var db = require("../databaseHandler");
+var cors = require("cors");
 var submitViewsRouter = express.Router();
 submitViewsRouter.get('/post', function (req, res, next) {
     res.render('createPost');
@@ -50,7 +51,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 0:
                 request = req.body;
                 author = req.body.username;
-                if (!req.body.userLogInStatus) return [3 /*break*/, 4];
+                if (!req.body.user) return [3 /*break*/, 4];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -58,7 +59,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 2:
                 result = _a.sent();
                 postId = result[0].id;
-                res.redirect("/post/" + postId);
+                res.status(201).redirect("/post/" + postId);
                 return [2 /*return*/];
             case 3:
                 err_1 = _a.sent();
@@ -75,7 +76,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!req.body.userLogInStatus) return [3 /*break*/, 5];
+                if (!req.body.user) return [3 /*break*/, 5];
                 user = req.body.username;
                 _a.label = 1;
             case 1:
@@ -91,8 +92,66 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
                 return [2 /*return*/];
             case 4: return [2 /*return*/];
             case 5:
-                res.redirect('/auth/log-in');
+                res.status(401).redirect('/auth/log-in');
                 return [2 /*return*/];
+        }
+    });
+}); });
+//@ts-ignore
+submitViewsRouter["delete"]('/comment/:commentID', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var commentAuthor, userAuthorization, err_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.comments.getCommentAuthorByCommentId(Number(req.params.commentID))];
+            case 1:
+                commentAuthor = _a.sent();
+                userAuthorization = commentAuthor[0].user_name === req.body.user;
+                if (!userAuthorization) {
+                    res.sendStatus(401);
+                    return [2 /*return*/];
+                }
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, db.comments.deleteComment(Number(req.params.commentID))];
+            case 3:
+                _a.sent();
+                res.sendStatus(204);
+                return [2 /*return*/];
+            case 4:
+                err_3 = _a.sent();
+                next(err_3);
+                return [2 /*return*/];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); });
+//@ts-ignore
+submitViewsRouter.put('/comment/:commentID', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var commentAuthor, userAuthorization, err_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.comments.getCommentAuthorByCommentId(Number(req.params.commentID))];
+            case 1:
+                commentAuthor = _a.sent();
+                userAuthorization = commentAuthor[0].user_name === req.body.user;
+                if (!userAuthorization) {
+                    res.sendStatus(401);
+                    return [2 /*return*/];
+                }
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
+                return [4 /*yield*/, db.comments.editComment(Number(req.params.commentID), req.body.commentbody)];
+            case 3:
+                _a.sent();
+                res.sendStatus(200);
+                return [2 /*return*/];
+            case 4:
+                err_4 = _a.sent();
+                next(err_4);
+                return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); });

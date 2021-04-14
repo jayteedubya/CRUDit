@@ -12,7 +12,7 @@ submitViewsRouter.get('/post', (req, res, next) => {
 submitViewsRouter.post('/post', async (req, res, next) => {
     const request = req.body;
     const author = req.body.username;
-    if (req.body.userLogInStatus) {
+    if (req.body.user) {
         try {
             const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
@@ -28,7 +28,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 });
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
-    if (req.body.userLogInStatus) {
+    if (req.body.user) {
         const user = req.body.username;
         try {
             await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
@@ -45,7 +45,9 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
 });
 //@ts-ignore
 submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) => {
-    if (!req.body.userLogInStatus) {
+    const commentAuthor = await db.comments.getCommentAuthorByCommentId(Number(req.params.commentID));
+    const userAuthorization = commentAuthor[0].user_name === req.body.user;
+    if (!userAuthorization) {
         res.sendStatus(401);
         return;
     }
@@ -61,7 +63,9 @@ submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) =
 });
 //@ts-ignore
 submitViewsRouter.put('/comment/:commentID', cors(), async (req, res, next) => {
-    if (!req.body.userLogInStatus) {
+    const commentAuthor = await db.comments.getCommentAuthorByCommentId(Number(req.params.commentID));
+    const userAuthorization = commentAuthor[0].user_name === req.body.user;
+    if (!userAuthorization) {
         res.sendStatus(401);
         return;
     }

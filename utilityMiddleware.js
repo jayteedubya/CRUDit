@@ -53,7 +53,6 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
                 if (userArray[0]) {
                     username = userArray[0].user_name;
                     req.body.username = username;
-                    req.body.userLogInStatus = true;
                     next();
                     return [2 /*return*/];
                 }

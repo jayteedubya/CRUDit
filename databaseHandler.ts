@@ -60,6 +60,12 @@ class Posts extends Table {
         WHERE id = ${post_id};`;
         return this.makeQuery(query);
     }
+    getAuthorByPostId(post_id: number) {
+        const query = `SELECT user_name\
+        FROM posts\
+        WHERE id = ${post_id};`;
+        return this.makeQuery(query);
+    }
     async deletePost(post_id: number) {
         const deletePostQuery = `DELETE FROM posts\
         WHERE id = ${post_id};`;
@@ -108,6 +114,11 @@ class Comments extends Table {
         SET children = array_append(children, ${child_id})\
         WHERE id = ${parent_id};`;
         return this.makeQuery(query);
+    }
+    getCommentAuthorByCommentId(id: number) {
+        const query = `SELECT user_name\
+        FROM comments\
+        WHERE id = ${id};`;
     }
 }
 

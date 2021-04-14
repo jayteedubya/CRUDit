@@ -34,7 +34,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId); 
         postObject.comments = comments;
-        postObject.userLogInStatus = req.body.userLogInStatus;
+        postObject.userLogInStatus = user === postObject.user_name;
         postObject.userViewing = user;
         res.render('textPost', {post: postObject});
         return;
@@ -43,18 +43,18 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
         next(err);
     }
 })
-    
+
 //@ts-ignore
-postViewsRouter.options('/post/:postId', cors());  //need to add cors as middleware to any unsafe routes, enable pre-flight
-//@ts-ignore
-postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
+postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {  //unsafe routes need cors provided as middleware
+    const author = db.posts.getAuthorByPostId(Number(req.params.id));
+    const userAuthorization = author[0].user_name === req.body.username;
+    if (!userAuthorization) {
+        res.sendStatus(401);
+        return;
+    }
     try {
-        const user = req.body.username;
-        if (req.body.userLogInStatus) {
-            await db.posts.deletePost(Number(req.params.postId));
-            res.redirect(`/user/${user}`);
-        }
-        res.redirect('/auth/log-in');
+        await db.posts.deletePost(Number(req.params.postId));
+        res.redirect(`/user/${req.body.username}`);
         return;
     }
     catch (err) {
@@ -63,22 +63,27 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {
 })
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
+    const author = db.posts.getAuthorByPostId(Number(req.params.id));
+    const userAuthorization = author[0].user_name === req.body.username;
+    if (!userAuthorization) {
+        res.sendStatus(401);
+        return;
+    }
     if (!req.body.postbody){
         console.log('no body provided')
         next();
         return;
     }
     try {
-        const user = req.body.username
-        if (req.body.userLogInStatus) {
-            await db.posts.editPost(req.body.postbody, Number(req.params.postId));
-            res.redirect(`/user/${user}`);
-            return;
-        }
-        res.redirect('/auth/log-in');
+        const user = req.body.username;
+        await db.posts.editPost(req.body.postbody, Number(req.params.postId));
+        res.redirect(`/user/${user}`);
+        return;
     }
+        
     catch (err) {
         next(err);
+        return;
     }
 })
 
