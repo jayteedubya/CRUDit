@@ -19,6 +19,6 @@
     <p class=" comment-separator">comments</p>
     <%if (post.userLogInStatus) {%><%-include('partials/postComment')%><%}%>
     <div class="comments">
-        <% post.comments.forEach(comment => {%><%-include('partials/commentBox', {comment: comment})%><%}) %>
+        <% post.comments.forEach(comment => %><%-include('partials/commentBox', {comment: comment})) %>
     </div>
 </body>
