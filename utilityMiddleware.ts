@@ -18,10 +18,17 @@ const attachUsernameToRequest = async (req, res, next) => {
     }
 }
 
+const logger = (req, res, next) => {
+    console.log(req.method);
+    console.log(req.route);
+    next();
+    return;
+}
+
 const generalErrorHandler = (err, req, res, next) => {
     console.warn(err);
     res.render('errorPage', {error: err});
     next();
 }
 
-export { generalErrorHandler, attachUsernameToRequest };
+export { generalErrorHandler, attachUsernameToRequest, logger };

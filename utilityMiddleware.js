@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 exports.__esModule = true;
-exports.attachUsernameToRequest = exports.generalErrorHandler = void 0;
+exports.logger = exports.attachUsernameToRequest = exports.generalErrorHandler = void 0;
 var db = require("./databaseHandler");
 var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var sessionID, userArray, username, err_1;
@@ -67,6 +67,13 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
     });
 }); };
 exports.attachUsernameToRequest = attachUsernameToRequest;
+var logger = function (req, res, next) {
+    console.log(req.method);
+    console.log(req.route);
+    next();
+    return;
+};
+exports.logger = logger;
 var generalErrorHandler = function (err, req, res, next) {
     console.warn(err);
     res.render('errorPage', { error: err });
