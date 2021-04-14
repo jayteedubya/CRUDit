@@ -4,7 +4,7 @@
         <li class="comment-time-stamp"> posted: <%=comment.time_stamp%></li>
         <li class="comment-body" id="<%=comment.id%>"><%=comment.body%></li>
         <li>
-            <%if (comment.user_name === comment.userViewing)<%-include('partials/commentControls', {id: comment.id})%>
+            <%if (comment.user_name === comment.userViewing) {%><%-include('partials/commentControls', {id: comment.id})%><%}%>
         </li>
     </ul>
 </li>
