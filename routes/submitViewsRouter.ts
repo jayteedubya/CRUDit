@@ -28,19 +28,21 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 });
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
-    if (req.body.user) {
-        const user = req.body.username;
-        try {
-            await db.comments.createComment(user, req.body.comment, Number(req.body.postID));
-            res.sendStatus(201);
-        }
-        catch(err) {
-            next(err);
-            return;
-        }
+    if (!req.body.user) {
+        res.status(401).redirect('/auth/log-in');
         return;
     }
-    res.status(401).redirect('/auth/log-in');
+    try {
+        await db.comments.createComment(req.body.user, req.body.comment, Number(req.body.postID));
+        res.sendStatus(201);
+        return;
+    }
+    catch(err) {
+        next(err);
+        return;
+    }
+}
+    
     
 });
 //@ts-ignore
