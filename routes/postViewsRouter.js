@@ -141,8 +141,9 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
     var author, userAuthorization, user, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0:
-                author = db.posts.getAuthorByPostId(Number(req.params.postId));
+            case 0: return [4 /*yield*/, db.posts.getAuthorByPostId(Number(req.params.postId))];
+            case 1:
+                author = _a.sent();
                 userAuthorization = author[0].user_name === req.body.username;
                 if (!userAuthorization) {
                     res.sendStatus(401);
@@ -153,20 +154,20 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
                     next();
                     return [2 /*return*/];
                 }
-                _a.label = 1;
-            case 1:
-                _a.trys.push([1, 3, , 4]);
+                _a.label = 2;
+            case 2:
+                _a.trys.push([2, 4, , 5]);
                 user = req.body.username;
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
-            case 2:
+            case 3:
                 _a.sent();
                 res.redirect("/user/" + user);
                 return [2 /*return*/];
-            case 3:
+            case 4:
                 err_5 = _a.sent();
                 next(err_5);
                 return [2 /*return*/];
-            case 4: return [2 /*return*/];
+            case 5: return [2 /*return*/];
         }
     });
 }); });
