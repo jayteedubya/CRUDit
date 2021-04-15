@@ -25,13 +25,11 @@ const validateString = (string) => {
     const criteria = /^[a-zA-Z0-9/!/?/_/-/#]/;
     const stringArray = [...string];
     const filteredArray = stringArray.filter(item => criteria.test(item));
-    const result = stringArray.toString() === filteredArray.toString();
-    console.log('regex test result', result);
+    const result = stringArray.toString() === filteredArray.toString()
     return result;
 }
 
 const validatePassword = (password, confirmPassword) => {
-    console.log("password", password)
     if (!validateString(password)) {
         alert("password must only contain alphanumeric characters or these symbols: ! ? _ - #");
         return;
@@ -44,12 +42,10 @@ const validatePassword = (password, confirmPassword) => {
         alert("password and confirm password do not match");
         return;
     }
-    console.log('password valid')
     return password;
 }
 
 const validateUsername = (username) => {
-    console.log("username", username);
     if (!validateString(username)) {
         alert("password must only contain alphanumeric characters or the symbols ! ? _ - #");
         return;
@@ -66,6 +62,7 @@ const getNewUserInfo = () => {
             password: password
         };
         console.log(user);
+        return user;
     }
     return;
 }
