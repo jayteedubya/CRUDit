@@ -56,8 +56,8 @@ const validateUsername = (username) => {
 }
 
 const getNewUserInfo = () => {
-    const username = validateUsername(document.getElementById("username"));
-    const password = validatePassword(document.getElementById("password"), document.getElementById("confirm-password"));
+    const username = validateUsername(document.getElementById("username").value);
+    const password = validatePassword(document.getElementById("password").value, document.getElementById("confirm-password").value);
     if (username && password) {
         const user = {
             username: username,
