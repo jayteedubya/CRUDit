@@ -15,7 +15,18 @@ class Table {
         catch (err) {
             throw err;
         }
-        
+    }
+    async makeParamQuery(query: string, values) {
+        try {
+            const client = this.getNewClient();
+            await client.connect();
+            const queryResult = await client.query(query, values);
+            client.end();
+            return queryResult.rows
+        }
+        catch (err) {
+            throw(err);
+        }
     }
 }
 
@@ -161,9 +172,9 @@ class Users extends Table {
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
         const query = `INSERT INTO users (user_name, email, password, current_session)\
-        VALUES ('${user_name}', '${email}', '${password}, '${current_session}')\
-        RETURNING user_name;`;
-        return this.makeQuery(query);
+        VALUES ('$1', '$2', '$3, '$4');`;
+        const values = [user_name, email, password, current_session];
+        return this.makeParamQuery(query, values);
     }
     changePassword(user_id: number, newPassword: string) {
         const query = `UPDATE users\

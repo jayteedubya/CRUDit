@@ -83,6 +83,30 @@ var Table = /** @class */ (function () {
             });
         });
     };
+    Table.prototype.makeParamQuery = function (query, values) {
+        return __awaiter(this, void 0, void 0, function () {
+            var client, queryResult, err_2;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        _a.trys.push([0, 3, , 4]);
+                        client = this.getNewClient();
+                        return [4 /*yield*/, client.connect()];
+                    case 1:
+                        _a.sent();
+                        return [4 /*yield*/, client.query(query, values)];
+                    case 2:
+                        queryResult = _a.sent();
+                        client.end();
+                        return [2 /*return*/, queryResult.rows];
+                    case 3:
+                        err_2 = _a.sent();
+                        throw (err_2);
+                    case 4: return [2 /*return*/];
+                }
+            });
+        });
+    };
     return Table;
 }());
 var Posts = /** @class */ (function (_super) {
@@ -246,8 +270,9 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password, current_session) {
-        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('" + user_name + "', '" + email + "', '" + password + ", '" + current_session + "')        RETURNING user_name;";
-        return this.makeQuery(query);
+        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('$1', '$2', '$3, '$4');";
+        var values = [user_name, email, password, current_session];
+        return this.makeParamQuery(query, values);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {
         var query = "UPDATE users        SET password = '" + newPassword + "'        WHERE id = " + user_id + ";";

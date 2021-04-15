@@ -139,6 +139,7 @@ class Users extends Table {
         const startQuery = "CREATE TABLE users(\
         id SERIAL PRIMARY KEY,\
         user_name VARCHAR(40) UNIQUE NOT NULL,\
+        email VARCHAR(80),\
         password TEXT);";
         return await this.makeQuery(startQuery);
     }
