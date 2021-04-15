@@ -215,7 +215,7 @@ const createUser = async () => {
         credentials: 'include',
         redirect: 'follow',
         headers: {'content-type': 'application/json'},
-        body: body
+        body: JSON.stringify(body)
     }
     try {
         console.log("submitting to server");
