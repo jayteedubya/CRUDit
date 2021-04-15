@@ -22,7 +22,7 @@ const getCommentBody = () => {
 }
 
 const validateUsername = (username) => {
-    if (/^[a-zA-Z0-9\_\!\?\&]/.test(username)) {
+    if (/^[a-zA-Z0-9]/.test(username)) {
         return username;
     }
     alert("username must be alphanumeric or one of these symbols: _ ! ? &");
