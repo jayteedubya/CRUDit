@@ -185,6 +185,7 @@ const deleteComment = async (id) => {
 }
 
 const createUser = async () => {
+    console.log("creating user!");
     const body = getNewUserInfo();
     if (!body) {
         console.log("body undefined/false");
@@ -198,6 +199,7 @@ const createUser = async () => {
         body: body
     }
     try {
+        console.log("submitting to server");
         const result = await fetch('/auth/sign-up', requestParams);
         console.log(result);
         return;

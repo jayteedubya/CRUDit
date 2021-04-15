@@ -20,7 +20,6 @@ const attachUsernameToRequest = async (req, res, next) => {
 
 const logger = (req, res, next) => {
     console.log(req.method);
-    console.log(req.route);
     next();
     return;
 }
