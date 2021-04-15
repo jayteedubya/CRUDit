@@ -172,7 +172,7 @@ class Users extends Table {
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
         const query = `INSERT INTO users (user_name, email, password, current_session)\
-        VALUES ('$1', '$2', '$3, '$4');`;
+        VALUES ('$1', '$2', '$3', '$4');`;
         const values = [user_name, email, password, current_session];
         return this.makeParamQuery(query, values);
     }

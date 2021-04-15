@@ -270,7 +270,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.createUser = function (user_name, email, password, current_session) {
-        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('$1', '$2', '$3, '$4');";
+        var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ('$1', '$2', '$3', '$4');";
         var values = [user_name, email, password, current_session];
         return this.makeParamQuery(query, values);
     };
