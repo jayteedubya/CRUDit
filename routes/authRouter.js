@@ -86,7 +86,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
             case 0:
                 username = req.body.username;
                 password = req.body.password;
-                emailaddress = req.body.emailaddress;
+                emailaddress = "placeholder";
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
                 hashedPassword = _a.sent();

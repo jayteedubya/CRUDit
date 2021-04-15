@@ -69,7 +69,6 @@ var attachUsernameToRequest = function (req, res, next) { return __awaiter(void 
 exports.attachUsernameToRequest = attachUsernameToRequest;
 var logger = function (req, res, next) {
     console.log(req.method);
-    console.log(req.route);
     next();
     return;
 };
