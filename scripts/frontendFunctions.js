@@ -40,7 +40,7 @@ const validatePassword = (password, confirmPassword) => {
         alert("password must be at least 8 characters long");
         return;
     }
-    if (password !== confirmpassword) {
+    if (password !== confirmPassword) {
         alert("password and confirm password do not match");
         return;
     }
