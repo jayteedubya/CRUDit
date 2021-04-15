@@ -46,7 +46,6 @@ authRouter.get('/log-in', function (req, res, next) {
 authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
-//fix memory leak session cookie store. Maybe.
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var username, password, userArr, user, result, err_1;
     return __generator(this, function (_a) {
@@ -87,11 +86,12 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 username = req.body.username;
                 password = req.body.password;
                 emailaddress = "placeholder";
-                console.log(username);
-                console.log(password);
+                console.log("username: ", username);
+                console.log("password: ", password);
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
                 hashedPassword = _c.sent();
+                console.log("hashed password: ", hashedPassword);
                 _c.label = 2;
             case 2:
                 _c.trys.push([2, 4, , 5]);

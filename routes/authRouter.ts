@@ -12,8 +12,6 @@ authRouter.get('/sign-up', (req, res, next) => {
     res.render('createUserPage');
 });
 
-//fix memory leak session cookie store. Maybe.
-
 authRouter.post('/log-in', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -36,9 +34,10 @@ authRouter.post('/sign-up', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
     const emailaddress = "placeholder";
-    console.log(username);
-    console.log(password);
+    console.log("username: ",username);
+    console.log("password: ", password);
     const hashedPassword = await bcrypt.hash(password, 10);
+    console.log("hashed password: ", hashedPassword);
     try {
         console.log(await db.users.createUser(username, emailaddress, hashedPassword, req.session.id));
     }
