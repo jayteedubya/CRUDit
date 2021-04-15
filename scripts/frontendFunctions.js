@@ -21,20 +21,35 @@ const getCommentBody = () => {
     return comment;
 }
 
-const validateUsername = (username) => {
-    if (/^[a-zA-Z0-9]$/.test(username)) {
-        return username;
-    }
-    alert("username must be alphanumeric or one of these symbols: _ ! ? &");
-    return false;
+const validateString = (string) => {
+    const criteria = /^[a-zA-Z0-9/!/?/_/-/#]/;
+    const stringArray = [...string];
+    const filteredArray = stringArray.filter(item => criteria.test(item));
+    return stringArray.toString() === filteredArray.toString();
 }
 
 const validatePassword = (password, confirmPassword) => {
-    if (/[a-zA-Z0-9\_\!\?\&]/.test(password) && password.length > 7 && password === confirmPassword) {
-        return password;
+    if (!validateString(password)) {
+        alert("password must only contain alphanumeric characters or the symbols ! ? _ - #");
+        return;
     }
-    alert("password must be alphanumeric or one of these symbols: _ ! ? & and at least 8 characters");
-    return false;
+    if (!password.length > 7) {
+        alert("password must be at least 8 characters long");
+        return;
+    }
+    if (password !== confirmpassword) {
+        alert("password and confirm password do not match");
+        return;
+    }
+    return password;
+}
+
+const validateUsername = (username) => {
+    if (!validateString(username)) {
+        alert("password must only contain alphanumeric characters or the symbols ! ? _ - #");
+        return;
+    }
+    return username;
 }
 
 const getNewUserInfo = () => {
@@ -46,7 +61,7 @@ const getNewUserInfo = () => {
             password: password
         };
     }
-    return false;
+    return;
 }
 
 const deletePost = async () => {
@@ -188,7 +203,7 @@ const createUser = async () => {
     console.log("creating user!");
     const body = getNewUserInfo();
     if (!body) {
-        console.log("body undefined/false");
+        console.log("body undefined");
         return;
     }
     const requestParams = {
