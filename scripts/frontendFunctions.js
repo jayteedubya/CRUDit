@@ -22,11 +22,10 @@ const getCommentBody = () => {
 }
 
 const validateString = (string) => {
-    const criteria = /^[a-zA-Z0-9/!/?/_/-/#]/;
+    const criteria = /^[a-zA-Z0-9\!\?\_\-\#]/;
     const stringArray = [...string];
     const filteredArray = stringArray.filter(item => criteria.test(item));
-    const result = stringArray.toString() === filteredArray.toString()
-    return result;
+    return stringArray.join('') === filteredArray.join('');
 }
 
 const validatePassword = (password, confirmPassword) => {
