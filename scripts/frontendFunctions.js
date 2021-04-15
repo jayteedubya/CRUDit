@@ -202,6 +202,7 @@ const deleteComment = async (id) => {
 const createUser = async () => {
     console.log("creating user!");
     const body = getNewUserInfo();
+    console.log(body);
     if (!body) {
         console.log("body undefined");
         return;
