@@ -27,12 +27,13 @@ const validateString = (string) => {
     const filteredArray = stringArray.filter(item => criteria.test(item));
     const result = stringArray.toString() === filteredArray.toString();
     console.log('regex test result', result);
+    return result;
 }
 
 const validatePassword = (password, confirmPassword) => {
     consolee.log("password", password)
     if (!validateString(password)) {
-        alert("password must only contain alphanumeric characters or the symbols ! ? _ - #");
+        alert("password must only contain alphanumeric characters or these symbols: ! ? _ - #");
         return;
     }
     if (!password.length > 7) {
