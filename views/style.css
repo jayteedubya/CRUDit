@@ -21,7 +21,6 @@
 }
 .navbar {
     background-color: rgb(1, 236, 60);
-
     border: solid rgb(0, 0, 0);
     border-width: 1px;
 }
@@ -47,7 +46,6 @@
 }
 .post-body {
     font-size: 14pt;
-
     border: solid rgba(0, 0, 0, 0.534);
     border-width: 1px;
     margin: 30px;

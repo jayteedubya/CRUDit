@@ -35,7 +35,7 @@ authRouter.post('/log-in', async (req, res, next) => {
 authRouter.post('/sign-up', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
-    const emailaddress = req.body.emailaddress;
+    const emailaddress = "placeholder";
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
         await db.users.createUser(username, emailaddress, hashedPassword, req.session.id);

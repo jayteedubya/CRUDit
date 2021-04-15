@@ -21,6 +21,34 @@ const getCommentBody = () => {
     return comment;
 }
 
+const validateUsername = (username) => {
+    if (/[a-zA-Z0-9\_\!\?\&]/.test(username)) {
+        return username;
+    }
+    alert("username must be alphanumeric or one of these symbols: _ ! ? &");
+    return false;
+}
+
+const validatePassword = (password, confirmPassword) => {
+    if (/[a-zA-Z0-9\_\!\?\&]/.test(password) && password.length > 7 && password === confirmPassword) {
+        return password;
+    }
+    alert("password must be alphanumeric or one of these symbols: _ ! ? & and at least 8 characters");
+    return false;
+}
+
+const getNewUserInfo = () => {
+    const username = validateUsername(document.getElementById("username"));
+    const password = validatePassword(document.getElementById("password"), document.getElementById("confirm-password"));
+    if (username && password) {
+        return {
+            username: username,
+            password: password
+        };
+    }
+    return false;
+}
+
 const deletePost = async () => {
     const requestParameters = {
         method: 'DELETE',
@@ -156,5 +184,28 @@ const deleteComment = async (id) => {
     }
 }
 
+const createUser = async () => {
+    const body = getNewUserInfo();
+    if (!body) {
+        console.log("body undefined/false");
+        return;
+    }
+    const requestParams = {
+        method: 'POST',
+        credentials: 'include',
+        redirect: 'follow',
+        headers: {'content-type': 'application/json'},
+        body: body
+    }
+    try {
+        const result = await fetch('/auth/sign-up', requestParams);
+        console.log(result);
+        return;
+    }
+    catch (err) {
+        console.warn(err);
+        return;
+    }
+}
 
 

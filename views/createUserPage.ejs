@@ -2,36 +2,17 @@
 <html>
     <head>
         <%-include('partials/head')%>
-        <script>
-            const submitForm = () => {
-            let myForm = document.getElementById("post-form");
-            let formData = new FormData(myForm);
-            try {
-                fetch('/auth/sign-up', {
-                method: 'POST',
-                body: formData
-                })
-            }
-            catch (err) {
-                console.error(err);
-            }
-        }
-        </script>
     </head>
     <body>
         <%-include('partials/navbar')%>
-        <div class="login" onsubmit="submitForm()" enctype="application/x-www-form-urlencoded">
-            <form method="POST" >
-                <ul>
-                    <label for="username">username </label>
-                    <li class="login"><input type="text" id="username" name="username"></li>
-                    <label for="emailaddress">email address</label>
-                    <li class="login"><input type="text" id="email-address" name="email-address"></li>
-                    <label for="password">password </label>
-                    <li class="login"><input type="password" id="password" name="password"></li>
-                    <li class = sumbit><input type="submit" value="create account"></li>
-                </ul>
-            </form>
-        </div> 
+        <ul>
+            <label for="username"> username </label>
+            <li class="login"><input type="text" id="username"></li>
+            <label for="password"> password </label>
+            <li class="login"><input type="password" id="password"></li>
+            <label for="confirm-password"> confirm password </label>
+            <li><input type="password" id="confirm-password"></li>
+            <li><button onsubmit="createAccount()"> create account </button></li>
+        </ul>
     </body>
 </html>
