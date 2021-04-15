@@ -31,7 +31,7 @@ const validateString = (string) => {
 }
 
 const validatePassword = (password, confirmPassword) => {
-    consolee.log("password", password)
+    console.log("password", password)
     if (!validateString(password)) {
         alert("password must only contain alphanumeric characters or these symbols: ! ? _ - #");
         return;
@@ -44,6 +44,7 @@ const validatePassword = (password, confirmPassword) => {
         alert("password and confirm password do not match");
         return;
     }
+    console.log('password valid')
     return password;
 }
 
