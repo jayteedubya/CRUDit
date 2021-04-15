@@ -80,25 +80,28 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
     });
 }); });
 authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var username, password, emailaddress, hashedPassword, err_2;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
+    var username, password, emailaddress, hashedPassword, _a, _b, err_2;
+    return __generator(this, function (_c) {
+        switch (_c.label) {
             case 0:
                 username = req.body.username;
                 password = req.body.password;
                 emailaddress = "placeholder";
+                console.log(username);
+                console.log(password);
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
-                hashedPassword = _a.sent();
-                _a.label = 2;
+                hashedPassword = _c.sent();
+                _c.label = 2;
             case 2:
-                _a.trys.push([2, 4, , 5]);
+                _c.trys.push([2, 4, , 5]);
+                _b = (_a = console).log;
                 return [4 /*yield*/, db.users.createUser(username, emailaddress, hashedPassword, req.session.id)];
             case 3:
-                _a.sent();
+                _b.apply(_a, [_c.sent()]);
                 return [3 /*break*/, 5];
             case 4:
-                err_2 = _a.sent();
+                err_2 = _c.sent();
                 next(err_2);
                 return [3 /*break*/, 5];
             case 5:
