@@ -54,7 +54,7 @@ postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {  //
     }
     try {
         await db.posts.deletePost(Number(req.params.postId));
-        res.redirect(`/user/${req.body.username}`);
+        res.redirect(303, `/user/${req.body.username}`);
         return;
     }
     catch (err) {
@@ -77,7 +77,7 @@ postViewsRouter.put('/post/:postId', cors(), async (req, res, next) => {
     try {
         const user = req.body.username;
         await db.posts.editPost(req.body.postbody, Number(req.params.postId));
-        res.redirect(`/user/${user}`);
+        res.redirect(303, `/user/${user}`);
         return;
     }
         

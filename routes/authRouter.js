@@ -67,7 +67,7 @@ authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, 
                 return [4 /*yield*/, db.users.startSession(username, req.session.id)];
             case 4:
                 _a.sent();
-                res.redirect("/user/" + username);
+                res.redirect(303, "/user/" + username);
                 _a.label = 5;
             case 5: return [3 /*break*/, 7];
             case 6:
@@ -102,7 +102,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 next(err_2);
                 return [3 /*break*/, 5];
             case 5:
-                res.redirect("/user/" + username);
+                res.redirect(303, "/user/" + username);
                 return [2 /*return*/];
         }
     });
@@ -114,7 +114,7 @@ authRouter.get('/log-out', function (req, res, next) { return __awaiter(void 0, 
             user = req.body.username;
             if (req.body.username) {
                 db.users.endSession(user);
-                res.redirect('/');
+                res.redirect(303, '/');
                 return [2 /*return*/];
             }
             res.send('already out');

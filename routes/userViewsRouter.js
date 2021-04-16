@@ -83,6 +83,6 @@ userViewsRouter.get('/:user_name/comments', function (req, res, next) {
 });
 userViewsRouter.use(function (err, req, res, next) {
     console.error(err);
-    res.status(404).redirect('/error/user404');
+    next(err);
 });
 exports["default"] = userViewsRouter;

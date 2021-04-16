@@ -16,7 +16,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
         try {
             const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
-            res.status(201).redirect(`/post/${postId}`);
+            res.redirect(303, `/post/${postId}`);
             console.log(result);
             return;
         }
@@ -30,7 +30,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
     if (!req.body.username) {
-        res.status(401).redirect('/auth/log-in');
+        res.redirect(303, '/auth/log-in');
         return;
     }
     try {

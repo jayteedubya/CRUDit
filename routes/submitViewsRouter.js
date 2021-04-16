@@ -59,7 +59,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
             case 2:
                 result = _a.sent();
                 postId = result[0].id;
-                res.status(201).redirect("/post/" + postId);
+                res.redirect(303, "/post/" + postId);
                 console.log(result);
                 return [2 /*return*/];
             case 3:
@@ -78,7 +78,7 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
         switch (_a.label) {
             case 0:
                 if (!req.body.username) {
-                    res.status(401).redirect('/auth/log-in');
+                    res.redirect(303, '/auth/log-in');
                     return [2 /*return*/];
                 }
                 _a.label = 1;

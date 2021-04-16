@@ -127,7 +127,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 return [4 /*yield*/, db.posts.deletePost(Number(req.params.postId))];
             case 3:
                 _a.sent();
-                res.redirect("/user/" + req.body.username);
+                res.redirect(303, "/user/" + req.body.username);
                 return [2 /*return*/];
             case 4:
                 err_4 = _a.sent();
@@ -162,7 +162,7 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
                 return [4 /*yield*/, db.posts.editPost(req.body.postbody, Number(req.params.postId))];
             case 3:
                 _a.sent();
-                res.redirect("/user/" + user);
+                res.redirect(303, "/user/" + user);
                 return [2 /*return*/];
             case 4:
                 err_5 = _a.sent();

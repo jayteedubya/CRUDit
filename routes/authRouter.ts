@@ -21,7 +21,7 @@ authRouter.post('/log-in', async (req, res, next) => {
         const result = await bcrypt.compare(password, user.password);
         if (result) {
             await db.users.startSession(username, req.session.id);
-            res.redirect(`/user/${username}`);
+            res.redirect(303, `/user/${username}`);
         }
     }
     catch (err) {
@@ -41,7 +41,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
     catch (err) {
         next(err);
     }
-    res.redirect(`/user/${username}`);
+    res.redirect(303, `/user/${username}`);
 });
 
 authRouter.get('/log-out', async (req, res, next) => {
@@ -49,7 +49,7 @@ authRouter.get('/log-out', async (req, res, next) => {
         const user = req.body.username
         if (req.body.username) {
             db.users.endSession(user);
-            res.redirect('/');
+            res.redirect(303, '/');
             return;
         }
         res.send('already out');
