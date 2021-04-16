@@ -2,7 +2,7 @@ import * as pg from 'pg';
 
 class Table {
     getNewClient() {
-        return new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}});
+        return new pg.Client({connectionString: process.env.DATABASE_URL, ssl: {rejectUnauthorized: false}})
     }
     async makeQuery(query: string) {
         try {
@@ -233,8 +233,7 @@ class Users extends Table {
     }
 }
 
-
-
 export const posts = new Posts();
 export const users = new Users();
 export const comments = new Comments();
+
