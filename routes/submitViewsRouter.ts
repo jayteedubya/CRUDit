@@ -17,6 +17,7 @@ submitViewsRouter.post('/post', async (req, res, next) => {
             const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
             res.status(201).redirect(`/post/${postId}`);
+            console.log(result);
             return;
         }
         catch (err) {
