@@ -3,5 +3,8 @@
         <li class="comment-author"> author: <%=comment.user_name%></li>
         <li class="comment-time-stamp"> posted: <%=comment.time_stamp%></li>
         <li class="comment-body" id="<%=comment.id%>"><%=comment.body%></li>
+        <li class="comment-controls">
+            <% if (comment.userViewing === comment.user_name) {%><%-include('partials/commentControls')%><%}%>
+        </li>
     </ul>
 </li>
