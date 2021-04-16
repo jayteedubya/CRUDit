@@ -50,7 +50,7 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 request = req.body;
-                author = req.body.username;
+                author = req.body.user;
                 if (!req.body.user) return [3 /*break*/, 4];
                 _a.label = 1;
             case 1:
