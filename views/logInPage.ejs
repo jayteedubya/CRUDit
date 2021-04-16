@@ -16,13 +16,13 @@
                     redirect: 'follow',
                     body: reqBody
                     })
+                    console.log(result);
+                    window.location.assign(result.url);
                 }
                 catch(err) {
                     console.log(err)
                     return;
                 }
-                console.log(result);
-                window.location.assign(result.url);
             }
         </script>
     </head>
