@@ -295,7 +295,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.getAllPostsByUser = function (user_name) {
-        var query = "SELECT *        FROM posts        WHERE user_name = '" + user_name + "';";
+        var query = "SELECT *        FROM posts        WHERE user_name = '" + user_name + "'\n        ORDER BY time_stamp;";
         return this.makeQuery(query);
     };
     Users.prototype.getUserFromSession = function (sessionID) {

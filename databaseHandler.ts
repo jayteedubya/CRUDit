@@ -209,7 +209,8 @@ class Users extends Table {
     getAllPostsByUser(user_name: string) {
         const query = `SELECT *\
         FROM posts\
-        WHERE user_name = '${user_name}';`;
+        WHERE user_name = '${user_name}'
+        ORDER BY time_stamp;`;
         return this.makeQuery(query);
     }
     getUserFromSession(sessionID: string) {
