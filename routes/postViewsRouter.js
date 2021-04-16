@@ -113,7 +113,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
     var author, userAuthorization, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, db.posts.getAuthorByPostId(Number(req.params.id))];
+            case 0: return [4 /*yield*/, db.posts.getAuthorByPostId(Number(req.params.postId))];
             case 1:
                 author = _a.sent();
                 userAuthorization = author[0].user_name === req.body.username;

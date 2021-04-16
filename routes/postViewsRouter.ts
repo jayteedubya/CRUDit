@@ -46,7 +46,7 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
 
 //@ts-ignore
 postViewsRouter.delete('/post/:postId', cors(),  async (req, res, next) => {  //unsafe routes need cors provided as middleware
-    const author = await db.posts.getAuthorByPostId(Number(req.params.id));
+    const author = await db.posts.getAuthorByPostId(Number(req.params.postId));
     const userAuthorization = author[0].user_name === req.body.username;
     if (!userAuthorization) {
         res.sendStatus(401);
