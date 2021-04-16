@@ -14,10 +14,10 @@
         <div class="post-body">
             <p id="body"><%=post.body%></p>
         </div>
-        <%if (post.userLogInStatus) {%><%-include('partials/postControls')%><%}%>
+        <%if (post.user_name === post.userViewing) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
-    <%if (post.user_name === post.userViewing) {%><%-include('partials/postComment')%><%}%>
+    <%if (post.userViewing) {%><%-include('partials/postComment')%><%}%>
     <div class="comments">
         <% post.comments.forEach(comment => {%><%-include('partials/commentBox', {comment: comment})%><%}) %> 
     </div>
