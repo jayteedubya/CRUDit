@@ -75,6 +75,7 @@ const deletePost = async () => {
     try {
         const result = await fetch(window.location.href, requestParameters);
         console.log(result);
+        window.location.assign(result.url);
         return;
     }
     catch (err) {
@@ -125,6 +126,7 @@ const submitPost = async () => {
     try {
         const result = await fetch(window.location.href, requestParameters);
         console.log(result);
+        window.location.assign(result.url);
         return;
     }
     catch (err) {
@@ -144,7 +146,6 @@ const submitComment = async () => {
         credentials: 'include',
         headers: {'content-type': 'application/json'},
         body: JSON.stringify(comment),
-        redirect: "follow"
     };  
     try {
         const result = await fetch('/submit/comment', requestParameters);
@@ -220,6 +221,7 @@ const createUser = async () => {
         console.log("submitting to server");
         const result = await fetch('/auth/sign-up', requestParams);
         console.log(result);
+        window.location.assign(result.url);
         return;
     }
     catch (err) {

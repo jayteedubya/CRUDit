@@ -10,7 +10,7 @@
                 const reqBody = JSON.stringify(formObject);
                 console.log(reqBody);
                 try {
-                    console.log(await fetch('/auth/log-in', {
+                    response = await fetch('/auth/log-in', {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                     method: 'POST',
@@ -22,7 +22,7 @@
                     console.log(err)
                     return;
                 }
-                //window.location.assign(`/user/${formObject.username}`);
+                window.location.assign(result.url);
             }
         </script>
     </head>
