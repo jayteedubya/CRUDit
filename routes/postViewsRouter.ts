@@ -34,7 +34,6 @@ postViewsRouter.get('/post/:postId', async (req, res, next) => {
         const postObject = post[0];
         const comments = await db.comments.getCommentsByPostId(postId); 
         postObject.comments = comments;
-        postObject.userLogInStatus = user === postObject.user_name;
         postObject.userViewing = user;
         res.render('textPost', {post: postObject});
         return;

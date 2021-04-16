@@ -17,7 +17,7 @@
         <%if (post.userLogInStatus) {%><%-include('partials/postControls')%><%}%>
     </div>
     <p class=" comment-separator">comments</p>
-    <%if (post.userLogInStatus) {%><%-include('partials/postComment')%><%}%>
+    <%if (post.user_name === post.userViewing) {%><%-include('partials/postComment')%><%}%>
     <div class="comments">
         <% post.comments.forEach(comment => {%><%-include('partials/commentBox', {comment: comment})%><%}) %> 
     </div>
