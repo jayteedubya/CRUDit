@@ -5,10 +5,10 @@
         <li class="comment-body" id="<%=comment.id%>"><%=comment.body%></li>
         <li class="comment-controls">
             <% if (comment.userViewing === comment.user_name) {%>
-                <%-<ul>%>
-                    <%-<li><button class="post-control" onclick="deleteComment(id.id)"> edit </button></li>%>
-                    <%-<li><button class="post-control" onclick="editComment(id.id)"> delete </button></li>%>
-                <%-</ul>%>
+                <%=<ul>%>
+                    <%=<li><button class="post-control" onclick="deleteComment(id.id)"> edit </button></li>%>
+                    <%=<li><button class="post-control" onclick="editComment(id.id)"> delete </button></li>%>
+                <%=</ul>%>
             <%}%>
         </li>
     </ul>
