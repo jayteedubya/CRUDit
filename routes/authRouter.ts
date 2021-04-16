@@ -34,17 +34,14 @@ authRouter.post('/sign-up', async (req, res, next) => {
     const username = req.body.username;
     const password = req.body.password;
     const emailaddress = "placeholder";
-    console.log("username: ",username);
-    console.log("password: ", password);
     const hashedPassword = await bcrypt.hash(password, 10);
-    console.log("hashed password: ", hashedPassword);
     try {
         console.log(await db.users.createUser(username, emailaddress, hashedPassword, req.session.id));
     }
     catch (err) {
         next(err);
     }
-    res.redirect(302, `/user/${username}`);
+    res.redirect(`/user/${username}`);
 });
 
 authRouter.get('/log-out', async (req, res, next) => {

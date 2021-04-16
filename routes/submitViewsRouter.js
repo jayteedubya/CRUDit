@@ -50,8 +50,8 @@ submitViewsRouter.post('/post', function (req, res, next) { return __awaiter(voi
         switch (_a.label) {
             case 0:
                 request = req.body;
-                author = req.body.user;
-                if (!req.body.user) return [3 /*break*/, 4];
+                author = req.body.username;
+                if (!req.body.username) return [3 /*break*/, 4];
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
@@ -77,14 +77,14 @@ submitViewsRouter.post('/comment', function (req, res, next) { return __awaiter(
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                if (!req.body.user) {
+                if (!req.body.username) {
                     res.status(401).redirect('/auth/log-in');
                     return [2 /*return*/];
                 }
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
-                return [4 /*yield*/, db.comments.createComment(req.body.user, req.body.comment, Number(req.body.postID))];
+                return [4 /*yield*/, db.comments.createComment(req.body.username, req.body.comment, Number(req.body.postID))];
             case 2:
                 _a.sent();
                 res.sendStatus(201);
@@ -105,7 +105,7 @@ submitViewsRouter["delete"]('/comment/:commentID', cors(), function (req, res, n
             case 0: return [4 /*yield*/, db.comments.getCommentAuthorByCommentId(Number(req.params.commentID))];
             case 1:
                 commentAuthor = _a.sent();
-                userAuthorization = commentAuthor[0].user_name === req.body.user;
+                userAuthorization = commentAuthor[0].user_name === req.body.username;
                 if (!userAuthorization) {
                     res.sendStatus(401);
                     return [2 /*return*/];
@@ -134,7 +134,7 @@ submitViewsRouter.put('/comment/:commentID', cors(), function (req, res, next) {
             case 0: return [4 /*yield*/, db.comments.getCommentAuthorByCommentId(Number(req.params.commentID))];
             case 1:
                 commentAuthor = _a.sent();
-                userAuthorization = commentAuthor[0].user_name === req.body.user;
+                userAuthorization = commentAuthor[0].user_name === req.body.username;
                 if (!userAuthorization) {
                     res.sendStatus(401);
                     return [2 /*return*/];

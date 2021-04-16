@@ -6,6 +6,7 @@ const attachUsernameToRequest = async (req, res, next) => {
         const userArray = await db.users.getUserFromSession(sessionID);
         if (userArray[0]) {
             const username = userArray[0].user_name;
+            console.log(username)
             req.body.username = username;
             next();
             return;

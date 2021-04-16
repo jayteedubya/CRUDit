@@ -11,8 +11,8 @@ submitViewsRouter.get('/post', (req, res, next) => {
 
 submitViewsRouter.post('/post', async (req, res, next) => {
     const request = req.body;
-    const author = req.body.user;
-    if (req.body.user) {
+    const author = req.body.username;
+    if (req.body.username) {
         try {
             const result = await db.posts.createPost(request.title, request.topic, request.post, author);
             const postId = result[0].id;
@@ -29,12 +29,12 @@ submitViewsRouter.post('/post', async (req, res, next) => {
 });
 
 submitViewsRouter.post('/comment', async (req, res, next) => {
-    if (!req.body.user) {
+    if (!req.body.username) {
         res.status(401).redirect('/auth/log-in');
         return;
     }
     try {
-        await db.comments.createComment(req.body.user, req.body.comment, Number(req.body.postID));
+        await db.comments.createComment(req.body.username, req.body.comment, Number(req.body.postID));
         res.sendStatus(201);
         return;
     }
@@ -46,7 +46,7 @@ submitViewsRouter.post('/comment', async (req, res, next) => {
 //@ts-ignore
 submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) => {
     const commentAuthor = await db.comments.getCommentAuthorByCommentId(Number(req.params.commentID));
-    const userAuthorization = commentAuthor[0].user_name === req.body.user;
+    const userAuthorization = commentAuthor[0].user_name === req.body.username;
     if (!userAuthorization) {
         res.sendStatus(401);
         return;
@@ -64,7 +64,7 @@ submitViewsRouter.delete('/comment/:commentID', cors(), async (req, res, next) =
 //@ts-ignore
 submitViewsRouter.put('/comment/:commentID', cors(), async (req, res, next) => {
     const commentAuthor = await db.comments.getCommentAuthorByCommentId(Number(req.params.commentID));
-    const userAuthorization = commentAuthor[0].user_name === req.body.user;
+    const userAuthorization = commentAuthor[0].user_name === req.body.username;
     if (!userAuthorization) {
         res.sendStatus(401);
         return;

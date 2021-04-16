@@ -86,12 +86,9 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 username = req.body.username;
                 password = req.body.password;
                 emailaddress = "placeholder";
-                console.log("username: ", username);
-                console.log("password: ", password);
                 return [4 /*yield*/, bcrypt.hash(password, 10)];
             case 1:
                 hashedPassword = _c.sent();
-                console.log("hashed password: ", hashedPassword);
                 _c.label = 2;
             case 2:
                 _c.trys.push([2, 4, , 5]);
@@ -105,7 +102,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 next(err_2);
                 return [3 /*break*/, 5];
             case 5:
-                res.redirect(302, "/user/" + username);
+                res.redirect("/user/" + username);
                 return [2 /*return*/];
         }
     });
