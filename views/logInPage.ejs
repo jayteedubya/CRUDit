@@ -9,7 +9,7 @@
                 formObject.password = document.getElementById("password").value;
                 const reqBody = JSON.stringify(formObject);
                 try {
-                    const response = await fetch('/auth/log-in', {
+                    const result = await fetch('/auth/log-in', {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                     method: 'POST',
@@ -21,6 +21,7 @@
                     console.log(err)
                     return;
                 }
+                console.log(result);
                 window.location.assign(result.url);
             }
         </script>
