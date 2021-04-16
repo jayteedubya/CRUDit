@@ -105,7 +105,7 @@ authRouter.post('/sign-up', function (req, res, next) { return __awaiter(void 0,
                 next(err_2);
                 return [3 /*break*/, 5];
             case 5:
-                res.status(302).redirect("/user/" + username);
+                res.redirect(302, "/user/" + username);
                 return [2 /*return*/];
         }
     });

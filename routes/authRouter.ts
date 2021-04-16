@@ -44,7 +44,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
     catch (err) {
         next(err);
     }
-    res.status(302).redirect(`/user/${username}`);
+    res.redirect(302, `/user/${username}`);
 });
 
 authRouter.get('/log-out', async (req, res, next) => {
