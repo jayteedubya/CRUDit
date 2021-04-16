@@ -69,12 +69,12 @@ const getNewUserInfo = () => {
 const deletePost = async () => {
     const requestParameters = {
         method: 'DELETE',
-        credentials: 'include'
+        credentials: 'include',
+        redirect: 'follow'
     }
     try {
         const result = await fetch(window.location.href, requestParameters);
         console.log(result);
-        window.location.assign('/');
         return;
     }
     catch (err) {
