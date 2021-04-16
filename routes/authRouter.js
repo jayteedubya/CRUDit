@@ -112,7 +112,7 @@ authRouter.get('/log-out', function (req, res, next) { return __awaiter(void 0, 
     return __generator(this, function (_a) {
         try {
             user = req.body.username;
-            if (req.body.userLogInStatus) {
+            if (req.body.username) {
                 db.users.endSession(user);
                 res.redirect('/');
                 return [2 /*return*/];

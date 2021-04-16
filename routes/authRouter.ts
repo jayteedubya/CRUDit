@@ -47,7 +47,7 @@ authRouter.post('/sign-up', async (req, res, next) => {
 authRouter.get('/log-out', async (req, res, next) => {
     try {
         const user = req.body.username
-        if (req.body.userLogInStatus) {
+        if (req.body.username) {
             db.users.endSession(user);
             res.redirect('/');
             return;

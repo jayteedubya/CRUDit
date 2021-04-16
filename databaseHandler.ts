@@ -220,7 +220,7 @@ class Users extends Table {
     }
     endSession(user_name: string) {
         const query = `UPDATE users\
-        SET current_session = ''\
+        SET current_session = ' '\
         WHERE user_name = '${user_name}';`;
         return this.makeQuery(query);
     }

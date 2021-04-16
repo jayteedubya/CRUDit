@@ -303,7 +303,7 @@ var Users = /** @class */ (function (_super) {
         return this.makeQuery(query);
     };
     Users.prototype.endSession = function (user_name) {
-        var query = "UPDATE users        SET current_session = ''        WHERE user_name = '" + user_name + "';";
+        var query = "UPDATE users        SET current_session = ' '        WHERE user_name = '" + user_name + "';";
         return this.makeQuery(query);
     };
     Users.prototype.startSession = function (user_name, sessionID) {
