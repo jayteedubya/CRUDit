@@ -8,9 +8,8 @@
                 formObject.username = document.getElementById("username").value;
                 formObject.password = document.getElementById("password").value;
                 const reqBody = JSON.stringify(formObject);
-                console.log(reqBody);
                 try {
-                    response = await fetch('/auth/log-in', {
+                    const response = await fetch('/auth/log-in', {
                     headers: {'Content-Type': 'application/json'},
                     credentials: 'include',
                     method: 'POST',
