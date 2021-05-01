@@ -52,7 +52,7 @@ authRouter.get('/log-out', async (req, res, next) => {
             res.redirect(303, '/');
             return;
         }
-        res.send('already out');
+        res.redirect('/')
     }
     catch (err) {
         next(err);
