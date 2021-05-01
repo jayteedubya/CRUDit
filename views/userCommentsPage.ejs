@@ -8,6 +8,6 @@
     <%-include('partials/navbar')%>
     <%-include('partials/userNavbar')%>
     <ul>
-        <% user.comments.forEach(comment => {%><%-include('partials/commentbox', {comment: comment})%><%}) %>
+        <% if (user.comments.length > 0) {user.comments.forEach(comment => {%><%-include('partials/commentbox', {comment: comment})%><%})} %>
     </ul>
 </body>
