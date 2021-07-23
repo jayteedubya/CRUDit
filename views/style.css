@@ -44,17 +44,16 @@
 .author {
     font-size: 10pt;
 }
-.post-body {
+.post-body 
+textarea {
+    resize: none;
+    height: 100mm;
+    width: 200mm;
     font-size: 14pt;
     border: solid rgba(0, 0, 0, 0.534);
     border-width: 1px;
     margin: 30px;
     background-color: rgba(179, 182, 182, 0.603);
-}
-textarea {
-    resize: none;
-    height: 100mm;
-    width: 200mm;
 }
 .title {
     font-size: 20pt;
