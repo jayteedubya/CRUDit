@@ -1,5 +1,0 @@
-, {id: comment.id})
-
- onclick="deleteComment(id.id)"
-
- onclick="editComment(id.id)"
