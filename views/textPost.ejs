@@ -12,7 +12,7 @@
             <p class="timestamp">posted: <%=post.time_stamp%></p>
         </div>
         <div class="post-body">
-            <p id="body"><%=post.body%></p>
+            <textarea readonly id="body"><%=post.body%></textarea>
         </div>
         <%if (post.user_name === post.userViewing) {%><%-include('partials/postControls')%><%}%>
     </div>
