@@ -16,7 +16,7 @@ class Table {
             throw err;
         }
     }
-    async makeParamQuery(query: string, values) {
+    async makeParamQuery(query: string, values: string[]) {
         try {
             const client = this.getNewClient();
             await client.connect();
@@ -48,28 +48,28 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getAllByTopic(topic: string) {
-        const query = `SELECT *\
+        const query = 'SELECT *\
         FROM posts\
-        WHERE topic = '${topic}';`
-        return this.makeQuery(query);
+        WHERE topic = $1;'
+        return this.makeParamQuery(query, [topic]);
     }
     getPostById(post_id: number) {
         const query = `SELECT *\
         FROM posts\
-        WHERE id = ${post_id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(post_id)]);
     }
     createPost(title: string, topic: string, body: string, user_name: string) {
         const query = `INSERT INTO posts (title, topic, body, user_name)\
-        VALUES ('${title}', '${topic}', '${body}', '${user_name}')\
+        VALUES ('$1', '$2', '$3', '$4')\
         RETURNING id;`;
-        return this.makeQuery(query);
+        return this.makeParamQuery(query, [title, topic, body, user_name]);
     }
     editPost(body: string, post_id: number) {
         const query = `UPDATE posts\
-        SET body = '${body}'\
-        WHERE id = ${post_id};`;
-        return this.makeQuery(query);
+        SET body = '$1'\
+        WHERE id = $2;`;
+        return this.makeParamQuery(query, [body, String(post_id)]);
     }
     getAuthorByPostId(post_id: number) {
         const query = `SELECT user_name\
