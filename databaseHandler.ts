@@ -143,26 +143,26 @@ class Users extends Table {
     getUserPublicInfo(user_name: string) {
         const query = `SELECT user_name, upvoted, downvoted\
         FROM users\
-        WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        WHERE user_name = '$1';`;
+        return this.makeParamQuery(query, [user_name]);
     }
     getUserIdFromUserName(user_name: string) {
         const query = `SELECT id\
         FROM users\
-        WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        WHERE user_name = '$1';`;
+        return this.makeParamQuery(query, [user_name]);
     }
     getPasswordByUserId(user_id: number) {
         const query = `SELECT password\
         FROM users\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(user_id)]);
     }
     getUserFullInfo(user_name: string) {
         const query = `SELECT *\
         FROM users\
-        WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        WHERE user_name = '$1';`;
+        return this.makeParamQuery(query, [user_name]);
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
         const query = `INSERT INTO users (user_name, email, password, current_session)\
@@ -172,58 +172,58 @@ class Users extends Table {
     }
     changePassword(user_id: number, newPassword: string) {
         const query = `UPDATE users\
-        SET password = '${newPassword}'\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query);
+        SET password = '$1'\
+        WHERE id = $2;`;
+        return this.makeParamQuery(query, [newPassword, String(user_id)]);
     }
     changeEmail(user_id: number, newEmail: string) {
         const query = `UPDATE users\
-        SET email = '${newEmail}'\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query)
+        SET email = '$1'\
+        WHERE id = $2;`;
+        return this.makeParamQuery(query, [newEmail, String(user_id)])
     }
     changeUserName(user_id: number, newUserName: string) {
         const query = `UPDATE users\
-        SET user_name = '${newUserName}'\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query);
+        SET user_name = '$1'\
+        WHERE id = $2;`;
+        return this.makeParamQuery(query, [newUserName, String(user_id)]);
     }
     deleteUser(user_id: number) {
         const query = `DELETE FROM users\
-        WHERE id = ${user_id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(user_id)]);
     }
     getAllCommentsByUser(user_name: string) {
         const query = `SELECT *\
         FROM comments\
-        WHERE user_name = '${user_name}'\
+        WHERE user_name = '$1'\
         ORDER BY time_stamp;`;
-        return this.makeQuery(query);
+        return this.makeParamQuery(query, [user_name]);
     }
     getAllPostsByUser(user_name: string) {
         const query = `SELECT *\
         FROM posts\
-        WHERE user_name = '${user_name}'
+        WHERE user_name = '$1'
         ORDER BY time_stamp DESC;`;
-        return this.makeQuery(query);
+        return this.makeParamQuery(query, [user_name]);
     }
     getUserFromSession(sessionID: string) {
         const query = `SELECT user_name\
         FROM users\
-        WHERE current_session = '${sessionID}';`;
-        return this.makeQuery(query);
+        WHERE current_session = '$1';`;
+        return this.makeParamQuery(query, [sessionID]);
     }
     endSession(user_name: string) {
         const query = `UPDATE users\
         SET current_session = ' '\
-        WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        WHERE user_name = '$1';`;
+        return this.makeParamQuery(query, [user_name]);
     }
     startSession(user_name: string, sessionID: string) {
         const query = `UPDATE users\
-        SET current_session = '${sessionID}'\
-        WHERE user_name = '${user_name}';`;
-        return this.makeQuery(query);
+        SET current_session = '$1'\
+        WHERE user_name = '$2';`;
+        return this.makeParamQuery(query, [sessionID, user_name]);
     }
 }
 
