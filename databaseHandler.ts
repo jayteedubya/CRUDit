@@ -74,16 +74,16 @@ class Posts extends Table {
     getAuthorByPostId(post_id: number) {
         const query = `SELECT user_name\
         FROM posts\
-        WHERE id = ${post_id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(post_id)]);
     }
     async deletePost(post_id: number) {
         const deletePostQuery = `DELETE FROM posts\
-        WHERE id = ${post_id};`;
+        WHERE id = $1;`;
         const deletePostCommentsQuery = `DELETE FROM comments\
-        WHERE post_id = ${post_id};`;
-        await this.makeQuery(deletePostCommentsQuery);
-        return await this.makeQuery(deletePostQuery);
+        WHERE post_id = $1;`;
+        await this.makeParamQuery(deletePostCommentsQuery, [String(post_id)]);
+        return await this.makeParamQuery(deletePostQuery, [String(post_id)]);
     }
 }
 
@@ -100,37 +100,31 @@ class Comments extends Table {
     }
     createComment(user_name: string, body: string, post_id: number) {
         const query = `INSERT INTO comments (user_name, body, post_id)\
-        VALUES ('${user_name}', '${body}', ${post_id});`
-        return this.makeQuery(query);
+        VALUES ('$1', '$2', $3);`
+        return this.makeParamQuery(query, [user_name, body, String(post_id)]);
     }
     editComment(id: number, body: string) {
         const query = `UPDATE comments\
-        SET body = '${body}'\
-        WHERE id = ${id};`;
-        return this.makeQuery(query);
+        SET body = '$1'\
+        WHERE id = $2;`;
+        return this.makeParamQuery(query, [body, String(id)]);
     }
     deleteComment(id: number) {
         const query = `DELETE FROM posts\
-        WHERE id = ${id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(id)]);
     }
     getCommentsByPostId(post_id: number) {
         const query = `SELECT *\
         FROM comments\
-        WHERE post_id = ${post_id};`;
-        return this.makeQuery(query);
-    }
-    addChildComment(parent_id: number, child_id: number) {
-        const query = `UPDATE comments\
-        SET children = array_append(children, ${child_id})\
-        WHERE id = ${parent_id};`;
-        return this.makeQuery(query);
+        WHERE post_id = $1;`;
+        return this.makeParamQuery(query, [String(post_id)]);
     }
     getCommentAuthorByCommentId(id: number) {
         const query = `SELECT user_name\
         FROM comments\
-        WHERE id = ${id};`;
-        return this.makeQuery(query);
+        WHERE id = $1;`;
+        return this.makeParamQuery(query, [String(id)]);
     }
 }
 
