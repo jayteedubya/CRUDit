@@ -5,8 +5,7 @@
 </head>
 
 <body>
-    <%-include('partials/navbar')%>
-    <%-include('partials/userNavbar')%>   <!--don't need to pass global object into static includes, as they are equal to dumping html-->
+    <%-include('partials/navbar')%><%-include('partials/userNavbar')%>   <!--don't need to pass global object into static includes, as they are equal to dumping html-->
     <ul>
         <% user.posts.forEach(post => {%><%-include('partials/postbox', {post: post})%><%}) %>
     </ul>
