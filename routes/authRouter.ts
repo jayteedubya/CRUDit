@@ -6,10 +6,15 @@ const authRouter = express.Router();
 
 authRouter.get('/log-in', (req, res, next) => {
     res.render('logInPage');
-})
+});
 
 authRouter.get('/sign-up', (req, res, next) => {
     res.render('createUserPage');
+});
+
+authRouter.get('/api/who-am-i', async (req, res, next) => {
+  const username = await db.users.getUserFromSession(req.session.id);
+  res.json({username: username[0]});
 });
 
 authRouter.post('/log-in', async (req, res, next) => {
