@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <head>
     <%- include('partials/head') %>
-    <script>
-      addCommentControls();
-    </script>
+      
 </head>
 
-<body>
+<body onload="addCommentControls()">
     <%- include('partials/navbar') %>     <!-- make sure not to use a leading / -->
     <div class="main body text">
         <%-include('partials/postbox', { post })%>

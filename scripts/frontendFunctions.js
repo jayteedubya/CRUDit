@@ -247,7 +247,7 @@ const addCommentControls = () => async {
   const controls = document.createElement('div');
   controls.setAttribute('class', 'post-control')
   controls.innerHTML(`<ul>
-      <li><button class="post-control" onclick="deleteComment(id.id)"> edit </button></li>
+      <li><button class="post-control" onclick="deleteComment({ id })"> edit </button></li>
       <li><button class="post-control" onclick="editComment({ id })"> delete      </button></li>
     </ul>`);
   comment.forEach(comment => {
