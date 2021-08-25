@@ -85,7 +85,8 @@ const deletePost = async () => {
 }
 
 const editPost = async () => {
-    const edit = prompt('make your edit here!', document.getElementById("body").value);
+    document.getElementById("body").removeAttribute("readonly");
+    const edit = document.getElementById("body").value;
     const body = JSON.stringify({'postbody': stringPrep(edit)});
     const headers = {
         'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
