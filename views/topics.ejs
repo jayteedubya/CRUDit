@@ -1,0 +1,13 @@
+<!doctype=html>
+<html>
+    <head>
+        <%-include('partials/head')%>
+    </head>
+
+    <body>
+        <%-include('partials/navbar')%>
+        <ul class="mainlist">
+            <% topics.forEach(topic => <li><a href="/topic/<%={{ topic }}%>"><%={{topic}}%></a></li>  <!--js code need escaped-->
+        </ul>
+    </body>
+</html>
