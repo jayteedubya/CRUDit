@@ -8,7 +8,7 @@
         <%-include('partials/navbar')%>
         <ul class="mainlist">
             <%topics.forEach(topic => {%>
-                <li><a href="<%=`/topic/${topic.topic}`%>"><%={topic.topic}%></a></li>
+                <li><a href="<%=`/topic/${topic.topic}`%>"><%=topic.topic%></a></li>
             <%});%><!--js code need escaped-->
         </ul>
     </body>
