@@ -83,9 +83,13 @@ const deletePost = async () => {
         return;
     }
 }
-
+const enableEdit = () => {
+  document.getElementById("body").removeAttribute("readonly");
+  document.getElementById("edit").value = "submit";
+  document.getElementById("delete").remove();
+  document.getElementById("edit").setAttribute("onclick", "editPost()");
+}
 const editPost = async () => {
-    document.getElementById("body").removeAttribute("readonly");
     const edit = document.getElementById("body").value;
     const body = JSON.stringify({'postbody': stringPrep(edit)});
     const headers = {
