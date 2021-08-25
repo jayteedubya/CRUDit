@@ -251,9 +251,12 @@ const addCommentControls = () => async {
       <li><button class="post-control" onclick="editComment({ id })"> delete      </button></li>
     </ul>`);
   comment.forEach(comment => {
-    let username = comment.getElementsByClassName('comment-author')[0];
-    username = username.elem
-  })
+    let commentAuthor = comment.getElementsByClassName('comment-author')[0];
+    commentAuthor = commentAuthor.dataset.username;
+    if (commentAuthor === username) {
+      comment.appendChild(controls);
+    }
+  });
 }
 
 
