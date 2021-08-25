@@ -47,6 +47,12 @@ class Posts extends Table {
         ORDER BY time_stamp DESC;'
         return this.makeQuery(query);
     }
+    getTopics() {
+        const query = '\
+        SELECT DISTINCT topic\
+        FROM posts;';
+        return this.makeQuery(query);
+    }
     getAllByTopic(topic: string) {
         const query = 'SELECT *\
         FROM posts\
@@ -54,15 +60,15 @@ class Posts extends Table {
         return this.makeParamQuery(query, [topic]);
     }
     getPostById(post_id: number) {
-        const query = `SELECT *\
+        const query = 'SELECT *\
         FROM posts\
-        WHERE id = $1;`;
+        WHERE id = $1;';
         return this.makeParamQuery(query, [String(post_id)]);
     }
     createPost(title: string, topic: string, body: string, user_name: string) {
-        const query = `INSERT INTO posts (title, topic, body, user_name)\
+        const query = 'INSERT INTO posts (title, topic, body, user_name)\
         VALUES ($1, $2, $3, $4)\
-        RETURNING id;`;
+        RETURNING id;';
         return this.makeParamQuery(query, [title, topic, body, user_name]);
     }
     editPost(body: string, post_id: number) {
