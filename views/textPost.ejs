@@ -6,7 +6,7 @@
 <body>
     <%- include('partials/navbar') %>     <!-- make sure not to use a leading / -->
     <div class="main body text">
-        <%-include('partials/postBox', { post })
+        <%-include('partials/postBox', { post })%>
         <div class="post-body">
             <textarea class="post-body" readonly id="body"><%=post.body%></textarea>
         </div>
