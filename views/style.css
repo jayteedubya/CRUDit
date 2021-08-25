@@ -13,6 +13,11 @@
 .title {
     font-size: 20pt;
 }
+.topic-list {
+  margin: auto;
+  background-color: rgba(179, 182, 182, 0.603);
+  width: 50%
+}
 .author {
     font-size: 10pt;
 }
@@ -33,7 +38,6 @@
 }
 .users-navbar-list {
     display: inline;
-    margin-bottom: 30px;
     margin-left: 30px;
     margin-right: 30px;
 }

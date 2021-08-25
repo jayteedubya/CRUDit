@@ -6,7 +6,7 @@
 
     <body>
         <%-include('partials/navbar')%>
-        <ul class="mainlist">
+        <ul class="topic-list">
             <%topics.forEach(topic => {%>
                 <li><a href="<%=`/topic/${topic.topic}`%>"><%=topic.topic%></a></li>
             <%});%><!--js code need escaped-->
