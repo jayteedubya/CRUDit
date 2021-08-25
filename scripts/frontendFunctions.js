@@ -85,7 +85,7 @@ const deletePost = async () => {
 }
 const enableEdit = () => {
   document.getElementById("body").removeAttribute("readonly");
-  document.getElementById("edit").value = "submit";
+  document.getElementById("edit").innerText = "submit";
   document.getElementById("delete").remove();
   document.getElementById("edit").setAttribute("onclick", "editPost()");
 }
