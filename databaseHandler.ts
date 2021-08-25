@@ -48,8 +48,8 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getTopics() {
-      const query = 'SELECT DISTINCT topic\
-      FROM posts;'
+      const query = `SELECT DISTINCT topic\
+      FROM posts;`
       return this.makeQuery(query);
     }
     getAllByTopic(topic: string) {
