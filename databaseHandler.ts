@@ -48,8 +48,9 @@ class Posts extends Table {
         return this.makeQuery(query);
     }
     getTopics() {
-      const query = `SELECT DISTINCT topic\
-      FROM posts;`
+      const query = `
+      SELECT DISTINCT topic
+      FROM posts;`;
       return this.makeQuery(query);
     }
     getAllByTopic(topic: string) {
@@ -66,13 +67,13 @@ class Posts extends Table {
     }
     createPost(title: string, topic: string, body: string, user_name: string) {
         const query = `INSERT INTO posts (title, topic, body, user_name)\
-        VALUES ('$1', '$2', '$3', '$4')\
+        VALUES ($1, $2, $3, $4)\
         RETURNING id;`;
         return this.makeParamQuery(query, [title, topic, body, user_name]);
     }
     editPost(body: string, post_id: number) {
         const query = `UPDATE posts\
-        SET body = '$1'\
+        SET body = $1\
         WHERE id = $2;`;
         return this.makeParamQuery(query, [body, String(post_id)]);
     }
@@ -105,12 +106,12 @@ class Comments extends Table {
     }
     createComment(user_name: string, body: string, post_id: number) {
         const query = `INSERT INTO comments (user_name, body, post_id)\
-        VALUES ('$1', '$2', $3);`
+        VALUES ($1, $2, $3);`
         return this.makeParamQuery(query, [user_name, body, String(post_id)]);
     }
     editComment(id: number, body: string) {
         const query = `UPDATE comments\
-        SET body = '$1'\
+        SET body = $1\
         WHERE id = $2;`;
         return this.makeParamQuery(query, [body, String(id)]);
     }
@@ -148,13 +149,13 @@ class Users extends Table {
     getUserPublicInfo(user_name: string) {
         const query = `SELECT user_name, upvoted, downvoted\
         FROM users\
-        WHERE user_name = '$1';`;
+        WHERE user_name = $1;`;
         return this.makeParamQuery(query, [user_name]);
     }
     getUserIdFromUserName(user_name: string) {
         const query = `SELECT id\
         FROM users\
-        WHERE user_name = '$1';`;
+        WHERE user_name = $1;`;
         return this.makeParamQuery(query, [user_name]);
     }
     getPasswordByUserId(user_id: number) {
@@ -166,7 +167,7 @@ class Users extends Table {
     getUserFullInfo(user_name: string) {
         const query = `SELECT *\
         FROM users\
-        WHERE user_name = '$1';`;
+        WHERE user_name = $1;`;
         return this.makeParamQuery(query, [user_name]);
     }
     createUser(user_name: string, email: string, password: string, current_session: string) {
@@ -177,19 +178,19 @@ class Users extends Table {
     }
     changePassword(user_id: number, newPassword: string) {
         const query = `UPDATE users\
-        SET password = '$1'\
+        SET password = $1\
         WHERE id = $2;`;
         return this.makeParamQuery(query, [newPassword, String(user_id)]);
     }
     changeEmail(user_id: number, newEmail: string) {
         const query = `UPDATE users\
-        SET email = '$1'\
+        SET email = $1\
         WHERE id = $2;`;
         return this.makeParamQuery(query, [newEmail, String(user_id)])
     }
     changeUserName(user_id: number, newUserName: string) {
         const query = `UPDATE users\
-        SET user_name = '$1'\
+        SET user_name = $1\
         WHERE id = $2;`;
         return this.makeParamQuery(query, [newUserName, String(user_id)]);
     }
@@ -201,33 +202,33 @@ class Users extends Table {
     getAllCommentsByUser(user_name: string) {
         const query = `SELECT *\
         FROM comments\
-        WHERE user_name = '$1'\
+        WHERE user_name = $1\
         ORDER BY time_stamp;`;
         return this.makeParamQuery(query, [user_name]);
     }
     getAllPostsByUser(user_name: string) {
         const query = `SELECT *\
         FROM posts\
-        WHERE user_name = '$1'
+        WHERE user_name = $1
         ORDER BY time_stamp DESC;`;
         return this.makeParamQuery(query, [user_name]);
     }
     getUserFromSession(sessionID: string) {
         const query = `SELECT user_name\
         FROM users\
-        WHERE current_session = '$1';`;
+        WHERE current_session = $1;`;
         return this.makeParamQuery(query, [sessionID]);
     }
     endSession(user_name: string) {
         const query = `UPDATE users\
-        SET current_session = ' '\
-        WHERE user_name = '$1';`;
+        SET current_session = NULL\
+        WHERE user_name = $1;`;
         return this.makeParamQuery(query, [user_name]);
     }
     startSession(user_name: string, sessionID: string) {
         const query = `UPDATE users\
-        SET current_session = '$1'\
-        WHERE user_name = '$2';`;
+        SET current_session = $1\
+        WHERE user_name = $2;`;
         return this.makeParamQuery(query, [sessionID, user_name]);
     }
 }

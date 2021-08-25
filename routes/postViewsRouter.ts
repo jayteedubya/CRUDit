@@ -16,8 +16,8 @@ postViewsRouter.get('/', async (req, res, next) => {
 });
 postViewsRouter.get('/topic', async (req, res, next) => {
   try {
-    const topics = await db.posts.getTopics()
-    res.render('topics', { topics })
+    const topics = await db.posts.getTopics();
+    res.render('topics', { topics });
   }
   catch(err) {
     next(err);
