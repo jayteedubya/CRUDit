@@ -244,13 +244,15 @@ const addCommentControls = () => async {
   const username = JSON.parse(response).username;
   console.log(username);
   const comments = document.getElementsByClassName('comment-box');
-  const controls = document.createElement('div');
-  controls.setAttribute('class', 'post-control')
-  controls.innerHTML(`<ul>
-      <li><button class="post-control" onclick="deleteComment({ id })"> edit </button></li>
-      <li><button class="post-control" onclick="editComment({ id })"> delete      </button></li>
-    </ul>`);
+  
   comment.forEach(comment => {
+    const id = comment.getElementsByClassName('comment-author')[0].dataset.id
+    const controls = document.createElement('div');
+    controls.setAttribute('class', 'post-control')
+    controls.innerHTML(`<ul>
+        <li><button class="post-control" onclick="deleteComment(${id})"> edit   </button></li>
+        <li><button class="post-control" onclick="editComment(${id})"> delete         </button></li>
+      </ul>`);
     let commentAuthor = comment.getElementsByClassName('comment-author')[0];
     commentAuthor = commentAuthor.dataset.username;
     if (commentAuthor === username) {
