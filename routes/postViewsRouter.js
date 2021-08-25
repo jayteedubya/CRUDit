@@ -59,8 +59,27 @@ postViewsRouter.get('/', function (req, res, next) { return __awaiter(void 0, vo
         }
     });
 }); });
+postViewsRouter.get('/topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var topics, err_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, db.posts.getTopics()];
+            case 1:
+                topics = _a.sent();
+                res.render('topics', { topics: topics });
+                return [3 /*break*/, 3];
+            case 2:
+                err_2 = _a.sent();
+                next(err_2);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); });
 postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var posts, err_2;
+    var posts, err_3;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -71,15 +90,15 @@ postViewsRouter.get('/topic/:topic', function (req, res, next) { return __awaite
                 res.render('homepage', { posts: posts });
                 return [2 /*return*/];
             case 2:
-                err_2 = _a.sent();
-                next(err_2);
+                err_3 = _a.sent();
+                next(err_3);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
     });
 }); });
 postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var postId, user, post, postObject, comments, err_3;
+    var postId, user, post, postObject, comments, err_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -100,8 +119,8 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
                 res.render('textPost', { post: postObject });
                 return [2 /*return*/];
             case 4:
-                err_3 = _a.sent();
-                next(err_3);
+                err_4 = _a.sent();
+                next(err_4);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
@@ -109,7 +128,7 @@ postViewsRouter.get('/post/:postId', function (req, res, next) { return __awaite
 }); });
 //@ts-ignore
 postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var author, userAuthorization, err_4;
+    var author, userAuthorization, err_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, db.posts.getAuthorByPostId(Number(req.params.postId))];
@@ -129,8 +148,8 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
                 res.redirect(303, "/user/" + req.body.username);
                 return [2 /*return*/];
             case 4:
-                err_4 = _a.sent();
-                next(err_4);
+                err_5 = _a.sent();
+                next(err_5);
                 return [3 /*break*/, 5];
             case 5: return [2 /*return*/];
         }
@@ -138,7 +157,7 @@ postViewsRouter["delete"]('/post/:postId', cors(), function (req, res, next) { r
 }); });
 //@ts-ignore
 postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
-    var author, userAuthorization, user, err_5;
+    var author, userAuthorization, user, err_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0: return [4 /*yield*/, db.posts.getAuthorByPostId(Number(req.params.postId))];
@@ -164,8 +183,8 @@ postViewsRouter.put('/post/:postId', cors(), function (req, res, next) { return 
                 res.redirect(303, "/user/" + user);
                 return [2 /*return*/];
             case 4:
-                err_5 = _a.sent();
-                next(err_5);
+                err_6 = _a.sent();
+                next(err_6);
                 return [2 /*return*/];
             case 5: return [2 /*return*/];
         }

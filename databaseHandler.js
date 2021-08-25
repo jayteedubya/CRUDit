@@ -139,25 +139,32 @@ var Posts = /** @class */ (function (_super) {
         ORDER BY time_stamp DESC;';
         return this.makeQuery(query);
     };
-    Posts.prototype.getAllByTopic = function (topic) {
-        var query = "SELECT *        FROM posts        WHERE topic = '" + topic + "';";
+    Posts.prototype.getTopics = function () {
+        var query = 'SELECT DISTINCT topic\
+      FROM posts;';
         return this.makeQuery(query);
+    };
+    Posts.prototype.getAllByTopic = function (topic) {
+        var query = 'SELECT *\
+        FROM posts\
+        WHERE topic = $1;';
+        return this.makeParamQuery(query, [topic]);
     };
     Posts.prototype.getPostById = function (post_id) {
-        var query = "SELECT *        FROM posts        WHERE id = " + post_id + ";";
-        return this.makeQuery(query);
+        var query = "SELECT *        FROM posts        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(post_id)]);
     };
     Posts.prototype.createPost = function (title, topic, body, user_name) {
-        var query = "INSERT INTO posts (title, topic, body, user_name)        VALUES ('" + title + "', '" + topic + "', '" + body + "', '" + user_name + "')        RETURNING id;";
-        return this.makeQuery(query);
+        var query = "INSERT INTO posts (title, topic, body, user_name)        VALUES ('$1', '$2', '$3', '$4')        RETURNING id;";
+        return this.makeParamQuery(query, [title, topic, body, user_name]);
     };
     Posts.prototype.editPost = function (body, post_id) {
-        var query = "UPDATE posts        SET body = '" + body + "'        WHERE id = " + post_id + ";";
-        return this.makeQuery(query);
+        var query = "UPDATE posts        SET body = '$1'        WHERE id = $2;";
+        return this.makeParamQuery(query, [body, String(post_id)]);
     };
     Posts.prototype.getAuthorByPostId = function (post_id) {
-        var query = "SELECT user_name        FROM posts        WHERE id = " + post_id + ";";
-        return this.makeQuery(query);
+        var query = "SELECT user_name        FROM posts        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(post_id)]);
     };
     Posts.prototype.deletePost = function (post_id) {
         return __awaiter(this, void 0, void 0, function () {
@@ -165,12 +172,12 @@ var Posts = /** @class */ (function (_super) {
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
-                        deletePostQuery = "DELETE FROM posts        WHERE id = " + post_id + ";";
-                        deletePostCommentsQuery = "DELETE FROM comments        WHERE post_id = " + post_id + ";";
-                        return [4 /*yield*/, this.makeQuery(deletePostCommentsQuery)];
+                        deletePostQuery = "DELETE FROM posts        WHERE id = $1;";
+                        deletePostCommentsQuery = "DELETE FROM comments        WHERE post_id = $1;";
+                        return [4 /*yield*/, this.makeParamQuery(deletePostCommentsQuery, [String(post_id)])];
                     case 1:
                         _a.sent();
-                        return [4 /*yield*/, this.makeQuery(deletePostQuery)];
+                        return [4 /*yield*/, this.makeParamQuery(deletePostQuery, [String(post_id)])];
                     case 2: return [2 /*return*/, _a.sent()];
                 }
             });
@@ -203,28 +210,24 @@ var Comments = /** @class */ (function (_super) {
         });
     };
     Comments.prototype.createComment = function (user_name, body, post_id) {
-        var query = "INSERT INTO comments (user_name, body, post_id)        VALUES ('" + user_name + "', '" + body + "', " + post_id + ");";
-        return this.makeQuery(query);
+        var query = "INSERT INTO comments (user_name, body, post_id)        VALUES ('$1', '$2', $3);";
+        return this.makeParamQuery(query, [user_name, body, String(post_id)]);
     };
     Comments.prototype.editComment = function (id, body) {
-        var query = "UPDATE comments        SET body = '" + body + "'        WHERE id = " + id + ";";
-        return this.makeQuery(query);
+        var query = "UPDATE comments        SET body = '$1'        WHERE id = $2;";
+        return this.makeParamQuery(query, [body, String(id)]);
     };
     Comments.prototype.deleteComment = function (id) {
-        var query = "DELETE FROM posts        WHERE id = " + id + ";";
-        return this.makeQuery(query);
+        var query = "DELETE FROM posts        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(id)]);
     };
     Comments.prototype.getCommentsByPostId = function (post_id) {
-        var query = "SELECT *        FROM comments        WHERE post_id = " + post_id + ";";
-        return this.makeQuery(query);
-    };
-    Comments.prototype.addChildComment = function (parent_id, child_id) {
-        var query = "UPDATE comments        SET children = array_append(children, " + child_id + ")        WHERE id = " + parent_id + ";";
-        return this.makeQuery(query);
+        var query = "SELECT *        FROM comments        WHERE post_id = $1;";
+        return this.makeParamQuery(query, [String(post_id)]);
     };
     Comments.prototype.getCommentAuthorByCommentId = function (id) {
-        var query = "SELECT user_name        FROM comments        WHERE id = " + id + ";";
-        return this.makeQuery(query);
+        var query = "SELECT user_name        FROM comments        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(id)]);
     };
     return Comments;
 }(Table));
@@ -254,20 +257,20 @@ var Users = /** @class */ (function (_super) {
         });
     };
     Users.prototype.getUserPublicInfo = function (user_name) {
-        var query = "SELECT user_name, upvoted, downvoted        FROM users        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        var query = "SELECT user_name, upvoted, downvoted        FROM users        WHERE user_name = '$1';";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.getUserIdFromUserName = function (user_name) {
-        var query = "SELECT id        FROM users        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        var query = "SELECT id        FROM users        WHERE user_name = '$1';";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.getPasswordByUserId = function (user_id) {
-        var query = "SELECT password        FROM users        WHERE id = " + user_id + ";";
-        return this.makeQuery(query);
+        var query = "SELECT password        FROM users        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(user_id)]);
     };
     Users.prototype.getUserFullInfo = function (user_name) {
-        var query = "SELECT *        FROM users        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        var query = "SELECT *        FROM users        WHERE user_name = '$1';";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.createUser = function (user_name, email, password, current_session) {
         var query = "INSERT INTO users (user_name, email, password, current_session)        VALUES ($1, $2, $3, $4);";
@@ -275,40 +278,40 @@ var Users = /** @class */ (function (_super) {
         return this.makeParamQuery(query, values);
     };
     Users.prototype.changePassword = function (user_id, newPassword) {
-        var query = "UPDATE users        SET password = '" + newPassword + "'        WHERE id = " + user_id + ";";
-        return this.makeQuery(query);
+        var query = "UPDATE users        SET password = '$1'        WHERE id = $2;";
+        return this.makeParamQuery(query, [newPassword, String(user_id)]);
     };
     Users.prototype.changeEmail = function (user_id, newEmail) {
-        var query = "UPDATE users        SET email = '" + newEmail + "'        WHERE id = " + user_id + ";";
-        return this.makeQuery(query);
+        var query = "UPDATE users        SET email = '$1'        WHERE id = $2;";
+        return this.makeParamQuery(query, [newEmail, String(user_id)]);
     };
     Users.prototype.changeUserName = function (user_id, newUserName) {
-        var query = "UPDATE users        SET user_name = '" + newUserName + "'        WHERE id = " + user_id + ";";
-        return this.makeQuery(query);
+        var query = "UPDATE users        SET user_name = '$1'        WHERE id = $2;";
+        return this.makeParamQuery(query, [newUserName, String(user_id)]);
     };
     Users.prototype.deleteUser = function (user_id) {
-        var query = "DELETE FROM users        WHERE id = " + user_id + ";";
-        return this.makeQuery(query);
+        var query = "DELETE FROM users        WHERE id = $1;";
+        return this.makeParamQuery(query, [String(user_id)]);
     };
     Users.prototype.getAllCommentsByUser = function (user_name) {
-        var query = "SELECT *        FROM comments        WHERE user_name = '" + user_name + "'        ORDER BY time_stamp;";
-        return this.makeQuery(query);
+        var query = "SELECT *        FROM comments        WHERE user_name = '$1'        ORDER BY time_stamp;";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.getAllPostsByUser = function (user_name) {
-        var query = "SELECT *        FROM posts        WHERE user_name = '" + user_name + "'\n        ORDER BY time_stamp DESC;";
-        return this.makeQuery(query);
+        var query = "SELECT *        FROM posts        WHERE user_name = '$1'\n        ORDER BY time_stamp DESC;";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.getUserFromSession = function (sessionID) {
-        var query = "SELECT user_name        FROM users        WHERE current_session = '" + sessionID + "';";
-        return this.makeQuery(query);
+        var query = "SELECT user_name        FROM users        WHERE current_session = '$1';";
+        return this.makeParamQuery(query, [sessionID]);
     };
     Users.prototype.endSession = function (user_name) {
-        var query = "UPDATE users        SET current_session = ' '        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        var query = "UPDATE users        SET current_session = ' '        WHERE user_name = '$1';";
+        return this.makeParamQuery(query, [user_name]);
     };
     Users.prototype.startSession = function (user_name, sessionID) {
-        var query = "UPDATE users        SET current_session = '" + sessionID + "'        WHERE user_name = '" + user_name + "';";
-        return this.makeQuery(query);
+        var query = "UPDATE users        SET current_session = '$1'        WHERE user_name = '$2';";
+        return this.makeParamQuery(query, [sessionID, user_name]);
     };
     return Users;
 }(Table));
