@@ -47,12 +47,6 @@ class Posts extends Table {
         ORDER BY time_stamp DESC;'
         return this.makeQuery(query);
     }
-    getTopics() {
-      const query = `
-      SELECT DISTINCT topic
-      FROM posts;`;
-      return this.makeQuery(query);
-    }
     getAllByTopic(topic: string) {
         const query = 'SELECT *\
         FROM posts\
