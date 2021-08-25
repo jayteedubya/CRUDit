@@ -14,6 +14,7 @@
     font-size: 20pt;
 }
 .topic-list {
+  padding: 1%;
   margin: auto;
   background-color: rgba(179, 182, 182, 0.603);
   width: 50%
