@@ -249,8 +249,8 @@ const addCommentControls = async () => {
         const controls = document.createElement('div');
         controls.setAttribute('class', 'post-control')
         controls.innerHTML = `<ul>
-            <li><button class="post-control" onclick="deleteComment(${id})"> edit </button></li>
-            <li><button class="post-control" onclick="editComment(${id})"> delete </button></li>
+            <li><button class="post-control" onclick="deleteComment(${id})"> delete </button></li>
+            <li><button class="post-control" onclick="editComment(${id})"> edit </button></li>
         </ul>`;
         const author = commentAuthorElement.dataset.username;
         console.log(author);
