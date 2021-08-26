@@ -191,10 +191,17 @@ const editComment = async (id) => {
 }
 
 const deleteComment = async (id) => {
+    
+    const headers = {
+        'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
+        origin: 'https://crudit.herokuapp.com',
+        'content-type': 'application/json'
+    };
     const requestParameters = {
         method: 'DELETE',
-        credentials: 'include'
-    }
+        credentials: 'include',
+        headers
+    };
     try {
         const result = await fetch(`/submit/comment/${id}`, requestParameters);
         console.log(result);
