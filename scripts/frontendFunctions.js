@@ -242,22 +242,19 @@ const createUser = async () => {
 const addCommentControls = async () => {
     const response = await fetch('/auth/api/who-am-i').then(response => response.json()).catch(err => console.error(err));
     const username = response.username.user_name;
-    console.log(username);
     const comments = document.getElementsByClassName('comment-box');
     Array.from(comments).forEach(comment => {
-        console.log(comment.getElementsByClassName('comment-author'));
-        const id = comment.getElementsByClassName('comment-author')[0].dataset.id
+        const commentAuthorElement = comment.getElementsByClassName('comment-author')[0];
+        const id = commentAuthorElement.dataset.id
         const controls = document.createElement('div');
         controls.setAttribute('class', 'post-control')
-        controls.innerHTML(`<ul>
+        controls.innerHTML = `<ul>
             <li><button class="post-control" onclick="deleteComment(${id})"> edit </button></li>
             <li><button class="post-control" onclick="editComment(${id})"> delete </button></li>
-        </ul>`);
-        let commentAuthor = comment.getElementsByClassName('comment-author')[0];
-        console.log(commentAuthor);
-        commentAuthor = commentAuthor.dataset.username;
-        console.log(commentAuthor);
-        if (commentAuthor === username) {
+        </ul>`;
+        const author = commentAuthorElement.dataset.username;
+        console.log(author);
+        if (author === username) {
             comment.appendChild(controls);
         }
     });
