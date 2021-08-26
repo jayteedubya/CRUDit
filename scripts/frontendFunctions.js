@@ -240,7 +240,7 @@ const createUser = async () => {
 2) wherever that username is, add comment controls
 */
 const addCommentControls = async () => {
-    const response = fetch('/auth/api/who-am-i');
+    const response = await fetch('/auth/api/who-am-i').catch(err => console.error(err));
     const username = await response.json().catch(err => console.error(err));
     console.log(username);
     const comments = document.getElementsByClassName('comment-box');
