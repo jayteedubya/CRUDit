@@ -239,13 +239,13 @@ const createUser = async () => {
 1) get the username
 2) wherever that username is, add comment controls
 */
-const addCommentControls = () => async {
+const addCommentControls = async () => {
   const response = await fetch('/auth/api/who-am-i').catch(err => console.error(err));
   const username = JSON.parse(response).username;
   console.log(username);
   const comments = document.getElementsByClassName('comment-box');
   
-  comment.forEach(comment => {
+  comments.forEach(comment => {
     const id = comment.getElementsByClassName('comment-author')[0].dataset.id
     const controls = document.createElement('div');
     controls.setAttribute('class', 'post-control')
