@@ -196,7 +196,7 @@ const deleteComment = async (id) => {
         credentials: 'include'
     }
     try {
-        const result = await fetch(`/submit/comment${id}`, requestParameters);
+        const result = await fetch(`/submit/comment/${id}`, requestParameters);
         console.log(result);
         window.location.reload();
         return;
