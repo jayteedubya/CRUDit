@@ -241,7 +241,7 @@ const createUser = async () => {
 */
 const addCommentControls = async () => {
     const response = await fetch('/auth/api/who-am-i').catch(err => console.error(err));
-    const username = JSON.parse(response).username;
+    const username = response.username;
     console.log(username);
     const comments = document.getElementsByClassName('comment-box');
     comments.forEach(comment => {
