@@ -240,8 +240,8 @@ const createUser = async () => {
 2) wherever that username is, add comment controls
 */
 const addCommentControls = async () => {
-    const response = await fetch('/auth/api/who-am-i').catch(err => console.error(err));
-    const username = await response.json().catch(err => console.error(err));
+    const response = await fetch('/auth/api/who-am-i').json().catch(err => console.error(err));
+    const username = response.username.user_name;
     console.log(username);
     const comments = document.getElementsByClassName('comment-box');
     Array.from(comments).forEach(comment => {
@@ -254,7 +254,9 @@ const addCommentControls = async () => {
             <li><button class="post-control" onclick="editComment(${id})"> delete </button></li>
         </ul>`);
         let commentAuthor = comment.getElementsByClassName('comment-author')[0];
+        console.log(commentAuthor);
         commentAuthor = commentAuthor.dataset.username;
+        console.log(commentAuthor);
         if (commentAuthor === username) {
             comment.appendChild(controls);
         }
