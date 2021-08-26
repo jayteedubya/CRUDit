@@ -223,7 +223,7 @@ var Comments = /** @class */ (function (_super) {
         return this.makeParamQuery(query, [body, String(id)]);
     };
     Comments.prototype.deleteComment = function (id) {
-        var query = "DELETE FROM posts        WHERE id = $1;";
+        var query = "DELETE FROM comments        WHERE id = $1;";
         return this.makeParamQuery(query, [String(id)]);
     };
     Comments.prototype.getCommentsByPostId = function (post_id) {
