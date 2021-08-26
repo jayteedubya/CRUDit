@@ -245,7 +245,7 @@ const addCommentControls = async () => {
     console.log(username);
     const comments = document.getElementsByClassName('comment-box');
     Array.from(comments).forEach(comment => {
-        console.log(comment);
+        console.log(comment.getElementsByClassName('comment-author'));
         const id = comment.getElementsByClassName('comment-author')[0].dataset.id
         const controls = document.createElement('div');
         controls.setAttribute('class', 'post-control')
@@ -255,8 +255,8 @@ const addCommentControls = async () => {
         </ul>`);
         let commentAuthor = comment.getElementsByClassName('comment-author')[0];
         console.log(commentAuthor);
-        /*commentAuthor = commentAuthor.dataset.username;
-        console.log(commentAuthor);*/
+        commentAuthor = commentAuthor.dataset.username;
+        console.log(commentAuthor);
         if (commentAuthor === username) {
             comment.appendChild(controls);
         }
