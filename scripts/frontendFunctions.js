@@ -255,8 +255,8 @@ const addCommentControls = async () => {
         </ul>`);
         let commentAuthor = comment.getElementsByClassName('comment-author')[0];
         console.log(commentAuthor);
-        commentAuthor = commentAuthor.dataset.username;
-        console.log(commentAuthor);
+        /*commentAuthor = commentAuthor.dataset.username;
+        console.log(commentAuthor);*/
         if (commentAuthor === username) {
             comment.appendChild(controls);
         }
