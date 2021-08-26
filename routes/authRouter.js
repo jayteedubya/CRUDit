@@ -46,6 +46,18 @@ authRouter.get('/log-in', function (req, res, next) {
 authRouter.get('/sign-up', function (req, res, next) {
     res.render('createUserPage');
 });
+authRouter.get('/api/who-am-i', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
+    var username;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, db.users.getUserFromSession(req.session.id)];
+            case 1:
+                username = _a.sent();
+                res.json({ username: username[0] });
+                return [2 /*return*/];
+        }
+    });
+}); });
 authRouter.post('/log-in', function (req, res, next) { return __awaiter(void 0, void 0, void 0, function () {
     var username, password, userArr, user, result, err_1;
     return __generator(this, function (_a) {
