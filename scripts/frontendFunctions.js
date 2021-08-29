@@ -191,7 +191,6 @@ const editComment = async (id) => {
 }
 
 const deleteComment = async (id) => {
-    
     const headers = {
         'Access-Control-Allow-Origin': 'https://crudit.herokuapp.com',
         origin: 'https://crudit.herokuapp.com',
@@ -256,7 +255,6 @@ const addCommentControls = async () => {
             <li><button class="post-control" onclick="editComment(${id})"> edit </button></li>
         </ul>`;
         const author = commentAuthorElement.dataset.username;
-        console.log(author);
         if (author === username) {
             comment.appendChild(controls);
         }
@@ -269,8 +267,7 @@ const addUserProfileLink = async () => {
     const username = response.username.user_name;
     if (username) {
         const htmlString = `<a href="/user/${username}">my profile</a>`;
-        const listItem = document.getElementById('profile');
-        listItem.innerHTML = htmlString;
+        document.getElementById('profile').innerHTML = htmlString;
         return;
     }
     return;
