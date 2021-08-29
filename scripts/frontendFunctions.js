@@ -242,10 +242,6 @@ const createUser = async () => {
     }
 }
 
-/* place comment controls
-1) get the username
-2) wherever that username is, add comment controls
-*/
 const addCommentControls = async () => {
     const response = await fetch('/auth/api/who-am-i').then(response => response.json()).catch(err => console.error(err));
     const username = response.username.user_name;
@@ -265,6 +261,18 @@ const addCommentControls = async () => {
             comment.appendChild(controls);
         }
     });
+}
+
+const addUserProfileLink = async () => {
+    const response = await fetch('/auth/api/who-am-i').then(response => response.json()).catch(err => console.error(err));
+    const username = response.username.user_name;
+    if (username) {
+        const htmlString = `<a href="/user/${username}">my profile</a>`;
+        const listItem = document.getElementById('profile');
+        listItem.innerHTML = htmlString;
+        return;
+    }
+    return;
 }
 
 
