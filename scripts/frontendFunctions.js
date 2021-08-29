@@ -264,8 +264,8 @@ const addCommentControls = async () => {
 const addUserProfileLink = async () => {
     console.log('adding profile link');
     const response = await fetch('/auth/api/who-am-i').then(response => response.json()).catch(err => console.error(err));
-    console.log(response);
     const username = response.username.user_name;
+    console.log(username);
     if (username) {
         const htmlString = `<a href="/user/${username}">my profile</a>`;
         document.getElementById('profile').innerHTML = htmlString;
