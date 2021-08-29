@@ -264,6 +264,7 @@ const addCommentControls = async () => {
 }
 
 const addUserProfileLink = async () => {
+    console.log('adding profile link')
     const response = await fetch('/auth/api/who-am-i').then(response => response.json()).catch(err => console.error(err));
     const username = response.username.user_name;
     if (username) {
