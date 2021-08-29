@@ -274,9 +274,4 @@ const addUserProfileLink = async () => {
     return;
 }
 
-const clientSideRender = async () => {
-    await addCommentControls();
-    await addUserProfileLink();
-}
-
 
